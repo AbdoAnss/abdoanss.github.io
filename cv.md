@@ -8,14 +8,14 @@ title: Abdessamad ANSSEM - CV
 
 ## CV
 
-A software engineer with focus on machine learning. I bring data science ideas from early prototypes to production. This includes problem identification, data collection, model creation, deployment and maintanance. 
+A software engineer with focus on machine learning. 
 
 
 **Summary:**
 
 - Software Engineering student
-- Proficient in Python and Java
-- 
+- Proficient in Python and Java, Somewhat familiar with Rust and Go.
+- Learning about ML.
 
 
 **Contact information and links:**
@@ -30,21 +30,21 @@ A software engineer with focus on machine learning. I bring data science ideas f
 
 ### PROFESSIONAL EXPERIENCE
 
-<strong>10.2018 &mdash; ...</strong><br/>
-<strong>[OLX Group](http://www.olx.com)</strong>, Berlin, Germany<br/>
-Position: Lead Data Scientist (promoted from Senior Data Scientist)<br/>
+<strong>06.2024 &mdash; 08.2024</strong><br/>
+<strong>[CIEMS Group](https://ciems.ma/)</strong>, Rabat, Morocco<br/>
+Position: Software engineer intern<br/>
 
-OLX is a global online marketplace. At OLX I lead the effort on several projects, including
+CIEMS is a consultancy specializing in IT solutions for businesses, I contributed to the following projects:
 
-- Duplicate detection system processing 95% of OLX images - up to 250 images per second
-- Infrastructure for serving image models processing up to 200 images per second
+- Developed a recommendation system for an insurance company to suggest services to newly subscribed clients.
+- Created a communication application utilizing Twilio for client interactions via email and WhatsApp.
 
 Technologies:<br/>
-Python, AWS, Docker, Kubernetes, Terraform<br/>
+Python, Docker, Django, Twilio, Machine Learning <br/>
 
 
 &nbsp;
-
+<!-- 
 <strong>08.2017 &mdash; 08.2018</strong><br/>
 <strong>[Simplaex](http://www.simplaex.com)</strong>, Berlin, Germany<br/>
 Position: Data Scientist/Engineer<br/>
@@ -70,10 +70,10 @@ Summary of prior experience:
 * <strong>2011 &ndash; 2012</strong>, Open source project <a href="http://jtalks.org">JTalks.org</a> &ndash; Team Lead (Java)
 * <strong>2010 &ndash; 2011</strong>, <a href="https://www.amazonrobotics.com/">Amazon Robotics</a> via <a href="https://www.auriga.com/">Auriga</a> &ndash; Java &ndash; Russia
 * <strong>2010 &ndash; 2010</strong>, Boston University, Cognitive Neuroscience Lab &ndash; Research Assistant &ndash; USA
-* <strong>2007 &ndash; 2008</strong>, FESA, Mathematical Simulations Lab &ndash; Research Assistant &ndash; Russia
+* <strong>2007 &ndash; 2008</strong>, FESA, Mathematical Simulations Lab &ndash; Research Assistant &ndash; Russia -->
 
-&nbsp;
-
+<!-- &nbsp; -->
+<!-- 
 ### PUBLICATIONS & PROJECTS
 
 **Books:**
@@ -85,9 +85,9 @@ Summary of prior experience:
 **Papers:**
 
 - Moritz Schubotz, Abdessamad ANSSEM, and others. Semantification of Identifiers in Mathematics for Better Math Information Retrieval. SIGIR '16. ([DOI](http://dx.doi.org/10.1145/2911451.2911503))
-- Abdessamad ANSSEM. Large-Scale Vandalism Detection with Linear Classifiers. WSDM Cup 2017 Notebook Papers. ([pdf](http://www.uni-weimar.de/medien/webis/events/wsdm-cup-17/wsdmcup17-papers-final/wsdmcup17-vandalism-detection/grigorev17-notebook.pdf))
+- Abdessamad ANSSEM. Large-Scale Vandalism Detection with Linear Classifiers. WSDM Cup 2017 Notebook Papers. ([pdf](http://www.uni-weimar.de/medien/webis/events/wsdm-cup-17/wsdmcup17-papers-final/wsdmcup17-vandalism-detection/grigorev17-notebook.pdf)) -->
 
-
+<!-- 
 **Competitions:**
 
 - [Home Depot Product Search Relevance](https://www.kaggle.com/c/home-depot-product-search-relevance) (top 100)
@@ -101,17 +101,17 @@ Summary of prior experience:
 - [NIPS'17 Criteo Ad Placement Challenge](https://www.crowdai.org/challenges/nips-17-workshop-criteo-ad-placement-challenge) (1st place)
 
 
-&nbsp;
+&nbsp; -->
 
 ### EDUCATION
 
-**2013 &ndash; 2015**, [IT4BI Master Program](http://it4bi.univ-tours.fr/)<br/>
-Joint Master program by [ULB](http://www.ulb.ac.be/) (Belgium), [UFRT](http://www.info.univ-tours.fr/diblois/en/) (France) and [TU Berlin](https://www.tu-berlin.de/) (Germany)<br/>
-Specialization: Large-Scale Business Intelligence<br/>
+**Sept. 2023 &ndash; Present**, [Institut National des Postes et Télécommunications](https://www.inpt.ac.ma/)<br/>
+Engineer's degree in Computer science )<br/>
+Specialization: Advanced Software Engineering<br/>
 
-**2006 &ndash; 2010**, Far Eastern State Academy<br/>
-Department: Faculty of Mathematics, Information Technologies and Engineering<br/>
-Specialization: Information Systems and Technologies<br/>
+**2021 &ndash; 2023**, Classes Préparatoires aux Grandes Ecoles<br/>
+Speciality: Physics<br/>
+
 
 
 <div align="right"><i>Best printed with Google Chrome</i></div>
