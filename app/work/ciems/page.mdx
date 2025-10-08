@@ -1,0 +1,173 @@
+export const metadata = {
+  title: 'Stage PFA CIEMS',
+  description:
+    'Mon stage de première année en génie logiciel chez CIEMS - Développement d\'une application de recommandation d\'assurances',
+  alternates: {
+    canonical: '/work/ciems',
+  },
+};
+
+<Cover
+  src="https://pbs.twimg.com/profile_banners/561522988/1580890761/1500x500"
+  alt="Logo CIEMS"
+  caption="ciems.ma"
+/>
+
+# Stage PFA chez CIEMS
+
+En tant qu'élève ingénieur en première année, j'ai effectué mon stage ouvrier chez CIEMS, une startup de consulting à Rabat. La mission consistait à développer une preuve de concept (PoC) pour une entreprise d'assurance : une application intelligente capable de suggérer à ses clients des options d'assurance non souscrites, puis de communiquer avec eux via emails et SMS personnalisés.
+
+---
+
+## Le Projet : Recommandation Intelligente d'Assurances
+
+L'objectif était de créer un système qui analyse les profils clients et propose de manière proactive des produits d'assurance complémentaires adaptés à leurs besoins.
+
+### Stack Technique
+
+Pour réaliser ce projet, mon équipe et moi avons choisi :
+
+- **Django** : Framework backend robuste pour gérer la logique métier et les données clients
+- **Twilio API** : Envoi de SMS et gestion des communications
+- **OpenAI API** : Personnalisation automatique des messages selon le profil de chaque client
+- **PostgreSQL** : Base de données pour stocker les informations clients et les interactions
+
+---
+
+## Fonctionnalités Développées
+
+### 1. Système de Recommandation
+
+L'application analyse le portefeuille d'assurances existant de chaque client et identifie les couvertures manquantes potentiellement pertinentes. L'algorithme prend en compte :
+
+- Le profil démographique du client
+- Les produits déjà souscrits
+- L'historique des sinistres
+- Les patterns de comportement similaires
+
+### 2. Communication Personnalisée
+
+Grâce à l'intégration de l'API OpenAI, chaque message envoyé est adapté au contexte du client :
+
+- Ton et style ajustés selon le profil
+- Références aux produits existants du client
+- Arguments de vente personnalisés
+- Traitement multilingue (français/arabe)
+
+### 3. Gestion Multi-Canal
+
+Les clients peuvent être contactés via :
+
+- **Email** : Pour les propositions détaillées avec documentation
+- **SMS** : Pour les rappels courts et les alertes
+- **Dashboard** : Interface de suivi pour les agents d'assurance
+
+---
+
+## Défis Techniques Rencontrés
+
+
+
+**Problème** : Manipulation de données sensibles (informations personnelles, santé, finances).
+
+**Solution** : 
+- Chiffrement des données en transit et au repos
+- Anonymisation pour les tests
+- Logs d'audit pour toute consultation de données
+- Mécanisme de consentement explicite avant envoi
+
+
+---
+
+
+## Apprentissages Clés
+
+Cette expérience m'a permis de développer plusieurs compétences essentielles :
+
+### Compétences Techniques
+- Intégration d'APIs tierces (OpenAI, Twilio)
+- Architecture d'applications Django scalables
+- Gestion de données sensibles et conformité RGPD
+- Optimisation de coûts API
+
+### Compétences Métier
+- Compréhension du secteur de l'assurance
+- Approche orientée ROI dans le développement
+- Communication avec des parties prenantes non-techniques
+
+### Soft Skills
+- Travail en équipe agile (sprints de 2 semaines)
+- Gestion des contraintes de temps
+- Présentation de démos et recueil de feedback
+
+---
+
+## L'IA au Service du Business
+
+Ce projet illustre parfaitement comment l'intelligence artificielle peut créer de la valeur concrète :
+
+**Avant** : Les agents envoyaient des emails génériques à des listes segmentées manuellement, avec un taux de réponse < 5%.
+
+**Après** : Un système intelligent analyse chaque profil, génère des propositions pertinentes et rédige des messages personnalisés, multipliant l'engagement par 3+.
+
+
+
+---
+
+## Technologies et Outils
+
+<div className="grid grid-cols-2 gap-4 my-8">
+  <div>
+    <h3>Backend</h3>
+    <ul>
+      <li>Django 4.2</li>
+      <li>Django REST Framework</li>
+      <li>Celery (tâches asynchrones)</li>
+      <li>Redis (cache)</li>
+    </ul>
+  </div>
+  
+  <div>
+    <h3>APIs & Services</h3>
+    <ul>
+      <li>OpenAI GPT-4</li>
+      <li>Twilio SendGrid</li>
+      <li>Twilio SMS</li>
+    </ul>
+  </div>
+  
+  <div>
+    <h3>Base de données</h3>
+    <ul>
+      <li>PostgreSQL 15</li>
+    </ul>
+  </div>
+  
+  <div>
+    <h3>DevOps</h3>
+    <ul>
+      <li>Docker</li>
+      <li>Git / GitHub</li>
+    </ul>
+  </div>
+</div>
+
+---
+
+## Conclusion
+
+Ce stage de première année m'a offert une immersion complète dans le développement logiciel professionnel. J'ai découvert comment transformer une idée métier en application fonctionnelle, en respectant les contraintes de performance et de sécurité.
+
+L'expérience m'a également convaincu du potentiel de l'IA générative pour créer des solutions business concrètes, au-delà de simples démos techniques.
+
+---
+
+## Liens Utiles
+
+- [CIEMS](https://ciems.ma)
+- [Documentation Django](https://docs.djangoproject.com/)
+- [OpenAI API Documentation](https://platform.openai.com/docs)
+
+---
+
+*Stage effectué de Juin à Août 2024 - Durée : 8 semaines*

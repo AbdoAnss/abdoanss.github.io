@@ -1,0 +1,233 @@
+export const metadata = {
+  title: 'Stage PFA INPT - SEEDS Research Team',
+  description:
+    'Stage de deuxième année en génie logiciel à l\'INPT - Détection de mauvaises pratiques dans les architectures microservices',
+  alternates: {
+    canonical: '/work/inpt',
+  },
+};
+
+<Cover
+  src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Logo_inpt.PNG"
+  alt="Logo INPT"
+  caption="inpt.ac.ma"
+/>
+
+# Stage Technique INPT - SEEDS Research Team
+
+Durant ma deuxième année de cycle d'ingénieur, j'ai effectué un stage technique à l'Institut National des Postes et Télécommunications (INPT) au sein de l'équipe de recherche SEEDS. Le projet consistait à concevoir un outil d'aide à la conception d'architectures microservices, capable de détecter automatiquement les mauvaises pratiques et les dépendances cycliques.
+
+---
+
+## Contexte et Problématique
+
+Les architectures microservices sont devenues le standard pour les applications distribuées modernes. Cependant, leur conception reste complexe et sujette à des erreurs architecturales qui peuvent compromettre la maintenabilité et la scalabilité du système.
+
+### Le Problème des Dépendances Cycliques
+
+Une dépendance cyclique se produit lorsque :
+- Le service A dépend du service B
+- Le service B dépend du service C
+- Le service C dépend du service A
+
+Ces cycles créent des problèmes majeurs :
+- **Couplage fort** : Impossible de déployer les services indépendamment
+- **Complexité accrue** : Difficultés de maintenance et d'évolution
+- **Risques de bugs** : Effets de bord imprévisibles lors des mises à jour
+- **Performance dégradée** : Latences en cascade et risques de deadlock
+
+---
+
+## Objectifs du Projet
+
+Créer une application web permettant aux développeurs de :
+
+1. **Modéliser visuellement** leur architecture microservices
+2. **Détecter automatiquement** les dépendances cycliques et anti-patterns
+3. **Recevoir des recommandations** pour corriger les problèmes identifiés
+4. **Valider leur architecture** avant l'implémentation
+
+---
+
+## Fondements Scientifiques
+
+Ce projet s'appuie sur les travaux de recherche de l'équipe SEEDS, publiés dans IEEE :
+
+**[A Graph-based Solution to Deal with Cyclic Dependencies in Microservices Architecture](https://ieeexplore.ieee.org/document/9910519)**
+
+### Approche par la Théorie des Graphes
+
+L'architecture microservices est modélisée comme un graphe orienté :
+- **Nœuds** : Services individuels
+- **Arêtes** : Dépendances entre services (appels API, événements, etc.)
+
+L'algorithme implémenté utilise :
+- **Détection de cycles** : Algorithme de Tarjan pour identifier les composantes fortement connexes
+- **Analyse de couplage** : Calcul de métriques de cohésion et de couplage
+- **Scoring** : Évaluation de la qualité architecturale globale
+
+---
+
+## Architecture de la Solution
+
+### Stack Technique
+
+**Frontend**
+- **React** : Interface utilisateur moderne et réactive
+- **React Flow** : Bibliothèque spécialisée pour la création de graphes interactifs
+- **TailwindCSS** : Stylisation rapide et cohérente
+- **TypeScript** : Typage fort pour réduire les erreurs
+
+**Backend**
+- **NetworkX** : Bibliothèque de théorie des graphes pour l'analyse
+
+**Infrastructure**
+- **Docker** : Conteneurisation pour un déploiement simplifié
+- **PostgreSQL** : Stockage des architectures et historiques d'analyse
+
+
+
+---
+
+## Défis Techniques et Solutions
+
+### Défi 1 : Performance de l'Analyse
+
+**Problème** : L'algorithme de Tarjan a une complexité O(V+E), mais pour de grandes architectures (100+ services), les calculs devenaient lents.
+
+
+### Défi 2 : Visualisation de Grands Graphes
+
+**Problème** : React Flow devient difficile à naviguer avec plus de 50 nœuds.
+
+
+### Défi 3 : Validation de l'Algorithme
+
+**Problème** : Comment vérifier que l'algorithme détecte correctement tous les anti-patterns ?
+
+
+---
+
+## Résultats et Validation
+
+### Tests avec des Architectures Réelles
+
+L'outil a été testé sur 3 projets réels :
+
+**Projet E-commerce (32 services)**
+- 5 cycles détectés (non identifiés manuellement)
+- 12 anti-patterns relevés
+- Recommandations appliquées : réduction du couplage de 40%
+
+
+---
+
+## Technologies et Outils
+
+<div className="grid grid-cols-2 gap-4 my-8">
+  <div>
+    <h3>Frontend</h3>
+    <ul>
+      <li>React 18</li>
+      <li>TypeScript</li>
+      <li>React Flow</li>
+      <li>TailwindCSS</li>
+      <li>Vite (build tool)</li>
+    </ul>
+  </div>
+  
+  <div>
+    <h3>Backend</h3>
+    <ul>
+      <li>Python 3.11</li>
+      <li>NetworkX</li>
+      <li>Pydantic</li>
+      <li>Uvicorn</li>
+    </ul>
+  </div>
+  
+  <div>
+    <h3>Algorithmes</h3>
+    <ul>
+      <li>Tarjan's Algorithm</li>
+      <li>Dagre Layout</li>
+      <li>Graph Metrics (PageRank, Centrality)</li>
+      <li>Pattern Matching</li>
+    </ul>
+  </div>
+  
+  <div>
+    <h3>DevOps & Tests</h3>
+    <ul>
+      <li>Docker & Docker Compose</li>
+    </ul>
+  </div>
+</div>
+
+
+---
+
+## Apprentissages et Compétences
+
+### Compétences Techniques
+
+**Théorie des Graphes**
+- Algorithmes de parcours (DFS, BFS)
+- Détection de cycles (Tarjan, Kosaraju)
+- Métriques de centralité et d'importance
+
+**Architecture Logicielle**
+- Patterns microservices
+- Event-driven architecture
+- Domain-driven design
+- Anti-patterns et code smells
+
+**Développement Full-Stack**
+- React avancé (hooks, context, optimisation)
+- TypeScript pour des applications robustes
+- FastAPI pour des APIs performantes
+- Visualisation de données complexes
+
+### Compétences Recherche
+
+- Lecture et implémentation d'articles scientifiques
+- Validation expérimentale d'algorithmes
+- Rédaction technique et documentation scientifique
+- Présentation de résultats devant des chercheurs
+
+### Soft Skills
+
+- Collaboration avec une équipe de recherche académique
+- Vulgarisation de concepts complexes
+- Gestion de l'incertitude (recherche appliquée)
+- Autonomie sur un projet long terme (3 mois)
+
+---
+
+
+
+## Conclusion
+
+Ce stage m'a permis de travailler à l'intersection de la recherche académique et du développement logiciel pratique. Implémenter un algorithme issu d'un papier de recherche et le transformer en outil utilisable a été extrêmement formateur.
+
+J'ai découvert l'importance cruciale d'une bonne architecture logicielle et développé une expertise en microservices qui me sera utile tout au long de ma carrière. La validation de l'outil par des architectes expérimentés a confirmé la pertinence de cette approche scientifique aux problèmes réels de l'industrie.
+
+---
+
+## Liens et Références
+
+
+
+### Recherche
+- [Article IEEE](https://ieeexplore.ieee.org/document/9910519) - A Graph-based Solution to Deal with Cyclic Dependencies
+- [INPT](https://www.inpt.ac.ma/)
+
+### Ressources
+- [Microservices Patterns](https://microservices.io/patterns/) - Chris Richardson
+- [Building Microservices](https://www.oreilly.com/library/view/building-microservices-2nd/9781492034018/) - Sam Newman
+- [NetworkX Documentation](https://networkx.org/)
+- [React Flow Documentation](https://reactflow.dev/)
+
+---
+
+*Stage effectué de juin à fin Aout 2025 - Durée : 4 mois*
