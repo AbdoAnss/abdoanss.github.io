@@ -1,0 +1,27 @@
+export const metadata = {
+  title: 'Architecture microservices avec gRPC et Kafka',
+  description:
+    "Avant mon stage à l'INPT, j'ai voulu comprendre comment les grandes plateformes communiquent entre des centaines de services. J'ai donc construit une architecture microservices combinant gRPC et Kafka pour expérimenter la communication synchrone et asynchrone.",
+  alternates: {
+    canonical: '/projects/grpc-kafka-springboot',
+  },
+};
+
+<Cover
+  src="https://blog.postman.com/wp-content/uploads/2023/11/gRPC-vs-REST-1.jpg"
+  alt="gRPC vs REST"
+  caption="gRPC et REST API"
+/>
+
+# Architecture Microservices avec gRPC et Kafka
+
+**Avril 2025** | Projet personnel | [Voir sur GitHub](https://github.com/AbdoAnss/spring-boot-grpc-kafka-microservices)
+
+
+Avant mon stage à l’INPT, je voulais comprendre comment des entreprises comme Google ou Netflix connectent efficacement leurs centaines de services. Pour cela, j’ai conçu un petit système de gestion de produits et de commandes en combinant gRPC et Kafka. L’objectif était de tester à la fois la rapidité de la communication synchrone et la robustesse de la communication asynchrone.
+
+J’ai développé deux microservices Spring Boot : un service Produits pour gérer le catalogue, et un service Commandes pour créer et suivre les achats. gRPC servait pour les appels rapides, par exemple vérifier le stock, tandis que Kafka gérait les événements comme la création de commande ou la mise à jour du stock. Cette approche m’a permis de comprendre quand utiliser un appel direct et quand il vaut mieux publier un message sur un bus.
+
+Le principal défi a été de passer d’un modèle REST classique à une architecture réellement distribuée. J’ai dû apprendre à définir les fichiers `.proto`, gérer la sérialisation binaire, et accepter la cohérence éventuelle imposée par Kafka. J’ai mis en place le pattern Saga pour gérer les transactions réparties et éviter les incohérences entre les services. Le débogage a aussi été complexe : j’ai ajouté des identifiants de corrélation et centralisé les logs pour retracer le parcours complet d’une requête.
+
+En construisant cette architecture, j’ai compris que les microservices ne sont pas qu’une question de découpage de code, mais surtout de gestion de communication, de résilience et d’observabilité. Ce projet m’a servi de base solide avant de travailler sur la détection d’anti-patterns pendant mon stage.

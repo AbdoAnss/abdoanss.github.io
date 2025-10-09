@@ -2,7 +2,9 @@ type Project = {
   name: string
   description: string
   link: string
-  video: string
+  video?: string
+  image?: string
+  skills: string[]
   id: string
 }
 
@@ -59,22 +61,25 @@ export const EDUCATION: Education[] = [
 
 export const PROJECTS: Project[] = [
   {
-    name: 'Motion Primitives Pro',
+    name: 'Store en ligne avec Next.js et Prisma',
     description:
-      'Advanced components and templates to craft beautiful websites.',
-    link: 'https://pro.motion-primitives.com/',
-    video:
-      'https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/W2azTw5BVbMXfj7F53G92hMVIn32/newProfileItem/d898be8a-7037-4c71-af0c-8997239b050d.mp4?_a=DATAdtAAZAA0',
-    id: 'project1',
+      'Application web moderne pour la gestion et la présentation d’une collection de produits, développée avec Next.js et Prisma. Fonctionnalités avancées de gestion, interface réactive et intégration PostgreSQL.',
+    link: '/projects/prisma-next-store',
+    image:
+      'https://cdn.prod.website-files.com/610bb663a35dd3364ddbf08c/633d7a26d52a3258d9815a89_nextjs-prisma-header-min.png',
+    skills: ['React', 'Next.js', 'TypeScript', 'PostgreSQL', 'Docker'],
+    id: 'project-next-prisma-store',
   },
   {
-    name: 'Motion Primitives',
-    description: 'UI kit to make beautiful, animated interfaces.',
-    link: 'https://motion-primitives.com/',
-    video:
-      'https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/W2azTw5BVbMXfj7F53G92hMVIn32/XSfIvT7BUWbPRXhrbLed/ee6871c9-8400-49d2-8be9-e32675eabf7e.mp4?_a=DATAdtAAZAA0',
-    id: 'project2',
-  },
+    name: 'Architecture microservices avec gRPC et Kafka',
+    description:
+      "Conception et développement d'une architecture microservices pour la gestion des produits et des commandes. Utilisation de gRPC pour une communication synchrone performante entre les services. Intégration d’Apache Kafka pour la communication asynchrone basée sur les événements, améliorant la résilience et la scalabilité du système.",
+    link: '/projects/grpc-kafka-springboot',
+    image:
+      'https://blog.postman.com/wp-content/uploads/2023/11/gRPC-vs-REST-1.jpg',
+    skills: ['Spring Boot', 'gRPC', 'Kafka', 'Microservices', 'Java'],
+    id: 'project-grpc-kafka-microservices',
+  }
 ]
 
 export const WORK_EXPERIENCE: WorkExperience[] = [
@@ -114,7 +119,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
   },
   {
     label: 'Twitter',
-    link: 'https://twitter.com/abdoanss',
+    link: 'https://twitter.com/itsabdoanss',
   },
   {
     label: 'LinkedIn',

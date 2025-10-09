@@ -41,10 +41,22 @@ const TRANSITION_SECTION = {
 }
 
 type ProjectVideoProps = {
-  src: string
+  src?: string
 }
 
 function ProjectVideo({ src }: ProjectVideoProps) {
+  // kept for backward compatibility but no longer used for display
+  return null
+}
+
+type ProjectImageProps = {
+  src?: string
+  alt?: string
+}
+
+function ProjectImage({ src, alt }: ProjectImageProps) {
+  const fallback = '/cover.jpg'
+
   return (
     <MorphingDialog
       transition={{
@@ -54,22 +66,18 @@ function ProjectVideo({ src }: ProjectVideoProps) {
       }}
     >
       <MorphingDialogTrigger>
-        <video
-          src={src}
-          autoPlay
-          loop
-          muted
-          className="aspect-video w-full cursor-zoom-in rounded-xl"
+        <img
+          src={src ?? fallback}
+          alt={alt ?? 'project image'}
+          className="aspect-video w-full cursor-zoom-in rounded-xl object-cover"
         />
       </MorphingDialogTrigger>
       <MorphingDialogContainer>
         <MorphingDialogContent className="relative aspect-video rounded-2xl bg-zinc-50 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950 dark:ring-zinc-800/50">
-          <video
-            src={src}
-            autoPlay
-            loop
-            muted
-            className="aspect-video h-[50vh] w-full rounded-xl md:h-[70vh]"
+          <img
+            src={src ?? fallback}
+            alt={alt ?? 'project image'}
+            className="aspect-video h-[50vh] w-full rounded-xl object-cover md:h-[70vh]"
           />
         </MorphingDialogContent>
         <MorphingDialogClose
@@ -260,24 +268,35 @@ export default function Personal() {
         <h3 className="mb-5 text-lg font-medium">Projets sélectionnés</h3>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {PROJECTS.map((project) => (
-            <div key={project.name} className="space-y-2">
-              <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
-                <ProjectVideo src={project.video} />
-              </div>
-              <div className="px-1">
-                <a
-                  className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-                  href={project.link}
-                  target="_blank"
-                >
-                  {project.name}
-                  <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
-                </a>
-                <p className="text-base text-zinc-600 dark:text-zinc-400">
-                  {project.description}
-                </p>
-              </div>
-            </div>
+        <div key={project.name} className="space-y-2">
+          <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
+            <ProjectImage src={project.image} alt={project.name} />
+          </div>
+          <div className="px-1">
+            <Link
+          className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
+          href={project.link}
+            >
+          {project.name}
+          <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
+            </Link>
+            <p className="text-base text-zinc-600 dark:text-zinc-400">
+          {project.description}
+            </p>
+            {project.skills && project.skills.length > 0 && (
+          <div className="mt-2 flex flex-wrap gap-2">
+            {project.skills.map((skill) => (
+              <span
+            key={skill}
+            className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200"
+              >
+            {skill}
+              </span>
+            ))}
+          </div>
+            )}
+          </div>
+        </div>
           ))}
         </div>
       </motion.section>
