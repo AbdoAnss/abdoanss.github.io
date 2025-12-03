@@ -159,7 +159,7 @@ export default function Personal() {
             </p>
           </div>
           <img 
-            src="https://media.licdn.com/dms/image/v2/D4E03AQHoEl3C_rHuIg/profile-displayphoto-scale_400_400/B4EZjm08I8HgAk-/0/1756219295800?e=1764806400&v=beta&t=ImavqzE19xR1eppRplxRsjSnjvPGETukD0-FZa_ksxc" 
+            src="https://media.licdn.com/dms/image/v2/D4E03AQHjO2lQk93LRg/profile-displayphoto-scale_400_400/B4EZrVjIWMGoAg-/0/1764519349875?e=1766620800&v=beta&t=gABl11tyvFHeQyycUtpUOeYH7SD6n3SWbdSnK2gPsfY" 
             alt="profile picture" 
             className="h-40 w-40 shrink-0 rounded-full object-cover ring-2 ring-zinc-400 shadow-sm dark:ring-zinc-800"
           />
