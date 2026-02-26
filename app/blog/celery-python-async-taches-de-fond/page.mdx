@@ -1,0 +1,511 @@
+export const metadata = {
+  title: 'Celery, le GIL et l\'asynchronisme en Python — retour d\'expérience',
+  description:
+    'Plongée technique dans Celery, les décorateurs Python, le GIL et la distinction sync/async, illustrée par mon stage chez CIEMS où j\'ai orchestré des tâches de fond sur un moteur de recommandation d\'assurance.',
+  alternates: {
+    canonical: '/blog/celery-python-async-taches-de-fond',
+  },
+};
+
+<Cover
+  src="https://docs.celeryq.dev/en/stable/_static/celery_512.png"
+  alt="Logo Celery"
+  caption="Celery — Distributed Task Queue"
+/>
+
+# Celery, le GIL et l'asynchronisme en Python
+
+Durant mon stage chez **CIEMS** à Rabat, j'ai développé un moteur de recommandation d'assurance avec Django et PostgreSQL. L'un des défis majeurs était de gérer des opérations longues (appels à l'API OpenAI, envoi de SMS via Twilio, calculs de scoring) sans bloquer la réponse HTTP renvoyée à l'utilisateur. C'est là que **Celery** est entré en jeu.
+
+Cet article est un retour d'expérience technique : pourquoi Celery, comment il fonctionne en profondeur, et comment j'ai concrètement résolu ces problèmes.
+
+---
+
+## Le problème : pourquoi ne pas juste utiliser `async/await` ?
+
+Avant de parler de Celery, il faut comprendre pourquoi Python a la réputation d'être "lent" pour la concurrence, et ce que `async/await` ne résout pas toujours.
+
+### Le GIL — Global Interpreter Lock
+
+Le **GIL** (Global Interpreter Lock) est un verrou interne à CPython (l'implémentation de référence de Python) qui empêche l'exécution simultanée de bytecode Python par plusieurs threads. Autrement dit : **même sur une machine multi-cœurs, plusieurs threads Python ne peuvent pas exécuter du code Python en parallèle**.
+
+```python
+import threading
+import time
+
+counter = 0
+
+def increment():
+    global counter
+    for _ in range(1_000_000):
+        counter += 1  # Cette opération N'est PAS atomique !
+
+t1 = threading.Thread(target=increment)
+t2 = threading.Thread(target=increment)
+
+t1.start(); t2.start()
+t1.join(); t2.join()
+
+print(counter)  # Rarement 2_000_000 à cause des race conditions
+                # Le GIL réduit mais ne supprime pas le problème
+```
+
+Le GIL a deux conséquences importantes. Pour les tâches **CPU-bound** (calcul pur), le multithreading Python n'apporte aucun gain car le GIL empêche le parallélisme réel — il faut utiliser le multiprocessing. Pour les tâches **I/O-bound** (réseau, disque), les deux approches fonctionnent car le GIL se relâche automatiquement pendant les appels bloquants I/O (sockets, fichiers, appels système).
+
+C'est pourquoi `asyncio` et les threads Python peuvent améliorer la performance pour les opérations réseau malgré le GIL.
+
+### `async/await` et `asyncio` — pour les I/O, pas pour le CPU
+
+`asyncio` est basé sur une **boucle d'évènements** (event loop) qui tourne dans un **seul thread**. Elle est parfaite pour multiplexer un grand nombre de connexions réseau simultanées (web scraping, API calls), mais :
+
+- Elle ne permet pas de distribuer du travail sur plusieurs processus
+- Elle ne permet pas de programmer une tâche à exécuter plus tard (dans 5 minutes, tous les jours à 8h)
+- Elle ne résiste pas à un crash du serveur (la tâche est perdue)
+
+```python
+import asyncio
+
+async def appeler_api():
+    # Pendant l'attente réseau, la boucle peut traiter d'autres coroutines
+    await asyncio.sleep(2)  # Simule un appel réseau
+    return "résultat"
+
+async def main():
+    # Concurrent mais toujours dans le même thread
+    resultats = await asyncio.gather(
+        appeler_api(),
+        appeler_api(),
+        appeler_api(),
+    )
+    print(resultats)
+
+asyncio.run(main())
+```
+
+**Le problème** : si `appeler_api()` fait un calcul CPU lourd (encoder un vecteur, scorer 10 000 contrats), `await` ne servira à rien — la boucle sera bloquée.
+
+### La vraie solution pour le travail en arrière-plan : Celery
+
+Celery crée des **processus workers séparés**, entièrement indépendants du processus de l'application web. Chaque worker a son propre interprète Python, donc son propre GIL — le parallélisme réel est possible.
+
+Le flux est simple : la vue Django reçoit une requête HTTP, pousse la tâche dans un broker Redis, puis répond immédiatement avec un `200 OK`. Un ou plusieurs workers Celery tournant en parallèle consomment les tâches du broker chacun dans leur propre processus.
+
+---
+
+## Les décorateurs Python — le cœur de la magie Celery
+
+Pour comprendre comment Celery définit ses tâches, il faut d'abord maîtriser les **décorateurs**.
+
+### Qu'est-ce qu'un décorateur ?
+
+Un décorateur est une fonction qui prend une fonction en argument et retourne une nouvelle fonction (ou autre objet). C'est du sucre syntaxique pour la programmation fonctionnelle d'ordre supérieur.
+
+```python
+# Version explicite (sans sucre syntaxique)
+def logger(func):
+    def wrapper(*args, **kwargs):
+        print(f"Appel de {func.__name__} avec {args}, {kwargs}")
+        result = func(*args, **kwargs)
+        print(f"Résultat : {result}")
+        return result
+    return wrapper
+
+def ajouter(a, b):
+    return a + b
+
+ajouter_avec_log = logger(ajouter)
+ajouter_avec_log(3, 4)
+# Appel de ajouter avec (3, 4), {}
+# Résultat : 7
+
+# Version avec syntaxe @décorateur (équivalent exact)
+@logger
+def ajouter(a, b):
+    return a + b
+```
+
+### Les décorateurs à paramètres
+
+Quand un décorateur accepte des arguments, on a une fonction qui retourne une fonction qui retourne une fonction :
+
+```python
+def retry(max_attempts=3, delay=1.0):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            for attempt in range(max_attempts):
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    if attempt == max_attempts - 1:
+                        raise
+                    print(f"Tentative {attempt + 1} échouée : {e}. Retry dans {delay}s")
+                    import time; time.sleep(delay)
+        return wrapper
+    return decorator
+
+@retry(max_attempts=3, delay=0.5)
+def appel_api_instable():
+    import random
+    if random.random() < 0.7:
+        raise ConnectionError("Timeout")
+    return "succès"
+```
+
+### `@app.task` — le décorateur Celery
+
+`@app.task` est exactement ce mécanisme. Lorsque vous écrivez :
+
+```python
+from celery import Celery
+
+app = Celery('mon_projet', broker='redis://localhost:6379/0')
+
+@app.task
+def envoyer_email(destinataire: str, sujet: str, corps: str):
+    # Code de l'envoi email
+    ...
+```
+
+Celery remplace `envoyer_email` par une instance de la classe `Task`. Cette instance possède notamment les méthodes `.delay()` et `.apply_async()` pour soumettre la tâche au broker.
+
+```python
+# Ces deux appels sont équivalents
+envoyer_email.delay("user@example.com", "Bonjour", "Corps du mail")
+envoyer_email.apply_async(args=["user@example.com", "Bonjour", "Corps du mail"])
+
+# apply_async offre plus de contrôle
+envoyer_email.apply_async(
+    args=["user@example.com", "Bonjour", "Corps du mail"],
+    countdown=60,          # Exécuter dans 60 secondes
+    expires=3600,          # Annuler si pas exécuté dans 1h
+    retry=True,
+    retry_policy={'max_retries': 3, 'interval_start': 0, 'interval_step': 0.2}
+)
+```
+
+---
+
+## Architecture Celery — les composants
+
+L'architecture repose sur trois composants distincts :
+
+- **Broker** (Redis / RabbitMQ) : file de messages où les tâches sont empilées par l'application web et dépilées par les workers.
+- **Workers** : processus Python indépendants qui consomment et exécutent les tâches. Chaque worker a son propre GIL.
+- **Result Backend** (Redis / DB) : stockage optionnel des résultats pour les consulter après coup.
+
+### Intégration avec Django — la configuration
+
+```python
+# mon_projet/celery.py
+import os
+from celery import Celery
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mon_projet.settings')
+
+app = Celery('mon_projet')
+
+# Lire la config depuis settings.py, préfixe CELERY_
+app.config_from_object('django.conf:settings', namespace='CELERY')
+
+# Autodécouverte des fichiers tasks.py dans chaque app Django
+app.autodiscover_tasks()
+```
+
+```python
+# mon_projet/__init__.py
+from .celery import app as celery_app
+__all__ = ('celery_app',)
+```
+
+```python
+# settings.py
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Europe/Paris'
+
+# Tâches périodiques (Celery Beat)
+from celery.schedules import crontab
+
+CELERY_BEAT_SCHEDULE = {
+    'recommandations-quotidiennes': {
+        'task': 'recommandation.tasks.envoyer_recommandations_quotidiennes',
+        'schedule': crontab(hour=9, minute=0),  # Tous les jours à 9h
+    },
+}
+```
+
+---
+
+## Mon cas concret chez CIEMS
+
+Le moteur de recommandation fonctionnait ainsi : lorsqu'un utilisateur complétait son profil, le système devait :
+
+1. Scorer sa compatibilité avec chaque produit d'assurance (calcul CPU)
+2. Générer un message personnalisé via l'API OpenAI (I/O réseau, ~2–5s)
+3. Envoyer le message par SMS via Twilio (I/O réseau)
+
+Faire tout cela dans la vue Django était impensable — l'utilisateur aurait attendu 10+ secondes.
+
+### Définition des tâches
+
+```python
+# recommandation/tasks.py
+from celery import shared_task, chain
+from celery.utils.log import get_task_logger
+import openai
+from twilio.rest import Client
+
+logger = get_task_logger(__name__)
+
+@shared_task(bind=True, max_retries=3, default_retry_delay=60)
+def scorer_profil(self, utilisateur_id: int) -> dict:
+    """
+    Calcule les scores de recommandation pour un utilisateur.
+    CPU-bound : peut utiliser plusieurs workers en parallèle.
+    """
+    try:
+        from utilisateurs.models import UtilisateurProfil
+        from produits.models import ProduitAssurance
+
+        profil = UtilisateurProfil.objects.get(id=utilisateur_id)
+        produits = ProduitAssurance.objects.all()
+
+        scores = {}
+        for produit in produits:
+            score = calculer_score(profil, produit)  # Logique métier
+            scores[produit.id] = score
+
+        logger.info(f"Scoring terminé pour utilisateur {utilisateur_id}: {len(scores)} produits scorés")
+        return {'utilisateur_id': utilisateur_id, 'scores': scores}
+
+    except Exception as exc:
+        logger.error(f"Erreur scoring utilisateur {utilisateur_id}: {exc}")
+        raise self.retry(exc=exc)
+
+
+@shared_task(bind=True, max_retries=3, default_retry_delay=30)
+def generer_message_openai(self, context: dict) -> dict:
+    """
+    Génère un message personnalisé via OpenAI.
+    I/O-bound : la worker attend la réponse réseau.
+    """
+    utilisateur_id = context['utilisateur_id']
+    scores = context['scores']
+
+    try:
+        # Récupérer le top produit
+        meilleur_produit_id = max(scores, key=scores.get)
+
+        from produits.models import ProduitAssurance
+        from utilisateurs.models import UtilisateurProfil
+
+        produit = ProduitAssurance.objects.get(id=meilleur_produit_id)
+        profil = UtilisateurProfil.objects.get(id=utilisateur_id)
+
+        prompt = f"""
+        Génère un message SMS court (max 160 caractères) en français pour recommander 
+        le produit "{produit.nom}" à {profil.prenom}.
+        Points clés du produit : {produit.description_courte}.
+        Ton : professionnel mais chaleureux.
+        """
+
+        response = openai.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=100,
+        )
+
+        message = response.choices[0].message.content.strip()
+        logger.info(f"Message généré pour utilisateur {utilisateur_id}")
+
+        return {
+            'utilisateur_id': utilisateur_id,
+            'telephone': profil.telephone,
+            'message': message,
+        }
+
+    except openai.RateLimitError as exc:
+        logger.warning("Rate limit OpenAI atteint, retry dans 60s")
+        raise self.retry(exc=exc, countdown=60)
+    except Exception as exc:
+        logger.error(f"Erreur génération message: {exc}")
+        raise self.retry(exc=exc)
+
+
+@shared_task(bind=True, max_retries=2, default_retry_delay=120)
+def envoyer_sms_twilio(self, context: dict) -> str:
+    """
+    Envoie le SMS via l'API Twilio.
+    I/O-bound pur.
+    """
+    try:
+        from django.conf import settings
+
+        client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
+
+        message = client.messages.create(
+            body=context['message'],
+            from_=settings.TWILIO_PHONE_NUMBER,
+            to=context['telephone'],
+        )
+
+        logger.info(f"SMS envoyé à {context['telephone']}, SID: {message.sid}")
+        return message.sid
+
+    except Exception as exc:
+        logger.error(f"Erreur Twilio: {exc}")
+        raise self.retry(exc=exc)
+```
+
+### Chaîner les tâches avec `chain`
+
+Celery permet de chaîner des tâches : la sortie de l'une devient l'entrée de la suivante. C'est l'équivalent d'un pipeline.
+
+```python
+# recommandation/views.py
+from celery import chain
+from django.http import JsonResponse
+from .tasks import scorer_profil, generer_message_openai, envoyer_sms_twilio
+
+def profil_complete(request, utilisateur_id: int):
+    # Le pipeline complet est soumis en une ligne
+    # Chaque tâche reçoit la valeur de retour de la tâche précédente
+    pipeline = chain(
+        scorer_profil.s(utilisateur_id),       # retourne {'utilisateur_id': ..., 'scores': ...}
+        generer_message_openai.s(),             # reçoit le dict ci-dessus, retourne {'telephone': ..., 'message': ...}
+        envoyer_sms_twilio.s(),                 # reçoit le dict et envoie le SMS
+    )
+
+    result = pipeline.apply_async()
+
+    # On répond immédiatement à l'utilisateur
+    return JsonResponse({
+        'status': 'ok',
+        'message': 'Votre profil est en cours de traitement.',
+        'task_id': result.id,
+    })
+```
+
+Ici, `scorer_profil.s()` utilise la syntaxe **signature** (`.s()`) de Celery. La différence avec `.delay()` :
+
+```python
+# .delay() → exécute immédiatement
+tache.delay(arg1, arg2)
+
+# .s() → crée une signature (sans exécuter), utilisable dans chain/group/chord
+tache.s(arg1, arg2)
+
+# .si() → signature immutable (ignore le résultat de la tâche précédente)
+tache.si(arg1, arg2)
+```
+
+### Parallélisme avec `group` et `chord`
+
+Pour scorer plusieurs utilisateurs en parallèle :
+
+```python
+from celery import group, chord
+
+def lancer_recommandations_en_masse(utilisateur_ids: list[int]):
+    # group = toutes les tâches lancées en parallèle
+    scoring_parallele = group(
+        scorer_profil.s(uid) for uid in utilisateur_ids
+    )
+
+    # chord = group + callback appelé quand tous sont terminés
+    # Le callback reçoit la liste des résultats de chaque tâche du group
+    pipeline = chord(scoring_parallele)(
+        traiter_tous_les_scores.s()  # Appelé avec [résultat1, résultat2, ...]
+    )
+
+    return pipeline
+```
+
+---
+
+## Surveiller les tâches avec Flower
+
+[Flower](https://flower.readthedocs.io/) est une interface web pour monitorer les workers Celery en temps réel.
+
+```bash
+# Démarrer le worker
+celery -A mon_projet worker --loglevel=info --concurrency=4
+
+# Démarrer le scheduler pour les tâches périodiques
+celery -A mon_projet beat --loglevel=info
+
+# Démarrer Flower (dashboard web sur http://localhost:5555)
+celery -A mon_projet flower
+```
+
+Le tableau de bord Flower affiche les workers actifs et leur charge, l'historique des tâches (succès, échecs, retries), les temps d'exécution par type de tâche, et permet de révoquer ou relancer des tâches manuellement.
+
+---
+
+## Pièges et bonnes pratiques
+
+### 1. Ne jamais passer des objets Django comme arguments
+
+```python
+# ❌ MAUVAIS — l'objet sera sérialisé en JSON (et échouer)
+@shared_task
+def traiter(utilisateur):
+    ...
+
+traiter.delay(utilisateur_obj)
+
+# ✅ BON — passer l'ID et re-fetcher l'objet dans la tâche
+@shared_task
+def traiter(utilisateur_id: int):
+    utilisateur = User.objects.get(id=utilisateur_id)
+    ...
+
+traiter.delay(utilisateur.id)
+```
+
+### 2. Les tâches doivent être idempotentes
+
+Une tâche peut être exécutée plusieurs fois en cas de retry. Assurez-vous qu'une double exécution ne provoque pas de doublon (ex: envoyer deux SMS identiques).
+
+```python
+@shared_task
+def envoyer_notification(notification_id: int):
+    from notifications.models import Notification
+
+    notification = Notification.objects.select_for_update().get(id=notification_id)
+
+    if notification.envoyee:  # Vérification d'idempotence
+        return "déjà envoyée"
+
+    # ... envoi ...
+
+    notification.envoyee = True
+    notification.save()
+```
+
+### 3. Utiliser `bind=True` pour accéder à `self.retry()`
+
+```python
+@shared_task(bind=True, max_retries=5)
+def ma_tache(self, arg):
+    try:
+        faire_quelque_chose(arg)
+    except TemporaryError as exc:
+        # Retry avec backoff exponentiel
+        raise self.retry(exc=exc, countdown=2 ** self.request.retries)
+```
+
+---
+
+## Ce que ce stage m'a appris
+
+Intégrer Celery chez CIEMS m'a forcé à confronter des concepts souvent abstraits dans les cours : le GIL, le modèle de concurrence de Python, et la différence fondamentale entre *asynchronisme* (une seule thread, non bloquante) et *parallélisme* (plusieurs processus). 
+
+L'usage de `chain` pour composer le pipeline de recommandation m'a également appris la valeur des architectures basées sur des messages : chaque tâche est isolée, testable unitairement, et peut être scalée indépendamment. Si les appels OpenAI devenaient un goulot d'étranglement, il suffisait d'augmenter la concurrence de ce pool de workers — sans toucher au reste.
+
+---
+
+*Vous avez des questions sur Celery ou sur l'architecture de tâches asynchrones ? N'hésitez pas à me contacter.*
