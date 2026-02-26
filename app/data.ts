@@ -73,16 +73,52 @@ export const PROJECTS: Project[] = [
   {
     name: 'Architecture microservices avec gRPC et Kafka',
     description:
-      "Conception et développement d'une architecture microservices pour la gestion des produits et des commandes. Utilisation de gRPC pour une communication synchrone performante entre les services. Intégration d’Apache Kafka pour la communication asynchrone basée sur les événements, améliorant la résilience et la scalabilité du système.",
+      "Conception et développement d'une architecture microservices pour la gestion des produits et des commandes. Utilisation de gRPC pour une communication synchrone performante entre les services. Intégration d'Apache Kafka pour la communication asynchrone basée sur les événements, améliorant la résilience et la scalabilité du système.",
     link: '/projects/grpc-kafka-springboot',
     image:
       'https://blog.postman.com/wp-content/uploads/2023/11/gRPC-vs-REST-1.jpg',
     skills: ['Spring Boot', 'gRPC', 'Kafka', 'Microservices', 'Java'],
     id: 'project-grpc-kafka-microservices',
-  }
+  },
+  {
+    name: 'Client Go — API Fantasy Premier League',
+    description:
+      "Projet personnel de développement d'un client Go pour consommer l'API publique Fantasy Premier League. Désérialisation JSON vers des types Go fortement typés, système de cache avec TTL configurable, tests unitaires et gestion d'erreurs explicite.",
+    link: 'https://github.com/abdoanss',
+    image: 'https://cdn.azilen.com/wp-content/uploads/2023/09/banner_web-2.jpg',
+    skills: ['Go', 'REST API', 'Caching', 'Unit Testing'],
+    id: 'project-go-fpl-client',
+  },
+  {
+    name: 'Automatisation DevOps & GitOps',
+    description:
+      "Projet académique de mise en place d'une chaîne DevOps complète pour le déploiement de microservices. Pipelines GitLab CI/CD avec SAST, DAST, SCA et gestion des secrets via Vault. Déploiement GitOps sur Kubernetes avec ArgoCD et monitoring Prometheus/Grafana.",
+    link: 'https://github.com/abdoanss',
+    image: 'https://gainanov.pro/eng-blog/assets/images/gitlab-ci/gitlab-ci-devops.png',
+    skills: ['GitLab CI/CD', 'Kubernetes', 'ArgoCD', 'Prometheus', 'Grafana', 'Vault'],
+    id: 'project-devops-gitops',
+  },
+  {
+    name: 'Pipeline ELT Fantasy Premier League',
+    description:
+      "Projet personnel d'ingénierie des données autour de l'API Fantasy Premier League. Pipeline temps réel bout-en-bout : producteur Kafka → Spark Streaming → PostgreSQL, avec traitement PySpark et dashboard de visualisation.",
+    link: 'https://github.com/abdoanss',
+    image: 'https://rivery.io/wp-content/uploads/2020/05/ETL-Process-for-linkedin3-1024x535.png',
+    skills: ['Kafka', 'Spark Streaming', 'PySpark', 'PostgreSQL'],
+    id: 'project-elt-fpl-pipeline',
+  },
 ]
 
 export const WORK_EXPERIENCE: WorkExperience[] = [
+  {
+    company: 'Institut Universitaire Européen de la Mer (IUEM)',
+    title: 'Stagiaire Ingénieur Logiciel',
+    start: '09/2025',
+    end: '01/2026',
+    description: 'Migration de l\'interface graphique de PyCoast de Bokeh vers Panel. Conception et prototypage de la nouvelle interface en collaboration avec les chercheurs. Adaptation du pipeline CI/CD GitLab.',
+    link: '/work/iuem',
+    id: 'work-iuem',
+  },
   {
     company: 'INPT',
     title: 'Stage de recherche',
@@ -104,6 +140,12 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
 ]
 
 export const BLOG_POSTS: BlogPost[] = [
+  {
+    title: 'Celery, le GIL et l\'asynchronisme en Python — retour d\'expérience',
+    description: 'Plongée technique dans Celery, les décorateurs Python, le GIL et la distinction sync/async, illustrée par mon stage chez CIEMS où j\'ai orchestré des tâches de fond sur un moteur de recommandation.',
+    link: '/blog/celery-python-async-taches-de-fond',
+    uid: 'blog-2',
+  },
   {
     title: 'Mon experience avec le certification OCP Java SE 11',
     description: 'Retour d\'experience sur ma preparation et mon passage de la certification OCP Java SE 11.',

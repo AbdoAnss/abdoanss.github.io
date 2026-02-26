@@ -147,24 +147,24 @@ export default function Personal() {
         <div className="flex items-start gap-6">
           <div className="flex-1">
             <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
-              Bonjour 👋, je m'appelle <span className="font-semibold text-zinc-900 dark:text-zinc-100">Abdessamad</span>. 
-              Étudiant en génie logiciel à l'<span className="font-semibold text-zinc-900 dark:text-zinc-100">Université de Bretagne Occidentale</span> à Brest 
-              et élève ingénieur à l'<span className="font-semibold text-zinc-900 dark:text-zinc-100">Institut National des Postes et Télécoms</span> de Rabat 
+              Bonjour 👋, je m'appelle <span className="font-semibold text-zinc-900 dark:text-zinc-100">Abdessamad</span>.
+              Étudiant en génie logiciel à l'<span className="font-semibold text-zinc-900 dark:text-zinc-100">Université de Bretagne Occidentale</span> à Brest
+              et élève ingénieur à l'<span className="font-semibold text-zinc-900 dark:text-zinc-100">Institut National des Postes et Télécoms</span> de Rabat
               dans le cadre d'une <a href="https://fr.wiktionary.org/wiki/double_diplomation" target="_blank" rel="noopener noreferrer" className="underline decoration-zinc-400 hover:decoration-zinc-600 dark:decoration-zinc-500 dark:hover:decoration-zinc-300 transition-colors">double diplomation</a>.
             </p>
             <p className="mt-3 text-zinc-600 dark:text-zinc-400 leading-relaxed">
-              Passionné par l'algorithmique et les mathématiques, je développe principalement en <span className="font-semibold text-zinc-900 dark:text-zinc-100">Java</span>, 
-              avec une attirance particulière pour <span className="font-semibold text-zinc-900 dark:text-zinc-100">Golang</span> et <span className="font-semibold text-zinc-900 dark:text-zinc-100">Rust</span>. 
+              Passionné par l'algorithmique et les mathématiques, je développe principalement en <span className="font-semibold text-zinc-900 dark:text-zinc-100">Java</span>,
+              avec une attirance particulière pour <span className="font-semibold text-zinc-900 dark:text-zinc-100">Golang</span> et <span className="font-semibold text-zinc-900 dark:text-zinc-100">Rust</span>.
               J'ai travaillé sur des projets variés, allant du développement web à l'ingénierie des données. J'aime découvrir et apprendre de nouvelles choses.
             </p>
           </div>
-          <img 
-            src="https://media.licdn.com/dms/image/v2/D4E03AQHoEl3C_rHuIg/profile-displayphoto-scale_400_400/B4EZjm08I8HgAk-/0/1756219295800?e=1762992000&v=beta&t=pjWjWol7ehCNj3MaMvDXPVGABGcHR3_nYFECaI_ZUjk" 
-            alt="profile picture" 
+          <img
+            src="https://media.licdn.com/dms/image/v2/D4E03AQH2Ubxv12p7Uw/profile-displayphoto-crop_800_800/B4EZyXIFMlJ0AI-/0/1772062009124?e=1773878400&v=beta&t=5d6M7ob7pfaP6b5ZUhG7421sT-2e05Jni4hoAaFB6b8"
+            alt="my linkedin profile picture"
             className="h-40 w-40 shrink-0 rounded-full object-cover ring-2 ring-zinc-400 shadow-sm dark:ring-zinc-800"
           />
         </div>
-              
+
       </motion.section>
 
 
@@ -268,40 +268,40 @@ export default function Personal() {
         <h3 className="mb-5 text-lg font-medium">Projets sélectionnés</h3>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {PROJECTS.map((project) => (
-        <div key={project.name} className="space-y-2">
-          <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
-            <ProjectImage src={project.image} alt={project.name} />
-          </div>
-          <div className="px-1">
-            <Link
-          className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-          href={project.link}
-            >
-          {project.name}
-          <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
-            </Link>
-            <p className="text-base text-zinc-600 dark:text-zinc-400">
-          {project.description}
-            </p>
-            {project.skills && project.skills.length > 0 && (
-          <div className="mt-2 flex flex-wrap gap-2">
-            {project.skills.map((skill) => (
-              <span
-            key={skill}
-            className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200"
-              >
-            {skill}
-              </span>
-            ))}
-          </div>
-            )}
-          </div>
-        </div>
+            <div key={project.name} className="space-y-2">
+              <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
+                <ProjectImage src={project.image} alt={project.name} />
+              </div>
+              <div className="px-1">
+                <Link
+                  className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
+                  href={project.link}
+                >
+                  {project.name}
+                  <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
+                </Link>
+                <p className="text-base text-zinc-600 dark:text-zinc-400">
+                  {project.description}
+                </p>
+                {project.skills && project.skills.length > 0 && (
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {project.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
           ))}
         </div>
       </motion.section>
 
-      
+
 
       <motion.section
         variants={VARIANTS_SECTION}
