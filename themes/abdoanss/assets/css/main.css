@@ -1451,13 +1451,14 @@ article hr {
 }
 
 .profile-img {
-  width: 180px;
-  height: 180px;
-  border-radius: 20px;
+  width: 240px;
+  height: 240px;
+  border-radius: 28px;
   object-fit: cover;
   border: 1px solid var(--border);
+  outline: 6px solid var(--accent-dim);
   background: var(--surface);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
 }
 
 .hub-parcours {
@@ -2045,7 +2046,7 @@ article hr {
   .hub { padding: 48px 0 40px; }
   .hub-header-content { flex-direction: column-reverse; gap: 24px; text-align: center; }
   .hub-intro { margin: 0 auto; }
-  .profile-img { width: 140px; height: 140px; }
+  .profile-img { width: 180px; height: 180px; }
   .parcours-grid { grid-template-columns: 1fr; gap: 32px; }
   .hub-section { flex-wrap: wrap; gap: 4px 12px; padding: 16px 14px; }
   .hub-section-left { min-width: auto; }
