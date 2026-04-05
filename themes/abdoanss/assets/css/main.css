@@ -97,7 +97,9 @@
   --text: #f8fafc;
   --text-dim: #94a3b8;
   --text-mid: #cbd5e1;
-  --code-bg: #111420;
+  --code-bg: #0f172a;
+  --code-text: #f8fafc;
+  --code-border: #1f2937;
   --good: #10b981;
   --bad: #ef4444;
   --callout-error: #ef4444;
@@ -105,20 +107,22 @@
 }
 
 [data-theme="light"] {
-  --bg: #f8fafc;
-  --surface: #f1f5f9;
-  --border: #e2e8f0;
-  --accent: #0ea5e9;
-  --accent-dim: rgba(14, 165, 233, 0.10);
+  --bg: #ffffff;
+  --surface: #f8fafc;
+  --border: #cbd5e1;
+  --accent: #0284c7;
+  --accent-dim: rgba(2, 132, 199, 0.08);
   --accent2: #2563eb;
   --text: #0f172a;
-  --text-dim: #64748b;
-  --text-mid: #475569;
-  --code-bg: #f1f5f9;
+  --text-dim: #475569;
+  --text-mid: #1e293b;
+  --code-bg: #0f172a;
+  --code-text: #f8fafc;
+  --code-border: #1f2937;
   --good: #059669;
   --bad: #dc2626;
   --callout-error: #dc2626;
-  --grain-opacity: 0.15;
+  --grain-opacity: 0.12;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -484,11 +488,11 @@ article ol li strong {
 article code {
   font-family: var(--font-mono);
   font-size: 0.82em;
-  background: var(--code-bg);
+  background: var(--surface);
   border: 1px solid var(--border);
   padding: 1px 6px;
   border-radius: 4px;
-  color: var(--text);
+  color: var(--accent2);
 }
 
 /* ── SECTION HEADINGS ── */
@@ -586,16 +590,17 @@ article h2 {
 /* ── CODE BLOCKS ── */
 .code-block {
   background: var(--code-bg);
-  border: 1px solid var(--border);
+  border: 1px solid var(--code-border);
   border-radius: 8px;
   overflow: hidden;
   margin: 28px 0;
   font-family: var(--font-mono);
   font-size: 13px;
+  color: var(--code-text);
 }
 .code-header {
   padding: 10px 16px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--code-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -612,12 +617,12 @@ article h2 {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--border);
+  background: var(--code-border);
 }
 .code-body-wrapper { overflow-x: auto; }
 .code-complexity {
   padding: 8px 16px;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--code-border);
   font-size: 11px;
   letter-spacing: 0.06em;
   font-family: var(--font-mono);
@@ -635,12 +640,14 @@ article h2 {
   font-size: 13px;
   line-height: 1.6;
   overflow-x: auto;
+  color: inherit !important;
 }
 .code-block .highlight code {
   background: transparent;
   border: none;
   padding: 0;
   font-size: 13px;
+  color: inherit;
 }
 
 /* ── COMPARISON TABLE ── */
@@ -813,14 +820,6 @@ article hr {
 .diagram-light { display: none; }
 [data-theme="light"] .diagram-light { display: flex; }
 [data-theme="light"] .diagram-dark  { display: none; }
-
-/* ── LIGHT MODE: CODE BLOCK OVERRIDES ── */
-[data-theme="light"] .code-block .highlight pre {
-  background-color: var(--code-bg) !important;
-  color: var(--text) !important;
-}
-[data-theme="light"] .tag.bad { background: rgba(192, 48, 48, 0.10); }
-[data-theme="light"] .tag.good { background: rgba(45, 138, 94, 0.12); }
 
 /* ── READ NEXT ── */
 .read-next {
