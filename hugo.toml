@@ -32,9 +32,9 @@ enableGitInfo = true
 
 [params]
   author = 'Abdessamad Anssem'
-  description = 'Étudiant en génie logiciel et élève ingénieur passionné par l’algorithmique et le développement.'
-  intro = 'Passionné par l’algorithmique et les mathématiques, je développe principalement en Java, avec une attirance particulière pour Golang et Rust. J’aime découvrir et apprendre de nouvelles choses.'
-  tagline = 'Génie Logiciel & Ingénierie des Données'
+  description = 'Ingénieur Logiciel passionné par les systèmes distribués, la résolution de problèmes complexes et les architectures performantes.'
+  intro = "Ingénieur Logiciel passionné par l'art de résoudre des problèmes techniques stimulants. Je m'épanouis dans l'exploration des systèmes distribués et la conception d'architectures robustes et scalables. Toujours en quête de performance et d'élégance, j'aime transformer des défis complexes en solutions concrètes."
+  tagline = 'Software Engineer | Distributed Systems & Scalable Software'
   profilePicture = '/profile.jpg'
   github = 'https://github.com/AbdoAnss'
   linkedin = 'https://www.linkedin.com/in/abdoanss/'
