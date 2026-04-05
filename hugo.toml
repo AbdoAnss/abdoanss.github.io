@@ -93,7 +93,7 @@ enableGitInfo = true
     title = 'CPGE - Math et Physique et Informatique'
     org = 'Prepa Scientifique'
     date = '2021 - 2023'
-    desc = 'Agadir 2021/2023, Classement : 15ème. Deux années de formation académique rigoureuse dans la filière mathématiques et physique (PSI), dans le but de réussir l'examen du CNC, qui m'a ouvert les portes de l'une des institutions les plus prestigieuses du Maroc en informatique : l'INPT.'
+    desc = "Agadir 2021/2023, Classement : 15ème. Deux années de formation académique rigoureuse dans la filière mathématiques et physique (PSI), dans le but de réussir l'examen du CNC, qui m'a ouvert les portes de l'une des institutions les plus prestigieuses du Maroc en informatique : l'INPT."
 
 [markup]
   [markup.tableOfContents]
