@@ -65,12 +65,12 @@ enableGitInfo = true
     title = 'Stagiaire Ingénieur Logiciel'
     org = 'Institut Universitaire Européen de la Mer (IUEM)'
     date = '09/2025 - 01/2026'
-    desc = 'Migration de l’interface graphique de PyCoast de Bokeh vers Panel. Conception et prototypage en collaboration avec les chercheurs. Adaptation du pipeline CI/CD GitLab.'
+    desc = 'Migration de l’interface graphique de PyCoast de Bokeh vers Panel. Conception et prototypage en collaboration avec les chercheurs.'
 
   [[params.parcours]]
     type = 'education'
     title = 'Master Informatique – Génie Logiciel'
-    org = 'Applications aux Données Environnementales (UBO)'
+    org = 'Universite de Bretagne Occidentale. Ingénierie du Logiciel, Applications aux Données Environnementales'
     date = '09/2025 - Présent'
     desc = 'Compétences clés : Systèmes multi-agents, systèmes cyber-physiques, systèmes d’information avancés, Services Web & Java EE, Big Data, virtualisation, sécurité.'
 
@@ -86,14 +86,14 @@ enableGitInfo = true
     title = 'Diplôme d’Ingénieur d’État en Informatique'
     org = 'Institut National des Postes et Télécommunications (INPT)'
     date = '2023 - Présent'
-    desc = 'Compétences clés : Algorithmes & Structures de données, Programmation Orientée Objet, Développement Backend & Frontend, Bases de données, Big Data, DevOps, CI/CD, Docker, Méthodes Agiles, IoT, Power BI, ERP Dynamics 365.'
+    desc = 'Compétences clés : Algorithmes & Structures de données, Programmation Orientée Objet, Développement Backend & Frontend, Bases de données, Big Data, DevOps, CI/CD, Docker, Méthodes Agiles, IoT, Power BI.'
 
   [[params.parcours]]
     type = 'education'
     title = 'CPGE - Math et Physique et Informatique'
     org = 'Prepa Scientifique'
     date = '2021 - 2023'
-    desc = 'Classement : 15ème.'
+    desc = 'Agadir 2021/2023, Classement : 15ème. Deux années de formation académique rigoureuse dans la filière mathématiques et physique (PSI), dans le but de réussir l'examen du CNC, qui m'a ouvert les portes de l'une des institutions les plus prestigieuses du Maroc en informatique : l'INPT.'
 
 [markup]
   [markup.tableOfContents]
