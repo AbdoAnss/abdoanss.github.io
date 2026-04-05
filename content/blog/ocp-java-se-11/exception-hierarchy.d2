@@ -1,0 +1,45 @@
+direction: down
+
+Throwable: {
+  shape: rectangle
+}
+
+Error: {
+  label: "Error (Unchecked)"
+  style: {
+    fill: "#fcebeb"
+    stroke: "#a32d2d"
+  }
+}
+
+Exception: {
+  shape: rectangle
+}
+
+RuntimeException: {
+  label: "RuntimeException (Unchecked)"
+  style: {
+    fill: "#faeeda"
+    stroke: "#854f0b"
+  }
+}
+
+Checked: {
+  label: "Checked Exceptions (e.g. IOException)"
+  style: {
+    fill: "#e6f1fb"
+    stroke: "#185fa5"
+  }
+}
+
+Throwable -> Error
+Throwable -> Exception
+Exception -> RuntimeException
+Exception -> Checked
+
+RuntimeException -> NullPointerException
+RuntimeException -> ArrayIndexOutOfBounds
+RuntimeException -> ClassCastException
+
+Checked -> IOException
+IOException -> FileNotFoundException

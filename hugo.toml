@@ -1,0 +1,115 @@
+baseURL = 'https://abdoanss.github.io/'
+languageCode = 'fr-fr'
+title = 'Abdessamad Anssem'
+theme = 'abdoanss'
+enableRobotsTXT = true
+enableGitInfo = true
+
+[mediaTypes."application/javascript"]
+  suffixes = ["js"]
+
+[outputFormats.SW]
+  mediaType = "application/javascript"
+  baseName = "sw"
+  isPlainText = true
+  notAlternative = true
+
+[outputs]
+  home = ["HTML", "RSS", "SW"]
+
+[related]
+  includeNewer = true
+  threshold = 50
+  toLower = false
+  [[related.indices]]
+    name = "tags"
+    weight = 100
+
+[taxonomies]
+  tag = "tags"
+[pagination]
+  pagerSize = 5
+
+[params]
+  author = 'Abdessamad Anssem'
+  description = 'Étudiant en génie logiciel et élève ingénieur passionné par l’algorithmique et le développement.'
+  intro = 'Passionné par l’algorithmique et les mathématiques, je développe principalement en Java, avec une attirance particulière pour Golang et Rust. J’aime découvrir et apprendre de nouvelles choses.'
+  tagline = 'Génie Logiciel & Ingénierie des Données'
+  profilePicture = '/profile.jpg'
+  github = 'https://github.com/AbdoAnss'
+  linkedin = 'https://www.linkedin.com/in/abdoanss/'
+
+  [[params.sections]]
+    title = 'Blog'
+    description = 'Réflexions techniques sur le développement, les systèmes et l’ingénierie.'
+    url = '/blog/'
+
+  [[params.sections]]
+    title = 'Projets'
+    description = 'Sélection de mes réalisations personnelles et académiques.'
+    url = '/projects/'
+
+  [[params.sections]]
+    title = 'Outils'
+    description = 'Utilitaires interactifs et expérimentations.'
+    url = '/tools/'
+
+  [[params.sections]]
+    title = 'Notes'
+    description = 'Pensées courtes et apprentissages quotidiens (TIL).'
+    url = '/notes/'
+
+  # Section Parcours (Éducation & Expérience)
+  [[params.parcours]]
+    type = 'experience'
+    title = 'Stagiaire Ingénieur Logiciel'
+    org = 'Institut Universitaire Européen de la Mer (IUEM)'
+    date = '09/2025 - 01/2026'
+    desc = 'Migration de l’interface graphique de PyCoast de Bokeh vers Panel. Conception et prototypage en collaboration avec les chercheurs. Adaptation du pipeline CI/CD GitLab.'
+
+  [[params.parcours]]
+    type = 'education'
+    title = 'Master Informatique – Génie Logiciel'
+    org = 'Applications aux Données Environnementales (UBO)'
+    date = '09/2025 - Présent'
+    desc = 'Compétences clés : Systèmes multi-agents, systèmes cyber-physiques, systèmes d’information avancés, Services Web & Java EE, Big Data, virtualisation, sécurité.'
+
+  [[params.parcours]]
+    type = 'experience'
+    title = 'Stagiaire Développeur Backend'
+    org = 'CIEMS - Rabat, Maroc'
+    date = '06/2024 - 08/2024'
+    desc = 'Conception d’un moteur de recommandation d’assurances (filtrage collaboratif). Traitement de tâches asynchrones avec Celery/Redis, automatisation de messages IA (OpenAI, Twilio), schéma PostgreSQL et templates Jinja2.'
+
+  [[params.parcours]]
+    type = 'education'
+    title = 'Diplôme d’Ingénieur d’État en Informatique'
+    org = 'Institut National des Postes et Télécommunications (INPT)'
+    date = '2023 - Présent'
+    desc = 'Compétences clés : Algorithmes & Structures de données, Programmation Orientée Objet, Développement Backend & Frontend, Bases de données, Big Data, DevOps, CI/CD, Docker, Méthodes Agiles, IoT, Power BI, ERP Dynamics 365.'
+
+  [[params.parcours]]
+    type = 'education'
+    title = 'CPGE - Math et Physique et Informatique'
+    org = 'Prepa Scientifique'
+    date = '2021 - 2023'
+    desc = 'Classement : 15ème.'
+
+[markup]
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+    ordered = false
+  [markup.highlight]
+    noClasses = true
+    style = 'nord'
+    lineNos = false
+    tabWidth = 2
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+    [markup.goldmark.extensions.passthrough]
+      enable = true
+      [markup.goldmark.extensions.passthrough.delimiters]
+        block  = [["$$", "$$"]]
+        inline = [["$", "$"]]

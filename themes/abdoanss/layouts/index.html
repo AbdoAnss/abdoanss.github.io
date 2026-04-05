@@ -1,0 +1,76 @@
+{{ define "main" }}
+{{ $latest := index (where .Site.RegularPages "Type" "blog").ByDate.Reverse 0 }}
+<div class="hub">
+  <header class="hub-header">
+    <div class="hub-header-content">
+      <div class="hub-header-text">
+        <p class="eyebrow">{{ .Site.Params.tagline }}</p>
+        <h1>{{ .Site.Title }}</h1>
+        <p class="hub-intro">{{ .Site.Params.intro }}</p>
+      </div>
+      {{ with .Site.Params.profilePicture }}
+      <div class="hub-profile">
+        <img src="{{ . | relURL }}" alt="{{ $.Site.Params.author }}" class="profile-img">
+      </div>
+      {{ end }}
+    </div>
+  </header>
+
+  <section class="hub-parcours">
+    <p class="hub-sections-label">Parcours</p>
+    <div class="parcours-timeline">
+      <div class="parcours-items">
+        {{ range .Site.Params.parcours }}
+        <div class="parcours-item">
+          <div class="parcours-item-card">
+            <span class="parcours-item-type">{{ .type }}</span>
+            <p class="eyebrow">{{ .date }}</p>
+            <h4 class="parcours-item-title">{{ .title }}</h4>
+            <span class="parcours-item-org">{{ .org }}</span>
+            <p class="parcours-item-desc">{{ .desc }}</p>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+
+  {{ with $latest }}
+  <section class="hub-latest" aria-label="Dernier article">
+    <p class="hub-sections-label">Dernier article</p>
+    <a href="{{ .RelPermalink }}" class="hub-latest-link">
+      <span class="hub-latest-main">
+        {{ with .CurrentSection.Title }}
+        {{ if ne . "Blog" }}<span class="hub-latest-category">{{ . }}</span>{{ end }}
+        {{ end }}
+        <span class="hub-latest-title">{{ .Title | safeHTML }}</span>
+        {{ with .Params.subtitle }}<span class="hub-latest-subtitle">{{ . }}</span>{{ end }}
+        <span class="hub-latest-meta">{{ .Date.Format "Jan 2006" }} · {{ partial "read-time.html" . }}</span>
+      </span>
+    </a>
+  </section>
+  {{ end }}
+
+  <header class="hub-sections-header">
+    <p class="hub-sections-label">Explorer</p>
+  </header>
+
+  <nav class="hub-sections" aria-label="Sections du site">
+    {{ range $i, $s := .Site.Params.sections }}
+    {{ $page := site.GetPage $s.url }}
+    {{ $count := 0 }}
+    {{ with $page }}{{ $count = len .RegularPagesRecursive }}{{ end }}
+    <a href="{{ $s.url | relURL }}" class="hub-section" style="--i:{{ $i }}">
+      <div class="hub-section-left">
+        <span class="hub-section-title">{{ $s.title }}</span>
+        {{ if gt $count 0 }}
+        <span class="hub-section-count">{{ $count }}</span>
+        {{ end }}
+      </div>
+      <span class="hub-section-desc">{{ $s.description }}</span>
+      <span class="hub-section-arrow">&rarr;</span>
+    </a>
+    {{ end }}
+  </nav>
+</div>
+{{ end }}

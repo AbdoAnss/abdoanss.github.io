@@ -1,0 +1,71 @@
+{{- $desc := "" -}}
+{{- with .Params.description -}}
+  {{- $desc = . -}}
+{{- else -}}
+  {{- with .Params.subtitle -}}
+    {{- $desc = . -}}
+  {{- else -}}
+    {{- with .Summary | plainify | truncate 160 -}}
+      {{- $desc = . -}}
+    {{- else -}}
+      {{- with .Site.Params.description -}}
+        {{- $desc = . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $metaDesc := $desc | plainify | replaceRE `\s+` " " | strings.TrimSpace -}}
+
+{{- $metaTitle := .Title | plainify | replaceRE `\s+` " " | strings.TrimSpace -}}
+{{ if .IsHome }}
+{{- $ld := dict
+  "@context" "https://schema.org"
+  "@type" "WebSite"
+  "name" .Site.Title
+  "description" $metaDesc
+  "url" (strings.TrimRight "/" .Site.BaseURL)
+-}}
+<script type="application/ld+json">{{ $ld | jsonify | safeJS }}</script>
+{{ else if eq .Layout "about" }}
+{{- $ld := dict
+  "@context" "https://schema.org"
+  "@type" "AboutPage"
+  "name" $metaTitle
+  "description" $metaDesc
+  "url" .Permalink
+-}}
+<script type="application/ld+json">{{ $ld | jsonify | safeJS }}</script>
+{{ else if .IsPage }}
+{{- $ogImage := partial "og-image.html" . | strings.TrimSpace -}}
+{{- if not $ogImage -}}{{- $ogImage = .Params.image | default .Site.Params.ogImage | absURL -}}{{- end -}}
+{{- $author := .Params.author | default .Site.Params.author -}}
+{{- $ld := dict
+  "@context" "https://schema.org"
+  "@type" "BlogPosting"
+  "headline" $metaTitle
+  "description" $metaDesc
+  "datePublished" (.Date.Format "2006-01-02T15:04:05Z07:00")
+  "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")
+  "author" (dict "@type" "Person" "name" $author)
+  "publisher" (dict "@type" "Person" "name" $author)
+  "url" .Permalink
+  "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)
+  "image" $ogImage
+  "wordCount" .WordCount
+  "inLanguage" .Site.LanguageCode
+-}}
+{{- with .CurrentSection.Title -}}{{- $ld = merge $ld (dict "articleSection" .) -}}{{- end -}}
+{{- with .Params.tags -}}{{- $ld = merge $ld (dict "keywords" .) -}}{{- end -}}
+<script type="application/ld+json">{{ $ld | jsonify | safeJS }}</script>
+
+{{- $crumbs := slice (dict "@type" "ListItem" "position" 1 "name" "Home" "item" $.Site.BaseURL) -}}
+{{- $crumbs = $crumbs | append (dict "@type" "ListItem" "position" 2 "name" "Blog" "item" (printf "%sblog/" $.Site.BaseURL)) -}}
+{{- with .CurrentSection.Title -}}
+  {{- if ne . "Blog" -}}
+  {{- $crumbs = $crumbs | append (dict "@type" "ListItem" "position" 3 "name" . "item" (printf "%sblog/?tab=%s" $.Site.BaseURL (. | urlize))) -}}
+  {{- end -}}
+{{- end -}}
+{{- $crumbs = $crumbs | append (dict "@type" "ListItem" "position" (add (len $crumbs) 1) "name" $metaTitle) -}}
+{{- $bc := dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" $crumbs -}}
+<script type="application/ld+json">{{ $bc | jsonify | safeJS }}</script>
+{{ end }}

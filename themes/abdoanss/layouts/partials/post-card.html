@@ -1,0 +1,30 @@
+<a href="{{ .RelPermalink }}" class="post-card"{{ with .CurrentSection.Title }} data-section="{{ . | urlize }}"{{ end }}>
+  {{ with .CurrentSection.Title }}
+  {{ if ne . "Blog" }}
+  <span class="post-category">{{ . }}</span>
+  {{ end }}
+  {{ end }}
+  <h2 class="post-title">{{ .Title | safeHTML }}</h2>
+  {{ with .Params.subtitle }}
+  <p class="post-subtitle">{{ . }}</p>
+  {{ end }}
+  <div class="post-meta">
+    <span>{{ .Date.Format "Jan 2006" }}</span>
+    <span class="meta-dot">&middot;</span>
+    <span>{{ partial "read-time.html" . }}</span>
+  </div>
+  <div class="post-card-share" onclick="event.preventDefault();">
+    <a href="https://x.com/intent/tweet?text={{ .Title | urlquery }}&url={{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" title="Share on X">
+      {{ partial "icons.html" "share-x" }}
+    </a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" title="Share on LinkedIn">
+      {{ partial "icons.html" "share-linkedin" }}
+    </a>
+    <a href="https://api.whatsapp.com/send?text={{ .Title | urlquery }}%20{{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" title="Share on WhatsApp">
+      {{ partial "icons.html" "share-whatsapp" }}
+    </a>
+    <button class="post-card-copy" onclick="lpCopyPostLink('{{ .Permalink }}', this); event.stopPropagation();" title="Copy link">
+      {{ partial "icons.html" "copy-link" }}
+    </button>
+  </div>
+</a>

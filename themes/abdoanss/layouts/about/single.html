@@ -1,0 +1,22 @@
+{{ define "main" }}
+<article class="about-page">
+  <header>
+    <h1>{{ .Title | safeHTML }}</h1>
+  </header>
+  {{ .Content }}
+  <div class="about-links">
+    {{ with .Params.github }}
+    <a href="{{ . }}" class="about-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+      {{ partial "icons.html" "github" }}
+      GitHub
+    </a>
+    {{ end }}
+    {{ with .Params.linkedin }}
+    <a href="{{ . }}" class="about-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+      {{ partial "icons.html" "linkedin" }}
+      LinkedIn
+    </a>
+    {{ end }}
+  </div>
+</article>
+{{ end }}

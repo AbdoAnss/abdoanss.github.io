@@ -1,0 +1,692 @@
+{{ define "main" }}
+<style>
+  /* Localized variables and overrides for this landing page */
+  :root {
+    --lp-accent: #00d4ff;
+    --lp-accent-dim: rgba(0, 212, 255, 0.12);
+    --lp-accent2: #3b82f6;
+  }
+
+  [data-theme="light"] {
+    --lp-accent: #0ea5e9;
+    --lp-accent-dim: rgba(14, 165, 233, 0.10);
+    --lp-accent2: #2563eb;
+  }
+
+  /* Reset some global article styles for the landing page feel */
+  #main-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .lp-hero {
+    text-align: center;
+    padding: 5rem 1rem 4rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .lp-hero-eyebrow {
+    color: var(--lp-accent);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .lp-hero h1 {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    font-family: var(--font-serif);
+  }
+
+  .lp-hero-desc {
+    color: var(--text-mid);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    font-weight: 300;
+  }
+
+  .lp-hero-badges {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  .lp-badge {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+  }
+
+  .lp-badge.go { border-color: #00add8; color: #00add8; }
+
+  .lp-hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .lp-btn {
+    padding: 10px 24px;
+    border-radius: 6px;
+    text-decoration: none !important;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+  }
+
+  .lp-btn-primary {
+    background: var(--text);
+    color: var(--bg) !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .lp-btn-secondary {
+    border: 1px solid var(--border);
+    color: var(--text) !important;
+  }
+
+  .lp-install-banner {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 6rem;
+  }
+
+  .lp-install-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+  }
+
+  .lp-prompt { color: var(--lp-accent); }
+  .lp-copy-btn {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 0.75rem;
+    text-decoration: underline;
+    font-family: var(--font-mono);
+  }
+
+  .lp-section {
+    max-width: 1000px;
+    margin: 0 auto 6rem;
+  }
+
+  .lp-section-title {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-bottom: 2.5rem;
+    text-align: center;
+    letter-spacing: 0.1em;
+  }
+
+  .lp-features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .lp-feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    border-radius: 12px;
+    transition: border-color 0.2s;
+  }
+  .lp-feature-card:hover { border-color: var(--lp-accent); }
+
+  .lp-feature-icon { font-size: 1.5rem; margin-bottom: 1.2rem; display: block; }
+  .lp-feature-title { font-weight: 600; margin-bottom: 0.6rem; color: var(--text); }
+  .lp-feature-desc { font-size: 0.92rem; color: var(--text-dim); font-weight: 300; }
+
+  .lp-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 4rem auto;
+    max-width: 1000px;
+  }
+
+  .lp-code-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .lp-tab-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    transition: all 0.2s;
+  }
+
+  .lp-tab-btn.active {
+    background: var(--surface);
+    color: var(--text);
+    border-color: var(--lp-accent);
+  }
+
+  .lp-code-pane { display: none; }
+  .lp-code-pane.active { display: block; }
+
+  .lp-pre {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    border-radius: 12px;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .lp-kw { color: #ff79c6; }
+  .lp-pkg { color: #50fa7b; }
+  .lp-fn { color: #50fa7b; }
+  .lp-str { color: #f1fa8c; }
+  .lp-cmt { color: #6272a4; }
+  .lp-num { color: #bd93f9; }
+
+  .lp-api-layout {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+  }
+
+  .lp-api-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .lp-api-nav-btn {
+    text-align: left;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: var(--font-sans);
+    transition: all 0.2s;
+  }
+
+  .lp-api-nav-btn:hover { color: var(--text); background: var(--surface); }
+  .lp-api-nav-btn.active {
+    background: var(--lp-accent-dim);
+    color: var(--lp-accent);
+  }
+
+  .lp-api-table-wrap { overflow-x: auto; }
+  .lp-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  .lp-table th {
+    text-align: left;
+    padding: 14px;
+    border-bottom: 2px solid var(--border);
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .lp-table td {
+    padding: 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-mid);
+    font-weight: 300;
+  }
+
+  .lp-method { font-family: var(--font-mono); font-size: 0.85rem; }
+  .lp-ns-label { color: var(--lp-accent2); font-weight: 500; margin-right: 4px; font-family: var(--font-mono); }
+  .lp-tag-sync { color: var(--good); font-size: 0.7rem; font-family: var(--font-mono); border: 1px solid var(--good); padding: 2px 6px; border-radius: 4px; }
+  .lp-tag-async { color: var(--lp-accent2); font-size: 0.7rem; font-family: var(--font-mono); border: 1px solid var(--lp-accent2); padding: 2px 6px; border-radius: 4px; }
+
+  .lp-cache-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .lp-cache-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    border-radius: 12px;
+  }
+  .lp-cache-card h3 { margin-bottom: 1rem; font-size: 1.1rem; }
+
+  .lp-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  .lp-dot-green { background: var(--good); box-shadow: 0 0 10px var(--good); }
+  .lp-dot-red { background: var(--bad); box-shadow: 0 0 10px var(--bad); }
+
+  @media (max-width: 768px) {
+    .lp-api-layout { grid-template-columns: 1fr; gap: 1.5rem; }
+    .lp-cache-cards { grid-template-columns: 1fr; }
+    .lp-hero { padding: 3rem 0; }
+  }
+</style>
+
+<!-- ═══════════════════════════════ HERO ══════════════════════════════ -->
+<div class="lp-hero">
+  <p class="lp-hero-eyebrow">Open Source · Go · REST API</p>
+  <h1>go-fantasy-pl</h1>
+  <p class="lp-hero-desc">
+    A typed Go client for the Fantasy Premier League API. Fetch players, teams,
+    fixtures, managers, and leagues — with built-in rate limiting, caching, and
+    async helpers for concurrent workloads.
+  </p>
+  <div class="lp-hero-badges">
+    <span class="lp-badge go">Go 1.21+</span>
+    <span class="lp-badge">FPL API</span>
+    <span class="lp-badge">Rate Limiting</span>
+    <span class="lp-badge">In-Memory Cache</span>
+    <span class="lp-badge">Redis Cache</span>
+    <span class="lp-badge">Async / Concurrent</span>
+  </div>
+  <div class="lp-hero-actions">
+    <a href="https://github.com/AbdoAnss/go-fantasy-pl" class="lp-btn lp-btn-primary" target="_blank" rel="noopener">
+      {{ partial "icons.html" "github-sm" }}
+      View on GitHub
+    </a>
+    <a href="#quickstart" class="lp-btn lp-btn-secondary">Quick Start ↓</a>
+  </div>
+</div>
+
+<!-- ════════════════════════════ INSTALL ══════════════════════════════ -->
+<div class="lp-install-banner">
+  <div class="lp-install-box">
+    <span class="lp-prompt">$</span>
+    <span class="lp-cmd">go get github.com/AbdoAnss/go-fantasy-pl</span>
+    <button class="lp-copy-btn" onclick="lpCopyInstall(this)">copy</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ FEATURES ══════════════════════════════ -->
+<section class="lp-section" id="features">
+  <p class="lp-section-title">What you get</p>
+  <div class="lp-features-grid">
+    <div class="lp-feature-card">
+      <span class="lp-feature-icon">🔷</span>
+      <div class="lp-feature-title">Typed Models</div>
+      <div class="lp-feature-desc">Strongly typed Go structs for all FPL responses — no more manual JSON wrestling.</div>
+    </div>
+    <div class="lp-feature-card">
+      <span class="lp-feature-icon">⚡</span>
+      <div class="lp-feature-title">Async Helpers</div>
+      <div class="lp-feature-desc">Fetch players, teams, and fixtures concurrently via channel-based helpers.</div>
+    </div>
+    <div class="lp-feature-card">
+      <span class="lp-feature-icon">🛡️</span>
+      <div class="lp-feature-title">Rate Limiting</div>
+      <div class="lp-feature-desc">Built-in rate limiter to avoid hitting FPL API limits in high-frequency workloads.</div>
+    </div>
+    <div class="lp-feature-card">
+      <span class="lp-feature-icon">💾</span>
+      <div class="lp-feature-title">Pluggable Cache</div>
+      <div class="lp-feature-desc">In-memory cache out of the box. Swap to Redis for shared cache across instances.</div>
+    </div>
+    <div class="lp-feature-card">
+      <span class="lp-feature-icon">🏆</span>
+      <div class="lp-feature-title">Full Coverage</div>
+      <div class="lp-feature-desc">Bootstrap, players, teams, fixtures, managers, leagues — the full FPL surface.</div>
+    </div>
+    <div class="lp-feature-card">
+      <span class="lp-feature-icon">📦</span>
+      <div class="lp-feature-title">Simple Setup</div>
+      <div class="lp-feature-desc">One <code>NewClient()</code> call and you're ready. Zero mandatory config.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="lp-divider" />
+
+<!-- ════════════════════════ QUICK START ══════════════════════════════ -->
+<section class="lp-section" id="quickstart">
+  <p class="lp-section-title">Usage</p>
+  <div class="lp-code-tabs">
+    <button class="lp-tab-btn active" onclick="lpSwitchTab(this, 'basic')">Basic</button>
+    <button class="lp-tab-btn" onclick="lpSwitchTab(this, 'async')">Async</button>
+    <button class="lp-tab-btn" onclick="lpSwitchTab(this, 'batch')">Batch</button>
+  </div>
+
+  <!-- BASIC -->
+  <div id="lp-tab-basic" class="lp-code-pane active">
+    <pre class="lp-pre"><span class="lp-kw">package</span> <span class="lp-pkg">main</span>
+
+<span class="lp-kw">import</span> (
+    <span class="lp-str">"fmt"</span>
+    <span class="lp-str">"log"</span>
+
+    <span class="lp-str">"github.com/AbdoAnss/go-fantasy-pl/client"</span>
+)
+
+<span class="lp-kw">func</span> <span class="lp-fn">main</span>() {
+    c, err := client.<span class="lp-fn">NewClient</span>()
+    <span class="lp-kw">if</span> err != <span class="lp-kw">nil</span> {
+        log.<span class="lp-fn">Fatal</span>(err)
+    }
+
+    teams, err := c.Teams.<span class="lp-fn">GetAllTeams</span>()
+    <span class="lp-kw">if</span> err != <span class="lp-kw">nil</span> { log.<span class="lp-fn">Fatal</span>(err) }
+
+    players, err := c.Players.<span class="lp-fn">GetAllPlayers</span>()
+    <span class="lp-kw">if</span> err != <span class="lp-kw">nil</span> { log.<span class="lp-fn">Fatal</span>(err) }
+
+    gw, err := c.Bootstrap.<span class="lp-fn">GetCurrentGameWeek</span>()
+    <span class="lp-kw">if</span> err != <span class="lp-kw">nil</span> { log.<span class="lp-fn">Fatal</span>(err) }
+
+    fmt.<span class="lp-fn">Printf</span>(<span class="lp-str">"GW %d — teams: %d, players: %d\n"</span>, gw, <span class="lp-fn">len</span>(teams), <span class="lp-fn">len</span>(players))
+}</pre>
+  </div>
+
+  <!-- ASYNC -->
+  <div id="lp-tab-async" class="lp-code-pane">
+    <pre class="lp-pre"><span class="lp-kw">package</span> <span class="lp-pkg">main</span>
+
+<span class="lp-kw">import</span> (
+    <span class="lp-str">"context"</span>
+    <span class="lp-str">"fmt"</span>
+    <span class="lp-str">"log"</span>
+    <span class="lp-str">"time"</span>
+
+    <span class="lp-str">"github.com/AbdoAnss/go-fantasy-pl/client"</span>
+)
+
+<span class="lp-kw">func</span> <span class="lp-fn">main</span>() {
+    c, err := client.<span class="lp-fn">NewClient</span>()
+    <span class="lp-kw">if</span> err != <span class="lp-kw">nil</span> { log.<span class="lp-fn">Fatal</span>(err) }
+
+    ctx, cancel := context.<span class="lp-fn">WithTimeout</span>(context.<span class="lp-fn">Background</span>(), <span class="lp-num">30</span>*time.Second)
+    <span class="lp-kw">defer</span> <span class="lp-fn">cancel</span>()
+
+    <span class="lp-cmt">// Launch all three fetches concurrently</span>
+    playersCh  := c.Players.<span class="lp-fn">GetAllPlayersAsync</span>(ctx)
+    teamsCh    := c.Teams.<span class="lp-fn">GetAllTeamsAsync</span>(ctx)
+    fixturesCh := c.Fixtures.<span class="lp-fn">GetAllFixturesAsync</span>(ctx)
+
+    players  := &lt;-playersCh
+    teams    := &lt;-teamsCh
+    fixtures := &lt;-fixturesCh
+
+    <span class="lp-kw">if</span> players.Err  != <span class="lp-kw">nil</span> { log.<span class="lp-fn">Fatal</span>(players.Err) }
+    <span class="lp-kw">if</span> teams.Err    != <span class="lp-kw">nil</span> { log.<span class="lp-fn">Fatal</span>(teams.Err) }
+    <span class="lp-kw">if</span> fixtures.Err != <span class="lp-kw">nil</span> { log.<span class="lp-fn">Fatal</span>(fixtures.Err) }
+
+    fmt.<span class="lp-fn">Printf</span>(<span class="lp-str">"players: %d, teams: %d, fixtures: %d\n"</span>,
+        <span class="lp-fn">len</span>(players.Value), <span class="lp-fn">len</span>(teams.Value), <span class="lp-fn">len</span>(fixtures.Value))
+}</pre>
+  </div>
+
+  <!-- BATCH -->
+  <div id="lp-tab-batch" class="lp-code-pane">
+    <pre class="lp-pre"><span class="lp-kw">package</span> <span class="lp-pkg">main</span>
+
+<span class="lp-kw">import</span> (
+    <span class="lp-str">"context"</span>
+    <span class="lp-str">"fmt"</span>
+    <span class="lp-str">"log"</span>
+
+    <span class="lp-str">"github.com/AbdoAnss/go-fantasy-pl/client"</span>
+)
+
+<span class="lp-kw">func</span> <span class="lp-fn">main</span>() {
+    c, _ := client.<span class="lp-fn">NewClient</span>()
+    ctx  := context.<span class="lp-fn">Background</span>()
+
+    <span class="lp-cmt">// Fetch histories for multiple players concurrently</span>
+    ids := []<span class="lp-kw">int</span>{<span class="lp-num">1</span>, <span class="lp-num">2</span>, <span class="lp-num">3</span>, <span class="lp-num">100</span>, <span class="lp-num">200</span>}
+    results, err := c.Players.<span class="lp-fn">GetPlayerHistoriesBatch</span>(ctx, ids)
+    <span class="lp-kw">if</span> err != <span class="lp-kw">nil</span> { log.<span class="lp-fn">Fatal</span>(err) }
+
+    <span class="lp-kw">for</span> id, history := <span class="lp-kw">range</span> results {
+        fmt.<span class="lp-fn">Printf</span>(<span class="lp-str">"player %d — %d GW entries\n"</span>, id, <span class="lp-fn">len</span>(history))
+    }
+}</pre>
+  </div>
+</section>
+
+<hr class="lp-divider" />
+
+<!-- ══════════════════════════ API REFERENCE ══════════════════════════ -->
+<section class="lp-section" id="api">
+  <p class="lp-section-title">API Reference</p>
+
+  <div class="lp-api-layout">
+    <nav class="lp-api-nav" aria-label="Filter by namespace">
+      <button class="lp-api-nav-btn active" onclick="lpFilterNamespace('all', this)">All</button>
+      <button class="lp-api-nav-btn" onclick="lpFilterNamespace('Bootstrap', this)">Bootstrap</button>
+      <button class="lp-api-nav-btn" onclick="lpFilterNamespace('Players', this)">Players</button>
+      <button class="lp-api-nav-btn" onclick="lpFilterNamespace('Teams', this)">Teams</button>
+      <button class="lp-api-nav-btn" onclick="lpFilterNamespace('Fixtures', this)">Fixtures</button>
+      <button class="lp-api-nav-btn" onclick="lpFilterNamespace('Managers', this)">Managers</button>
+      <button class="lp-api-nav-btn" onclick="lpFilterNamespace('Leagues', this)">Leagues</button>
+    </nav>
+
+    <div>
+      <div class="lp-api-table-wrap">
+        <table class="lp-table">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Description</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody id="lp-api-tbody">
+            <!-- Bootstrap -->
+            <tr data-ns="Bootstrap">
+              <td class="lp-method"><span class="lp-ns-label">Bootstrap</span>GetTeams()</td>
+              <td>All teams in the current season (from bootstrap data)</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <tr data-ns="Bootstrap">
+              <td class="lp-method"><span class="lp-ns-label">Bootstrap</span>GetPlayers()</td>
+              <td>All players in the current season (from bootstrap data)</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <tr data-ns="Bootstrap">
+              <td class="lp-method"><span class="lp-ns-label">Bootstrap</span>GetGameWeeks()</td>
+              <td>All gameweeks / events in the current season</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <tr data-ns="Bootstrap">
+              <td class="lp-method"><span class="lp-ns-label">Bootstrap</span>GetCurrentGameWeek()</td>
+              <td>Current gameweek ID</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <tr data-ns="Bootstrap">
+              <td class="lp-method"><span class="lp-ns-label">Bootstrap</span>GetSettings()</td>
+              <td>Global FPL game settings</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <!-- Players -->
+            <tr data-ns="Players">
+              <td class="lp-method"><span class="lp-ns-label">Players</span>GetAllPlayers()</td>
+              <td>All players in the current season</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <tr data-ns="Players">
+              <td class="lp-method"><span class="lp-ns-label">Players</span>GetPlayer(id)</td>
+              <td>One player by player ID</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <tr data-ns="Players">
+              <td class="lp-method"><span class="lp-ns-label">Players</span>GetPlayerHistory(id)</td>
+              <td>Detailed gameweek history for one player</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <tr data-ns="Players">
+              <td class="lp-method"><span class="lp-ns-label">Players</span>GetAllPlayersAsync(ctx)</td>
+              <td>All players via async channel result</td>
+              <td><span class="lp-tag-async">async</span></td>
+            </tr>
+            <tr data-ns="Players">
+              <td class="lp-method"><span class="lp-ns-label">Players</span>GetPlayerHistoryAsync(ctx, id)</td>
+              <td>One player history via async channel result</td>
+              <td><span class="lp-tag-async">async</span></td>
+            </tr>
+            <tr data-ns="Players">
+              <td class="lp-method"><span class="lp-ns-label">Players</span>GetPlayerHistoriesBatch(ctx, ids)</td>
+              <td>Multiple player histories concurrently</td>
+              <td><span class="lp-tag-async">async</span></td>
+            </tr>
+            <!-- Teams -->
+            <tr data-ns="Teams">
+              <td class="lp-method"><span class="lp-ns-label">Teams</span>GetAllTeams()</td>
+              <td>All teams in the current season</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <tr data-ns="Teams">
+              <td class="lp-method"><span class="lp-ns-label">Teams</span>GetTeam(id)</td>
+              <td>One team by team ID</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <tr data-ns="Teams">
+              <td class="lp-method"><span class="lp-ns-label">Teams</span>GetAllTeamsAsync(ctx)</td>
+              <td>All teams via async channel result</td>
+              <td><span class="lp-tag-async">async</span></td>
+            </tr>
+            <!-- Fixtures -->
+            <tr data-ns="Fixtures">
+              <td class="lp-method"><span class="lp-ns-label">Fixtures</span>GetAllFixtures()</td>
+              <td>All fixtures for the season</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <tr data-ns="Fixtures">
+              <td class="lp-method"><span class="lp-ns-label">Fixtures</span>GetFixture(id)</td>
+              <td>One fixture by fixture ID</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <tr data-ns="Fixtures">
+              <td class="lp-method"><span class="lp-ns-label">Fixtures</span>GetAllFixturesAsync(ctx)</td>
+              <td>All fixtures via async channel result</td>
+              <td><span class="lp-tag-async">async</span></td>
+            </tr>
+            <!-- Managers -->
+            <tr data-ns="Managers">
+              <td class="lp-method"><span class="lp-ns-label">Managers</span>GetManager(id)</td>
+              <td>Manager profile by manager ID</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <tr data-ns="Managers">
+              <td class="lp-method"><span class="lp-ns-label">Managers</span>GetCurrentTeam(managerID)</td>
+              <td>Current gameweek picks for a manager</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <tr data-ns="Managers">
+              <td class="lp-method"><span class="lp-ns-label">Managers</span>GetManagerHistory(id)</td>
+              <td>Manager season history</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <!-- Leagues -->
+            <tr data-ns="Leagues">
+              <td class="lp-method"><span class="lp-ns-label">Leagues</span>GetClassicLeagueStandings(id, page)</td>
+              <td>Classic league standings for a page</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <tr data-ns="Leagues">
+              <td class="lp-method"><span class="lp-ns-label">Leagues</span>GetTotalPages(league)</td>
+              <td>Compute total standings pages</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="lp-api-note" style="margin-top:1.5rem; font-size: 0.82rem; color: var(--text-dim); font-weight: 300;">
+        <code>Leagues.GetH2HLeague(id)</code> exists in source as commented-out code and is not currently an active method.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="lp-divider" />
+
+<!-- ═══════════════════════════ CACHE ═════════════════════════════════ -->
+<section class="lp-section" id="cache">
+  <p class="lp-section-title">Caching</p>
+  <div class="lp-cache-cards">
+    <div class="lp-cache-card">
+      <h3><span class="lp-dot lp-dot-green"></span> In-Memory (default)</h3>
+      <p class="lp-feature-desc">Zero-config TTL cache. Works out of the box for single-process use cases. Ideal for scripts, CLIs, and one-off data pulls.</p>
+    </div>
+    <div class="lp-cache-card">
+      <h3><span class="lp-dot lp-dot-red"></span> Redis</h3>
+      <p class="lp-feature-desc">Plug in a Redis backend to share cache across multiple instances. Useful for distributed services or repeated scheduled jobs.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  function lpCopyInstall(btn) {
+    const cmd = "go get github.com/AbdoAnss/go-fantasy-pl";
+    navigator.clipboard.writeText(cmd).then(() => {
+      const original = btn.textContent;
+      btn.textContent = "copied!";
+      setTimeout(() => { btn.textContent = original; }, 2000);
+    });
+  }
+
+  function lpSwitchTab(btn, tabId) {
+    document.querySelectorAll('.lp-tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.lp-code-pane').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    const target = document.getElementById('lp-tab-' + tabId);
+    if (target) target.classList.add('active');
+  }
+
+  function lpFilterNamespace(ns, btn) {
+    document.querySelectorAll('.lp-api-nav-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    const rows = document.querySelectorAll('#lp-api-tbody tr');
+    rows.forEach(row => {
+      if (ns === 'all' || row.dataset.ns === ns) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+</script>
+{{ end }}

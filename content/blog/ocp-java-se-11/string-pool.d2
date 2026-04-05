@@ -1,0 +1,22 @@
+direction: right
+variables: {
+  label: "Stack / Variables"
+  a: "String a"
+  b: "String b"
+  c: "String c"
+}
+
+constant_pool: {
+  label: "String Constant Pool"
+  h1: "\"hello\""
+}
+
+heap_area: {
+  label: "Heap (Outside Pool)"
+  obj: "new String(\"hello\")"
+}
+
+variables.a -> constant_pool.h1: "=="
+variables.b -> constant_pool.h1: "=="
+variables.c -> heap_area.obj
+heap_area.obj -> constant_pool.h1: "intern()"

@@ -1,0 +1,30 @@
+direction: right
+
+Client: {
+  shape: person
+  label: "User Request"
+}
+
+API: {
+  label: "Django API"
+}
+
+Redis: {
+  shape: cylinder
+  label: "Message Broker"
+}
+
+Worker: {
+  label: "Celery Worker"
+}
+
+DB: {
+  shape: cylinder
+  label: "PostgreSQL"
+}
+
+Client -> API: POST /task
+API -> Redis: Push Task
+Redis -> Worker: Pull Task
+Worker -> DB: Save Result
+Worker -> API: Signal Done

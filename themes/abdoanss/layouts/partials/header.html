@@ -1,0 +1,24 @@
+<a href="#main-content" class="skip-to-content">Skip to content</a>
+<div class="container">
+  <header class="site-header">
+    <div class="site-header-row">
+      {{ if .IsHome }}
+      <h1 class="site-name"><a href="{{ "/" | relURL }}">{{ .Site.Title }}</a></h1>
+      {{ else }}
+      <a href="{{ "/" | relURL }}" class="site-name">{{ .Site.Title }}</a>
+      {{ end }}
+      <nav class="site-nav-right">
+        {{- $section := "" -}}
+        {{- with .CurrentSection -}}{{ $section = .Type }}{{- end -}}
+        <a href="{{ "/blog/" | relURL }}" class="nav-link{{ if eq $section "blog" }} nav-active{{ end }}">blog</a>
+        <a href="{{ "/projects/" | relURL }}" class="nav-link{{ if eq $section "projects" }} nav-active{{ end }}">projets</a>
+        <a href="{{ "/tools/" | relURL }}" class="nav-link{{ if eq $section "tools" }} nav-active{{ end }}">outils</a>
+        <a href="{{ "/notes/" | relURL }}" class="nav-link{{ if eq $section "notes" }} nav-active{{ end }}">notes</a>
+        <a href="{{ "/about/" | relURL }}" class="nav-link{{ if eq .RelPermalink "/about/" }} nav-active{{ end }}">à propos</a>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle colour theme">
+          {{ partial "icons.html" "sun" }}
+          {{ partial "icons.html" "moon" }}
+        </button>
+      </nav>
+    </div>
+  </header>
