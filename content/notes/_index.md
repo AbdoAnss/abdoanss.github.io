@@ -1,4 +1,4 @@
 ---
 title: "Notes"
-description: "Pensées courtes et apprentissages quotidiens (TIL)."
+description: "Short thoughts and daily learnings."
 ---

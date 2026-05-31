@@ -234,6 +234,189 @@
     lb.addEventListener('click', (e) => { if (e.target === lb) closeLb(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLb(); });
   }
+
+  // ── Backend latency simulator ──
+  const simulator = document.querySelector('[data-latency-simulator]');
+  if (simulator) {
+    const runBtn = simulator.querySelector('[data-sim-run]');
+    const resetBtn = simulator.querySelector('[data-sim-reset]');
+    const status = simulator.querySelector('[data-sim-status]');
+    const blockingTime = simulator.querySelector('[data-sim-blocking-time]');
+    const asyncTime = simulator.querySelector('[data-sim-async-time]');
+    const queueDepth = simulator.querySelector('[data-sim-queue-depth]');
+    const blockingResult = simulator.querySelector('[data-sim-blocking-result]');
+    const asyncResult = simulator.querySelector('[data-sim-async-result]');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let timers = [];
+
+    const trace = [
+      {
+        delay: 0,
+        status: 'Validating request at the API boundary',
+        blocking: { x: '29%', y: '42%', time: 80 },
+        async: { x: '28%', y: '34%', time: 70 },
+        active: ['blocking-validate', 'async-validate'],
+        complete: []
+      },
+      {
+        delay: 520,
+        status: 'Blocking request enters heavy work; async path enqueues a job',
+        blocking: { x: '52%', y: '42%', time: 650 },
+        async: { x: '51%', y: '34%', time: 160 },
+        queue: 1,
+        active: ['blocking-work', 'async-enqueue'],
+        complete: ['blocking-validate', 'async-validate']
+      },
+      {
+        delay: 1100,
+        status: 'Async API returns 202 Accepted while worker continues',
+        blocking: { x: '52%', y: '42%', time: 1250 },
+        async: { x: '51%', y: '34%', time: 180 },
+        queue: 1,
+        ack: true,
+        active: ['blocking-work', 'async-response'],
+        complete: ['blocking-validate', 'async-validate', 'async-enqueue']
+      },
+      {
+        delay: 1720,
+        status: 'Worker pulls the queued task in the background',
+        blocking: { x: '52%', y: '42%', time: 2180 },
+        async: { x: '72%', y: '62%', time: 180 },
+        queue: 1,
+        ack: true,
+        active: ['blocking-work', 'async-worker'],
+        complete: ['blocking-validate', 'async-validate', 'async-enqueue', 'async-response']
+      },
+      {
+        delay: 2480,
+        status: 'Both paths persist the processed result',
+        blocking: { x: '75%', y: '42%', time: 2620 },
+        async: { x: '94%', y: '62%', time: 180 },
+        queue: 0,
+        ack: true,
+        active: ['blocking-db', 'async-db'],
+        complete: ['blocking-validate', 'blocking-work', 'async-validate', 'async-enqueue', 'async-response', 'async-worker']
+      },
+      {
+        delay: 3060,
+        status: 'Trace complete / perceived latency diverged',
+        blocking: { x: '94%', y: '42%', time: 2700 },
+        async: { x: '94%', y: '62%', time: 180 },
+        queue: 0,
+        ack: true,
+        active: ['blocking-response'],
+        complete: ['blocking-validate', 'blocking-work', 'blocking-db', 'async-validate', 'async-enqueue', 'async-response', 'async-worker', 'async-db']
+      }
+    ];
+
+    const clearTimers = () => {
+      timers.forEach((timer) => window.clearTimeout(timer));
+      timers = [];
+    };
+
+    const formatTime = (value) => {
+      if (value >= 1000) return (value / 1000).toFixed(value % 1000 === 0 ? 0 : 1) + 's';
+      return Math.round(value) + 'ms';
+    };
+
+    const setNumber = (node, value, duration) => {
+      if (!node) return;
+      const from = Number(node.dataset.value || 0);
+      node.dataset.value = String(value);
+      if (reducedMotion || duration <= 0) {
+        node.textContent = formatTime(value);
+        return;
+      }
+      const start = performance.now();
+      const tick = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        node.textContent = formatTime(from + (value - from) * eased);
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+
+    const updateStages = (active, complete) => {
+      const activeSet = new Set(active || []);
+      const completeSet = new Set(complete || []);
+      simulator.querySelectorAll('[data-stage]').forEach((step) => {
+        const stage = step.dataset.stage;
+        step.classList.toggle('is-active', activeSet.has(stage));
+        step.classList.toggle('is-complete', completeSet.has(stage));
+      });
+    };
+
+    const applyFrame = (frame, duration) => {
+      simulator.style.setProperty('--blocking-x', frame.blocking.x);
+      simulator.style.setProperty('--blocking-y', frame.blocking.y);
+      simulator.style.setProperty('--async-x', frame.async.x);
+      simulator.style.setProperty('--async-y', frame.async.y);
+      if (status) status.textContent = frame.status;
+      if (queueDepth) queueDepth.textContent = String(frame.queue || 0);
+      simulator.classList.toggle('is-ack-visible', Boolean(frame.ack));
+      updateStages(frame.active, frame.complete);
+      setNumber(blockingTime, frame.blocking.time, duration);
+      setNumber(asyncTime, frame.async.time, duration);
+    };
+
+    const reset = () => {
+      clearTimers();
+      simulator.classList.remove('is-running', 'is-complete', 'is-ack-visible');
+      simulator.style.setProperty('--blocking-x', '6%');
+      simulator.style.setProperty('--blocking-y', '42%');
+      simulator.style.setProperty('--async-x', '6%');
+      simulator.style.setProperty('--async-y', '34%');
+      if (status) status.textContent = 'Idle / ready to trace';
+      if (queueDepth) queueDepth.textContent = '0';
+      if (blockingTime) {
+        blockingTime.dataset.value = '0';
+        blockingTime.textContent = '0ms';
+      }
+      if (asyncTime) {
+        asyncTime.dataset.value = '0';
+        asyncTime.textContent = '0ms';
+      }
+      if (blockingResult) blockingResult.textContent = 'User waits ~2.7s';
+      if (asyncResult) asyncResult.textContent = 'User gets response in ~180ms';
+      updateStages([], []);
+      if (runBtn) runBtn.disabled = false;
+    };
+
+    const run = () => {
+      reset();
+      simulator.classList.add('is-running');
+      if (runBtn) runBtn.disabled = true;
+
+      if (reducedMotion) {
+        applyFrame(trace[trace.length - 1], 0);
+        updateStages([], ['blocking-validate', 'blocking-work', 'blocking-db', 'blocking-response', 'async-validate', 'async-enqueue', 'async-response', 'async-worker', 'async-db']);
+        simulator.classList.add('is-complete');
+        simulator.classList.remove('is-running');
+        if (runBtn) runBtn.disabled = false;
+        return;
+      }
+
+      trace.forEach((frame, index) => {
+        timers.push(window.setTimeout(() => {
+          applyFrame(frame, 460);
+          if (index === trace.length - 1) {
+            timers.push(window.setTimeout(() => {
+              simulator.classList.add('is-complete');
+              simulator.classList.remove('is-running');
+              updateStages([], ['blocking-validate', 'blocking-work', 'blocking-db', 'blocking-response', 'async-validate', 'async-enqueue', 'async-response', 'async-worker', 'async-db']);
+              if (runBtn) runBtn.disabled = false;
+            }, 560));
+          }
+        }, frame.delay));
+      });
+    };
+
+    if (runBtn) runBtn.addEventListener('click', run);
+    if (resetBtn) resetBtn.addEventListener('click', reset);
+    reset();
+  }
+
   // ── Non-breaking hyphens ──
   // Replace plain hyphens in prose text with U+2011 (non-breaking hyphen)
   // so hyphenated words are never split across lines.

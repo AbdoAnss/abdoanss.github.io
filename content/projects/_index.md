@@ -1,4 +1,4 @@
 ---
 title: "Projets"
-description: "Sélection de mes réalisations personnelles et académiques."
+description: "Selected personal, academic, and software engineering work."
 ---

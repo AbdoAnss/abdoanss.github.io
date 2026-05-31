@@ -1,4 +1,4 @@
 ---
 title: "Outils"
-description: "Utilitaires interactifs et expérimentations."
+description: "Interactive utilities and experiments."
 ---

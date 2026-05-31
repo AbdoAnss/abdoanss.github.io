@@ -1,0 +1,112 @@
+{{ define "nav-back" }}<a href="{{ "/tools/" | relURL }}" class="nav-back">&larr; Tools</a>{{ end }}
+
+{{ define "main" }}
+<article class="latency-tool" data-latency-simulator>
+  <header class="latency-hero">
+    <div class="latency-hero-copy">
+      <div class="latency-kicker">
+        <span>TRACE.001</span>
+        <span>BACKEND SYSTEMS</span>
+      </div>
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.subtitle }}
+      <p class="subtitle">{{ . }}</p>
+      {{ end }}
+    </div>
+    <div class="latency-controls" aria-label="Simulator controls">
+      <button class="latency-button latency-button-primary" type="button" data-sim-run>
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M4.5 2.8v10.4L12 8 4.5 2.8z" fill="currentColor"/>
+        </svg>
+        <span>Run trace</span>
+      </button>
+      <button class="latency-button" type="button" data-sim-reset>
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M12.5 5.5A5 5 0 1 0 13 8" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round"/>
+          <path d="M12.5 2.2v3.3H9.2" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Reset</span>
+      </button>
+    </div>
+  </header>
+
+  <section class="latency-board" aria-label="Backend latency simulation">
+    <div class="latency-board-top">
+      <span>PERCEIVED LATENCY</span>
+      <span data-sim-status>Idle / ready to trace</span>
+    </div>
+
+    <div class="latency-lanes">
+      <section class="latency-lane latency-lane-blocking" aria-labelledby="blocking-title">
+        <div class="latency-lane-heading">
+          <span>LANE A</span>
+          <h2 id="blocking-title">Blocking API</h2>
+        </div>
+        <div class="latency-flow" aria-hidden="true">
+          <div class="latency-rail"></div>
+          <span class="latency-node is-client" style="--x: 6%; --y: 42%">Client</span>
+          <span class="latency-node" style="--x: 29%; --y: 42%">API</span>
+          <span class="latency-node is-work" style="--x: 52%; --y: 42%">Heavy Work</span>
+          <span class="latency-node" style="--x: 75%; --y: 42%">Database</span>
+          <span class="latency-node is-response" style="--x: 94%; --y: 42%">Response</span>
+          <span class="latency-packet latency-packet-blocking" data-packet-blocking>REQ</span>
+        </div>
+        <ol class="latency-steps">
+          <li data-stage="blocking-validate"><span>Validate request</span><b>80ms</b></li>
+          <li data-stage="blocking-work"><span>Run heavy processing</span><b>2.35s</b></li>
+          <li data-stage="blocking-db"><span>Write result</span><b>270ms</b></li>
+          <li data-stage="blocking-response"><span>Return response</span><b>2.7s</b></li>
+        </ol>
+        <div class="latency-meter latency-meter-wait">
+          <span>User waits</span>
+          <strong data-sim-blocking-time>0ms</strong>
+        </div>
+      </section>
+
+      <section class="latency-lane latency-lane-async" aria-labelledby="async-title">
+        <div class="latency-lane-heading">
+          <span>LANE B</span>
+          <h2 id="async-title">Async Queue + Worker</h2>
+        </div>
+        <div class="latency-flow latency-flow-async" aria-hidden="true">
+          <div class="latency-rail"></div>
+          <div class="latency-rail latency-rail-worker"></div>
+          <span class="latency-node is-client" style="--x: 6%; --y: 34%">Client</span>
+          <span class="latency-node" style="--x: 28%; --y: 34%">API</span>
+          <span class="latency-node is-queue" style="--x: 51%; --y: 34%">Queue</span>
+          <span class="latency-node is-worker" style="--x: 72%; --y: 62%">Worker</span>
+          <span class="latency-node" style="--x: 94%; --y: 62%">Database</span>
+          <span class="latency-packet latency-packet-async" data-packet-async>JOB</span>
+          <span class="latency-ack" data-sim-ack>202 Accepted</span>
+        </div>
+        <ol class="latency-steps">
+          <li data-stage="async-validate"><span>Validate request</span><b>70ms</b></li>
+          <li data-stage="async-enqueue"><span>Enqueue job</span><b>90ms</b></li>
+          <li data-stage="async-response"><span>Return 202 Accepted</span><b>180ms</b></li>
+          <li data-stage="async-worker"><span>Worker processes task</span><b>2.35s</b></li>
+          <li data-stage="async-db"><span>Persist result</span><b>270ms</b></li>
+        </ol>
+        <div class="latency-meter latency-meter-fast">
+          <span>User gets response in</span>
+          <strong data-sim-async-time>0ms</strong>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="latency-summary" aria-live="polite">
+    <div class="latency-summary-item">
+      <span>QUEUE DEPTH</span>
+      <strong data-sim-queue-depth>0</strong>
+    </div>
+    <div class="latency-summary-item">
+      <span>Blocking API</span>
+      <strong data-sim-blocking-result>User waits ~2.7s</strong>
+    </div>
+    <div class="latency-summary-item">
+      <span>Async Queue + Worker</span>
+      <strong data-sim-async-result>User gets response in ~180ms</strong>
+    </div>
+  </section>
+</article>
+{{ end }}
