@@ -1,13 +1,13 @@
 ---
-title: "À propos"
-subtitle: "Étudiant en génie logiciel passionné par l’algorithmique et le développement."
+title: "About"
+subtitle: "Software engineering student interested in algorithms, backend systems, and practical engineering."
 layout: "about"
 github: "https://github.com/AbdoAnss"
 linkedin: "https://www.linkedin.com/in/abdoanss/"
 ---
 
-Je m'appelle Abdessamad Anssem. Je suis actuellement étudiant en génie logiciel à l'Université de Bretagne Occidentale à Brest et élève ingénieur à l'Institut National des Postes et Télécoms de Rabat dans le cadre d'une double diplomation.
+My name is Abdessamad Anssem. I am currently studying software engineering at the Université de Bretagne Occidentale in Brest and engineering at the Institut National des Postes et Télécommunications in Rabat as part of a double-degree program.
 
-Passionné par l'algorithmique et les mathématiques, je développe principalement en Java, avec une attirance particulière pour Golang et Rust. J'ai travaillé sur des projets variés, allant du développement web à l'ingénierie des données. J'aime découvrir et apprendre de nouvelles choses.
+I am especially interested in algorithms, mathematics, backend engineering, and distributed systems. I mainly work with Java, with a growing interest in Go and Rust. My projects span web development, data engineering, asynchronous workflows, and developer tooling.
 
-Mon parcours académique et professionnel m'a permis d'acquérir une solide base en informatique, tout en développant une curiosité constante pour les nouvelles technologies et les meilleures pratiques de développement.
+My academic and professional path has given me a solid computer science foundation and a constant curiosity for reliable systems, clean architecture, and engineering practices that make software easier to understand, operate, and evolve.

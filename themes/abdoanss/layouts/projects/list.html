@@ -35,10 +35,10 @@
       {{ end }}
       <div class="project-links">
         {{ with .Params.repo }}
-        <a href="{{ . }}" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Source code">{{ partial "icons.html" "github-sm" }} code</a>
+        <a href="{{ . }}" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="{{ i18n "source_code" }}">{{ partial "icons.html" "github-sm" }} code</a>
         {{ end }}
         {{ with .Params.url }}
-        <a href="{{ . }}" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="Live demo">{{ partial "icons.html" "external" }} live</a>
+        <a href="{{ . }}" target="_blank" rel="noopener noreferrer" class="project-link" aria-label="{{ i18n "live_demo" }}">{{ partial "icons.html" "external" }} live</a>
         {{ end }}
       </div>
     </div>
@@ -46,6 +46,6 @@
   {{ end }}
 </div>
 {{ else }}
-<p class="section-empty">No projects yet.</p>
+<p class="section-empty">{{ i18n "no_projects" }}</p>
 {{ end }}
 {{ end }}

@@ -3,13 +3,13 @@
 {{ $paginator := .Paginate ($allPosts.ByDate.Reverse) }}
 
 <header class="article-header">
-  <div class="eyebrow">Series</div>
+  <div class="eyebrow">{{ i18n "series" }}</div>
   <h1>{{ .Title }}</h1>
   {{ with .Description }}
   <p class="subtitle">{{ . }}</p>
   {{ end }}
   <div class="meta">
-    <span>{{ len $allPosts }} {{ if eq (len $allPosts) 1 }}post{{ else }}posts{{ end }}</span>
+    <span>{{ len $allPosts }} {{ i18n "post_count" (len $allPosts) }}</span>
   </div>
 </header>
 
@@ -21,10 +21,10 @@
 
 <nav class="pagination-nav">
   {{ if $paginator.HasPrev }}
-  <a href="{{ $paginator.Prev.URL }}" class="pagination-btn">&larr; newer posts</a>
+  <a href="{{ $paginator.Prev.URL }}" class="pagination-btn">&larr; {{ i18n "newer_posts" }}</a>
   {{ else }}<span></span>{{ end }}
   {{ if $paginator.HasNext }}
-  <a href="{{ $paginator.Next.URL }}" class="pagination-btn">older posts &rarr;</a>
+  <a href="{{ $paginator.Next.URL }}" class="pagination-btn">{{ i18n "older_posts" }} &rarr;</a>
   {{ else }}<span></span>{{ end }}
 </nav>
 {{ end }}

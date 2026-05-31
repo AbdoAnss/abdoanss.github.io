@@ -8,5 +8,5 @@
   {{- $content = replaceRE `(?s)<svg[^>]*>.*?</svg>` "" $content -}}
   {{- $content = replaceRE `(?s)<div class="code-block">.*?</div>\s*</div>` "" $content -}}
   {{- $words := countwords ($content | plainify) -}}
-  {{- div (add $words 119) 238 }} min read
+  {{- div (add $words 119) 238 }} {{ i18n "min_read" }}
 {{- end -}}

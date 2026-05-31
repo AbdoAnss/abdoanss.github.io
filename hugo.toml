@@ -1,9 +1,10 @@
 baseURL = 'https://abdoanss.github.io/'
-languageCode = 'fr-fr'
 title = 'Abdessamad Anssem'
 theme = 'abdoanss'
 enableRobotsTXT = true
 enableGitInfo = true
+defaultContentLanguage = 'en'
+defaultContentLanguageInSubdir = false
 
 [mediaTypes."application/javascript"]
   suffixes = ["js"]
@@ -27,73 +28,268 @@ enableGitInfo = true
 
 [taxonomies]
   tag = "tags"
+
 [pagination]
   pagerSize = 5
 
 [params]
   author = 'Abdessamad Anssem'
-  description = 'Ingénieur Logiciel passionné par les systèmes distribués, la résolution de problèmes complexes et les architectures performantes.'
-  intro = "Ingénieur Logiciel passionné par l'art de résoudre des problèmes techniques stimulants. Je m'épanouis dans l'exploration des systèmes distribués et la conception d'architectures robustes et scalables. Toujours en quête de performance et d'élégance, j'aime transformer des défis complexes en solutions concrètes."
-  tagline = 'Software Engineer'
   profilePicture = '/profile.jpg'
   github = 'https://github.com/AbdoAnss'
   linkedin = 'https://www.linkedin.com/in/abdoanss/'
 
-  [[params.sections]]
-    title = 'Blog'
-    description = 'Réflexions techniques sur le développement, les systèmes et l’ingénierie.'
-    url = '/blog/'
+[languages]
+  [languages.en]
+    languageCode = 'en'
+    languageName = 'English'
+    weight = 1
+    title = 'Abdessamad Anssem'
+    [languages.en.params]
+      description = 'Software engineer focused on backend systems, scalability, developer experience, and reliable distributed architectures.'
+      tagline = 'Software Engineer'
+      headline = 'Engineering reliable software for'
+      headlineAccent = 'distributed systems.'
+      intro = 'Software engineer focused on backend systems, scalability, and developer experience. I enjoy turning complex ideas into simple, maintainable, and observable systems.'
+      location = 'Based in Paris, France'
+      availability = 'Open to opportunities'
+      parcoursCta = 'View full parcours'
+      latestArticleCta = 'Read article'
 
-  [[params.sections]]
-    title = 'Projets'
-    description = 'Sélection de mes réalisations personnelles et académiques.'
-    url = '/projects/'
+      [[languages.en.params.sections]]
+        title = 'Blog'
+        description = 'Technical notes on backend engineering, distributed systems, and programming.'
+        url = '/blog/'
 
-  [[params.sections]]
-    title = 'Outils'
-    description = 'Utilitaires interactifs et expérimentations.'
-    url = '/tools/'
+      [[languages.en.params.sections]]
+        title = 'Projects'
+        description = 'Selected personal, academic, and software engineering work.'
+        url = '/projects/'
 
-  [[params.sections]]
-    title = 'Notes'
-    description = 'Pensées courtes et apprentissages quotidiens (TIL).'
-    url = '/notes/'
+      [[languages.en.params.sections]]
+        title = 'Tools'
+        description = 'Interactive utilities and experiments.'
+        url = '/tools/'
 
-  # Section Parcours (Éducation & Expérience)
-  [[params.parcours]]
-    type = 'experience'
-    title = 'Stagiaire Ingénieur Logiciel'
-    org = 'Institut Universitaire Européen de la Mer (IUEM)'
-    date = '09/2025 - 01/2026'
-    desc = 'Migration de l’interface graphique de PyCoast de Bokeh vers Panel. Conception et prototypage en collaboration avec les chercheurs.'
+      [[languages.en.params.sections]]
+        title = 'Notes'
+        description = 'Short thoughts and daily learnings.'
+        url = '/notes/'
 
-  [[params.parcours]]
-    type = 'education'
-    title = 'Master Informatique – Génie Logiciel'
-    org = 'Universite de Bretagne Occidentale. Ingénierie du Logiciel, Applications aux Données Environnementales'
-    date = '09/2025 - Présent'
-    desc = 'Compétences clés : Systèmes multi-agents, systèmes cyber-physiques, systèmes d’information avancés, Services Web & Java EE, Big Data, virtualisation, sécurité.'
+      [[languages.en.params.sections]]
+        title = 'About'
+        description = 'Background, links, and a little more context.'
+        url = '/about/'
 
-  [[params.parcours]]
-    type = 'experience'
-    title = 'Stagiaire Développeur Backend'
-    org = 'CIEMS - Rabat, Maroc'
-    date = '06/2024 - 08/2024'
-    desc = 'Conception d’un moteur de recommandation d’assurances (filtrage collaboratif). Traitement de tâches asynchrones avec Celery/Redis, automatisation de messages IA (OpenAI, Twilio), schéma PostgreSQL et templates Jinja2.'
+      [[languages.en.params.parcours]]
+        type = 'experience'
+        title = 'Software Engineer Intern'
+        org = 'SAP'
+        date = '04/2026 - Present'
+        desc = 'Develop backend features and data-processing workflows for the Group Reporting Data Collection (GRDC) platform on SAP BTP Cloud Foundry, using Java, Spring Boot, CAP, and Node.js.'
+        highlight = true
 
-  [[params.parcours]]
-    type = 'education'
-    title = 'Diplôme d’Ingénieur d’État en Informatique'
-    org = 'Institut National des Postes et Télécommunications (INPT)'
-    date = '2023 - Présent'
-    desc = 'Compétences clés : Algorithmes & Structures de données, Programmation Orientée Objet, Développement Backend & Frontend, Bases de données, Big Data, DevOps, CI/CD, Docker, Méthodes Agiles, IoT, Power BI.'
+      [[languages.en.params.parcours]]
+        type = 'experience'
+        title = 'Software Engineer Intern'
+        org = 'Institut Universitaire Européen de la Mer (IUEM)'
+        date = '09/2025 - 01/2026'
+        desc = 'Migrated the PyCoast graphical interface from Bokeh to Panel, designing and prototyping with researchers.'
 
-  [[params.parcours]]
-    type = 'education'
-    title = 'CPGE - Math et Physique et Informatique'
-    org = 'Prepa Scientifique'
-    date = '2021 - 2023'
-    desc = "Agadir 2021/2023, Classement : 15ème. Deux années de formation académique rigoureuse dans la filière mathématiques et physique (PSI), dans le but de réussir l'examen du CNC, qui m'a ouvert les portes de l'une des institutions les plus prestigieuses du Maroc en informatique : l'INPT."
+      [[languages.en.params.parcours]]
+        type = 'education'
+        title = 'MSc Computer Science - Software Engineering'
+        org = 'Université de Bretagne Occidentale. Software Engineering, Applications for Environmental Data'
+        date = '09/2025 - Present'
+        desc = 'Key topics: multi-agent systems, cyber-physical systems, advanced information systems, Web Services & Java EE, Big Data, virtualization, and security.'
+
+      [[languages.en.params.parcours]]
+        type = 'experience'
+        title = 'Backend Developer Intern'
+        org = 'CIEMS - Rabat, Morocco'
+        date = '06/2024 - 08/2024'
+        desc = 'Designed an insurance recommendation engine with collaborative filtering, asynchronous Celery/Redis workflows, AI-assisted messaging, PostgreSQL schemas, and Jinja2 templates.'
+
+      [[languages.en.params.parcours]]
+        type = 'education'
+        title = 'State Engineering Degree in Computer Science'
+        org = 'Institut National des Postes et Télécommunications (INPT)'
+        date = '2023 - Present'
+        desc = 'Key topics: algorithms, data structures, OOP, backend and frontend development, databases, Big Data, DevOps, CI/CD, Docker, Agile methods, IoT, and Power BI.'
+
+      [[languages.en.params.parcours]]
+        type = 'education'
+        title = 'Preparatory Classes - Mathematics, Physics, and Computer Science'
+        org = 'Prepa Scientifique'
+        date = '2021 - 2023'
+        desc = 'Two years of rigorous mathematics and physics training in Agadir, leading to admission to INPT through the CNC entrance exam.'
+
+  [languages.fr]
+    languageCode = 'fr-fr'
+    languageName = 'Français'
+    weight = 2
+    title = 'Abdessamad Anssem'
+    [languages.fr.params]
+      description = 'Ingénieur logiciel orienté backend, scalabilité, expérience développeur et architectures distribuées fiables.'
+      tagline = 'Ingénieur Logiciel'
+      headline = 'Concevoir des logiciels fiables pour les'
+      headlineAccent = 'systèmes distribués.'
+      intro = "Ingénieur logiciel orienté backend, scalabilité et expérience développeur. J'aime transformer des idées complexes en systèmes simples, maintenables et observables."
+      location = 'Basé a Paris, France'
+      availability = 'Ouvert aux opportunités'
+      parcoursCta = 'Voir tout le parcours'
+      latestArticleCta = "Lire l'article"
+
+      [[languages.fr.params.sections]]
+        title = 'Blog'
+        description = 'Notes techniques sur le backend, les systèmes distribués et la programmation.'
+        url = '/blog/'
+
+      [[languages.fr.params.sections]]
+        title = 'Projets'
+        description = 'Sélection de mes réalisations personnelles et académiques.'
+        url = '/projects/'
+
+      [[languages.fr.params.sections]]
+        title = 'Outils'
+        description = 'Utilitaires interactifs et expérimentations.'
+        url = '/tools/'
+
+      [[languages.fr.params.sections]]
+        title = 'Notes'
+        description = 'Pensées courtes et apprentissages quotidiens.'
+        url = '/notes/'
+
+      [[languages.fr.params.sections]]
+        title = 'À propos'
+        description = 'Parcours, liens et quelques éléments de contexte.'
+        url = '/about/'
+
+      [[languages.fr.params.parcours]]
+        type = 'experience'
+        title = 'Stagiaire Ingénieur Logiciel'
+        org = 'SAP'
+        date = '04/2026 - Présent'
+        desc = 'Développement de fonctionnalités backend et de workflows de traitement de données pour la plateforme Group Reporting Data Collection (GRDC) sur SAP BTP Cloud Foundry, avec Java, Spring Boot, CAP et Node.js.'
+        highlight = true
+
+      [[languages.fr.params.parcours]]
+        type = 'experience'
+        title = 'Stagiaire Ingénieur Logiciel'
+        org = 'Institut Universitaire Européen de la Mer (IUEM)'
+        date = '09/2025 - 01/2026'
+        desc = 'Migration de l’interface graphique de PyCoast de Bokeh vers Panel. Conception et prototypage en collaboration avec les chercheurs.'
+
+      [[languages.fr.params.parcours]]
+        type = 'education'
+        title = 'Master Informatique - Génie Logiciel'
+        org = 'Université de Bretagne Occidentale. Ingénierie du Logiciel, Applications aux Données Environnementales'
+        date = '09/2025 - Présent'
+        desc = 'Compétences clés : systèmes multi-agents, systèmes cyber-physiques, systèmes d’information avancés, Services Web & Java EE, Big Data, virtualisation, sécurité.'
+
+      [[languages.fr.params.parcours]]
+        type = 'experience'
+        title = 'Stagiaire Développeur Backend'
+        org = 'CIEMS - Rabat, Maroc'
+        date = '06/2024 - 08/2024'
+        desc = 'Conception d’un moteur de recommandation d’assurances par filtrage collaboratif, workflows Celery/Redis, automatisation de messages IA, schéma PostgreSQL et templates Jinja2.'
+
+      [[languages.fr.params.parcours]]
+        type = 'education'
+        title = 'Diplôme d’Ingénieur d’État en Informatique'
+        org = 'Institut National des Postes et Télécommunications (INPT)'
+        date = '2023 - Présent'
+        desc = 'Compétences clés : algorithmes, structures de données, POO, développement backend et frontend, bases de données, Big Data, DevOps, CI/CD, Docker, méthodes agiles, IoT et Power BI.'
+
+      [[languages.fr.params.parcours]]
+        type = 'education'
+        title = 'CPGE - Mathématiques, Physique et Informatique'
+        org = 'Prepa Scientifique'
+        date = '2021 - 2023'
+        desc = "Deux années de formation académique rigoureuse à Agadir en mathématiques et physique, menant à l'admission à l'INPT via le concours CNC."
+
+  [languages.de]
+    languageCode = 'de-de'
+    languageName = 'Deutsch'
+    weight = 3
+    title = 'Abdessamad Anssem'
+    [languages.de.params]
+      description = 'Software Engineer mit Fokus auf Backend-Systeme, Skalierbarkeit, Developer Experience und zuverlässige verteilte Architekturen.'
+      tagline = 'Software Engineer'
+      headline = 'Zuverlässige Software entwickeln für'
+      headlineAccent = 'verteilte Systeme.'
+      intro = 'Software Engineer mit Fokus auf Backend-Systeme, Skalierbarkeit und Developer Experience. Ich verwandle komplexe Ideen gern in einfache, wartbare und beobachtbare Systeme.'
+      location = 'In Paris, France ansässig'
+      availability = 'Offen für Möglichkeiten'
+      parcoursCta = 'Vollständigen Werdegang ansehen'
+      latestArticleCta = 'Artikel lesen'
+
+      [[languages.de.params.sections]]
+        title = 'Blog'
+        description = 'Technische Notizen zu Backend Engineering, verteilten Systemen und Programmierung.'
+        url = '/blog/'
+
+      [[languages.de.params.sections]]
+        title = 'Projekte'
+        description = 'Ausgewählte persönliche, akademische und Software-Engineering-Projekte.'
+        url = '/projects/'
+
+      [[languages.de.params.sections]]
+        title = 'Tools'
+        description = 'Interaktive Werkzeuge und Experimente.'
+        url = '/tools/'
+
+      [[languages.de.params.sections]]
+        title = 'Notizen'
+        description = 'Kurze Gedanken und tägliche Learnings.'
+        url = '/notes/'
+
+      [[languages.de.params.sections]]
+        title = 'Über mich'
+        description = 'Hintergrund, Links und etwas mehr Kontext.'
+        url = '/about/'
+
+      [[languages.de.params.parcours]]
+        type = 'experience'
+        title = 'Software Engineer Intern'
+        org = 'SAP'
+        date = '04/2026 - Heute'
+        desc = 'Entwicklung von Backend-Funktionen und Datenverarbeitungs-Workflows für die Group Reporting Data Collection (GRDC) Plattform auf SAP BTP Cloud Foundry mit Java, Spring Boot, CAP und Node.js.'
+        highlight = true
+
+      [[languages.de.params.parcours]]
+        type = 'experience'
+        title = 'Software Engineer Intern'
+        org = 'Institut Universitaire Européen de la Mer (IUEM)'
+        date = '09/2025 - 01/2026'
+        desc = 'Migration der grafischen PyCoast-Oberfläche von Bokeh zu Panel, inklusive Design und Prototyping mit Forschenden.'
+
+      [[languages.de.params.parcours]]
+        type = 'education'
+        title = 'Master Informatik - Software Engineering'
+        org = 'Université de Bretagne Occidentale. Software Engineering, Anwendungen für Umweltdaten'
+        date = '09/2025 - Heute'
+        desc = 'Schwerpunkte: Multi-Agenten-Systeme, cyber-physische Systeme, fortgeschrittene Informationssysteme, Web Services & Java EE, Big Data, Virtualisierung und Sicherheit.'
+
+      [[languages.de.params.parcours]]
+        type = 'experience'
+        title = 'Backend Developer Intern'
+        org = 'CIEMS - Rabat, Marokko'
+        date = '06/2024 - 08/2024'
+        desc = 'Entwicklung einer Empfehlungsmaschine für Versicherungen mit kollaborativem Filtering, asynchronen Celery/Redis-Workflows, KI-gestützter Kommunikation, PostgreSQL-Schema und Jinja2-Templates.'
+
+      [[languages.de.params.parcours]]
+        type = 'education'
+        title = 'Staatliches Ingenieurdiplom in Informatik'
+        org = 'Institut National des Postes et Télécommunications (INPT)'
+        date = '2023 - Heute'
+        desc = 'Schwerpunkte: Algorithmen, Datenstrukturen, OOP, Backend- und Frontend-Entwicklung, Datenbanken, Big Data, DevOps, CI/CD, Docker, agile Methoden, IoT und Power BI.'
+
+      [[languages.de.params.parcours]]
+        type = 'education'
+        title = 'Vorbereitungsklassen - Mathematik, Physik und Informatik'
+        org = 'Prepa Scientifique'
+        date = '2021 - 2023'
+        desc = 'Zwei Jahre intensive mathematisch-physikalische Ausbildung in Agadir mit anschließender Aufnahme am INPT über die CNC-Aufnahmeprüfung.'
 
 [markup]
   [markup.tableOfContents]

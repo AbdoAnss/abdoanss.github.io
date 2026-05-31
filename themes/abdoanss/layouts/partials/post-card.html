@@ -14,16 +14,16 @@
     <span>{{ partial "read-time.html" . }}</span>
   </div>
   <div class="post-card-share" onclick="event.preventDefault();">
-    <a href="https://x.com/intent/tweet?text={{ .Title | urlquery }}&url={{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" title="Share on X">
+    <a href="https://x.com/intent/tweet?text={{ .Title | urlquery }}&url={{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" title="{{ i18n "share_on_x" }}">
       {{ partial "icons.html" "share-x" }}
     </a>
-    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" title="Share on LinkedIn">
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" title="{{ i18n "share_on_linkedin" }}">
       {{ partial "icons.html" "share-linkedin" }}
     </a>
-    <a href="https://api.whatsapp.com/send?text={{ .Title | urlquery }}%20{{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" title="Share on WhatsApp">
+    <a href="https://api.whatsapp.com/send?text={{ .Title | urlquery }}%20{{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" title="{{ i18n "share_on_whatsapp" }}">
       {{ partial "icons.html" "share-whatsapp" }}
     </a>
-    <button class="post-card-copy" onclick="lpCopyPostLink('{{ .Permalink }}', this); event.stopPropagation();" title="Copy link">
+    <button class="post-card-copy" onclick="lpCopyPostLink('{{ .Permalink }}', this); event.stopPropagation();" title="{{ i18n "copy_link" }}">
       {{ partial "icons.html" "copy-link" }}
     </button>
   </div>

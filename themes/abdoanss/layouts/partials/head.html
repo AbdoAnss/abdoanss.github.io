@@ -57,7 +57,7 @@
 <link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" href="{{ "index.xml" | absURL }}" />
 <link rel="icon" type="image/svg+xml" href="{{ "favicon.svg" | relURL }}" />
 <link rel="manifest" href="{{ "manifest.json" | relURL }}" />
-<meta name="theme-color" content="#0e0c0a" />
+<meta name="theme-color" content="#f7f8fb" />
 <link rel="preload" as="font" type="font/woff2" href="/fonts/bricolage-grotesque-latin.woff2" crossorigin />
 <link rel="preload" as="font" type="font/woff2" href="/fonts/dm-mono-400-latin.woff2" crossorigin />
 {{ if .Params.math }}
@@ -72,7 +72,6 @@
 <script>
   (function () {
     var saved = localStorage.getItem('theme');
-    var system = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', saved || system);
+    document.documentElement.setAttribute('data-theme', saved || 'light');
   })();
 </script>

@@ -1,24 +1,35 @@
-<a href="#main-content" class="skip-to-content">Skip to content</a>
+<a href="#main-content" class="skip-to-content">{{ i18n "skip_to_content" }}</a>
 <div class="container">
   <header class="site-header">
     <div class="site-header-row">
-      {{ if .IsHome }}
-      <h1 class="site-name"><a href="{{ "/" | relURL }}">{{ .Site.Title }}</a></h1>
-      {{ else }}
-      <a href="{{ "/" | relURL }}" class="site-name">{{ .Site.Title }}</a>
-      {{ end }}
-      <nav class="site-nav-right">
+      <a href="{{ .Site.Home.RelPermalink }}" class="site-name">{{ .Site.Title }} <span aria-hidden="true">//</span></a>
+      <div class="site-nav-right">
         {{- $section := "" -}}
         {{- with .CurrentSection -}}{{ $section = .Type }}{{- end -}}
-        <a href="{{ "/blog/" | relURL }}" class="nav-link{{ if eq $section "blog" }} nav-active{{ end }}">blog</a>
-        <a href="{{ "/projects/" | relURL }}" class="nav-link{{ if eq $section "projects" }} nav-active{{ end }}">projets</a>
-        <a href="{{ "/tools/" | relURL }}" class="nav-link{{ if eq $section "tools" }} nav-active{{ end }}">outils</a>
-        <a href="{{ "/notes/" | relURL }}" class="nav-link{{ if eq $section "notes" }} nav-active{{ end }}">notes</a>
-        <a href="{{ "/about/" | relURL }}" class="nav-link{{ if eq .RelPermalink "/about/" }} nav-active{{ end }}">à propos</a>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle colour theme">
+        <a href="/blog/" class="nav-link{{ if eq $section "blog" }} nav-active{{ end }}"><span>01</span> {{ i18n "nav_blog" }}</a>
+        <a href="/projects/" class="nav-link{{ if eq $section "projects" }} nav-active{{ end }}"><span>02</span> {{ i18n "nav_projects" }}</a>
+        <a href="/tools/" class="nav-link{{ if eq $section "tools" }} nav-active{{ end }}"><span>03</span> {{ i18n "nav_tools" }}</a>
+        <a href="/notes/" class="nav-link{{ if eq $section "notes" }} nav-active{{ end }}"><span>04</span> {{ i18n "nav_notes" }}</a>
+        <a href="/about/" class="nav-link{{ if eq .RelPermalink "/about/" }} nav-active{{ end }}"><span>05</span> {{ i18n "nav_about" }}</a>
+        <nav class="language-switcher" aria-label="{{ i18n "language_switcher" }}">
+          {{ $currentPage := . }}
+          {{ range hugo.Sites }}
+            {{ $lang := .Language.Lang }}
+            {{ $href := $currentPage.RelPermalink }}
+            {{ if $currentPage.IsHome }}
+              {{ $href = .Home.RelPermalink }}
+            {{ else }}
+              {{ range $currentPage.AllTranslations }}
+                {{ if eq .Language.Lang $lang }}{{ $href = .RelPermalink }}{{ end }}
+              {{ end }}
+            {{ end }}
+            <a href="{{ $href }}" hreflang="{{ $lang }}" lang="{{ $lang }}" class="language-link{{ if eq $.Site.Language.Lang $lang }} is-active{{ end }}">{{ upper $lang }}</a>
+          {{ end }}
+        </nav>
+        <button id="theme-toggle" class="theme-toggle" aria-label="{{ i18n "theme_toggle" }}">
           {{ partial "icons.html" "sun" }}
           {{ partial "icons.html" "moon" }}
         </button>
-      </nav>
+      </div>
     </div>
   </header>

@@ -1,71 +1,71 @@
 ---
-title: "Mon expérience avec la certification OCP Java SE 11"
-subtitle: "Retour d'expérience et guide technique sur les pièges de la certification OCP Java SE 11."
+title: "My experience with the OCP Java SE 11 certification"
+subtitle: "A practical write-up on the tricky parts of the OCP Java SE 11 certification."
 date: 2026-01-15
 tags: ["Java", "Certification", "OCP", "Java SE 11"]
 ---
 
-Janvier 2026 : j'ai enfin obtenu la certification **OCP Java SE 11 Developer**. 
+January 2026: I finally earned the **OCP Java SE 11 Developer** certification.
 
-Ce fut un parcours intense de plus de **4 mois de préparation**. Après avoir échoué deux fois, la troisième tentative a été la bonne. Java cache énormément de subtilités et de comportements "quirky" (parfois inattendus) qui demandent une rigueur absolue. 
+It was an intense journey with more than **four months of preparation**. I failed twice before passing on the third attempt. Java hides a surprising number of subtle and sometimes quirky rules, and the exam rewards precision more than speed.
 
-Voici un tour d'horizon des concepts les plus piégeux que j'ai rencontrés lors de mes révisions.
+Here is a tour of the trickiest concepts I ran into while preparing.
 
-{{< section-label >}}Les Chaînes de Caractères{{< /section-label >}}
+{{< section-label >}}Strings{{< /section-label >}}
 
 ## Strings & String Pool
 
-L'un des sujets préférés de l'examen est la gestion de la mémoire des Strings. Comprendre la différence entre le **String Pool** et le **Heap** est crucial.
+One of the exam's favorite topics is String memory management. Understanding the difference between the **String Pool** and the **Heap** is essential.
 
 {{< definition term="String Constant Pool" icon="🧵" >}}
-Une zone spéciale dans la Heap où Java stocke les littéraux de chaînes de caractères pour économiser de la mémoire en réutilisant les instances identiques.
+A special area in the heap where Java stores string literals so identical instances can be reused and memory can be saved.
 {{< /definition >}}
 
-{{< diagram src="string-pool" caption="String Pool vs Heap en Java" >}}
+{{< diagram src="string-pool" caption="String Pool vs Heap in Java" >}}
 
-{{< codeblock label="Comparaison de Strings" lang="java" >}}
+{{< codeblock label="String comparison" lang="java" >}}
 String a = "hello";
 String b = "hello";
 String c = new String("hello");
 
-System.out.println(a == b);      // true  — même référence dans le pool
-System.out.println(a == c);      // false — c est sur la heap (hors pool)
-System.out.println(a.equals(c)); // true  — les valeurs sont identiques
+System.out.println(a == b);      // true  — same reference in the pool
+System.out.println(a == c);      // false — c lives on the heap, outside the pool
+System.out.println(a.equals(c)); // true  — the values are equal
 {{< /codeblock >}}
 
-{{< callout type="warning" title="Attention à la concaténation" >}}
-La concaténation avec `+` n'est optimisée au moment de la compilation que si elle implique des constantes (littéraux ou variables `final`). Sinon, elle se fait au runtime et crée un nouvel objet sur la heap.
+{{< callout type="warning" title="Watch out for concatenation" >}}
+Concatenation with `+` is optimized at compile time only when it involves constants, such as literals or `final` variables. Otherwise it happens at runtime and creates a new object on the heap.
 {{< /callout >}}
 
 ---
 
-{{< section-label >}}Opérateurs et Types{{< /section-label >}}
+{{< section-label >}}Operators and Types{{< /section-label >}}
 
-## Promotion Numérique et Cache
+## Numeric Promotion and Cache
 
-Les types primitifs ont aussi leurs secrets. Saviez-vous que `byte`, `short` et `char` sont systématiquement promus en `int` lors d'une opération arithmétique ?
+Primitive types also have their secrets. Did you know that `byte`, `short`, and `char` are always promoted to `int` during arithmetic operations?
 
-{{< codeblock label="Promotion numérique" lang="java" >}}
+{{< codeblock label="Numeric promotion" lang="java" >}}
 byte b = 10;
-b = b + 1;    // ERREUR de compilation : le résultat est un int
-b += 1;       // OK : les opérateurs composés effectuent un cast automatique
-b = (byte)(b + 1); // OK : cast explicite
+b = b + 1;    // Compilation error: the result is an int
+b += 1;       // OK: compound operators perform an implicit cast
+b = (byte)(b + 1); // OK: explicit cast
 {{< /codeblock >}}
 
 {{< callout type="info" title="Integer Cache" >}}
-Java met en cache les objets `Integer` pour les valeurs allant de **-128 à 127**. En dehors de cette plage, `==` retournera `false` même pour des valeurs identiques. Utilisez toujours `.equals()`.
+Java caches `Integer` objects for values from **-128 to 127**. Outside that range, `==` can return `false` even for equal values. Prefer `.equals()` for value comparison.
 {{< /callout >}}
 
 ---
 
-{{< section-label >}}Programmation Orientée Objet{{< /section-label >}}
+{{< section-label >}}Object-Oriented Programming{{< /section-label >}}
 
 ## Hiding vs Overriding
 
-C'est probablement le piège le plus vicieux : la différence entre la redéfinition (*overriding*) et le masquage (*hiding*).
+This is probably one of the most deceptive traps: the difference between method **overriding** and **hiding**.
 
-- Les méthodes d'instance sont **redéfinies** (polymorphisme).
-- Les méthodes statiques et les variables sont **masquées**.
+- Instance methods are **overridden** through polymorphism.
+- Static methods and variables are **hidden**.
 
 {{< codeblock label="Static Method Hiding" lang="java" >}}
 class Parent {
@@ -76,41 +76,41 @@ class Child extends Parent {
 }
 
 Parent p = new Child();
-p.greet(); // Affiche "Hello from Parent" ! La résolution est faite au type de la référence.
+p.greet(); // Prints "Hello from Parent" because resolution uses the reference type.
 {{< /codeblock >}}
 
 ---
 
 {{< section-label >}}Exceptions{{< /section-label >}}
 
-## La Hiérarchie des Exceptions
+## The Exception Hierarchy
 
-Il est essentiel de distinguer les exceptions **Checked** des **Unchecked**.
+It is important to distinguish **checked** exceptions from **unchecked** exceptions.
 
-{{< diagram src="exception-hierarchy" caption="Hiérarchie simplifiée des exceptions en Java" >}}
+{{< diagram src="exception-hierarchy" caption="Simplified Java exception hierarchy" >}}
 
-{{< callout type="danger" title="Ordre des catch" >}}
-Les blocs `catch` doivent aller du plus spécifique au plus général. Inverser l'ordre provoquera une erreur de compilation car le code devient inatteignable.
+{{< callout type="danger" title="Catch block order" >}}
+`catch` blocks must go from the most specific exception type to the most general one. Reversing the order causes a compilation error because the more specific block becomes unreachable.
 {{< /callout >}}
 
 ---
 
-{{< section-label >}}Lambdas et Streams{{< /section-label >}}
+{{< section-label >}}Lambdas and Streams{{< /section-label >}}
 
 ## Effectively Final
 
-Les lambdas peuvent capturer des variables locales, mais à une condition : elles doivent être **effectively final**.
+Lambdas can capture local variables, but only if those variables are **effectively final**.
 
 {{< codeblock label="Variable capture" lang="java" >}}
 int x = 10;
 Runnable r = () -> System.out.println(x); // OK
-// x = 20; // Si on décommente ceci, la lambda au-dessus ne compilera plus !
+// x = 20; // If this is uncommented, the lambda above no longer compiles.
 {{< /codeblock >}}
 
 ---
 
 {{< conclusion title="Conclusion" >}}
-La certification OCP Java 11 ne teste pas seulement votre capacité à écrire du code, mais votre compréhension intime des règles du langage. Maîtriser ces pièges est la clé du succès.
+The OCP Java 11 certification does not only test whether you can write code. It tests whether you understand the language rules in detail. Mastering these traps is a big part of passing.
 
-**Un dernier conseil :** Lisez chaque question deux fois. Le piège est souvent caché dans un détail de syntaxe ou une règle de portée que l'on oublie facilement sous le stress de l'examen. Bonne chance !
+**One final tip:** read every question twice. The trap is often hidden in a syntax detail or a scoping rule that is easy to miss under exam pressure. Good luck!
 {{< /conclusion >}}

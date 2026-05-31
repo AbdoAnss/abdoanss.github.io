@@ -3,6 +3,7 @@
 
   // ── Toast ──
   let toastTimer;
+  const messages = document.body ? document.body.dataset : {};
   function showToast(msg) {
     const toast = document.getElementById('toast');
     if (!toast) return;
@@ -63,7 +64,7 @@
     s.setAttribute('data-emit-metadata', '0');
     s.setAttribute('data-input-position', 'bottom');
     s.setAttribute('data-theme', giscusTheme);
-    s.setAttribute('data-lang', 'en');
+    s.setAttribute('data-lang', messages.giscusLang || document.documentElement.lang || 'en');
     s.setAttribute('crossorigin', 'anonymous');
     s.async = true;
     giscusContainer.appendChild(s);
@@ -81,7 +82,7 @@
       navigator.clipboard.writeText(window.location.href).then(() => {
         copyLink.classList.add('copied');
         setTimeout(() => copyLink.classList.remove('copied'), 2000);
-        showToast('Link copied!');
+        showToast(messages.linkCopied || 'Link copied!');
       });
     });
   }
@@ -158,7 +159,7 @@
       navigator.clipboard.writeText(pre.innerText).then(() => {
         btn.classList.add('copied');
         setTimeout(() => btn.classList.remove('copied'), 2000);
-        showToast('Code copied!');
+        showToast(messages.codeCopied || 'Code copied!');
       });
     });
   });
@@ -261,7 +262,7 @@
     navigator.clipboard.writeText(url).then(() => {
       btn.classList.add('copied');
       setTimeout(() => btn.classList.remove('copied'), 2000);
-      showToast('Lien copié !');
+      showToast(messages.linkCopied || 'Link copied!');
     });
   };
 

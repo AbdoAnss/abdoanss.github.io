@@ -1,45 +1,45 @@
 ---
-title: "Celery, le GIL et l'asynchronisme en Python — retour d'expérience"
-subtitle: "Plongée technique dans Celery, les décorateurs Python, le GIL et la distinction sync/async."
+title: "Celery, the GIL, and asynchronous processing in Python"
+subtitle: "A technical dive into Celery, Python decorators, the GIL, and the difference between sync and async."
 date: 2026-03-01
-tags: ["Python", "Celery", "Asynchronisme", "GIL", "Django"]
+tags: ["Python", "Celery", "Async", "GIL", "Django"]
 ---
 
 {{< section-label >}}Introduction{{< /section-label >}}
 
 ## Introduction
 
-Lors de mon stage chez **CIEMS Group**, j'ai été confronté à un défi de taille : optimiser un moteur de recommandation qui devait traiter des volumes de données importants sans bloquer l'interface utilisateur. C'est là que j'ai découvert la puissance de **Celery** et les subtilités du **Global Interpreter Lock (GIL)** de Python.
+During my internship at **CIEMS Group**, I ran into a classic backend challenge: optimizing a recommendation engine that had to process large amounts of data without blocking the user interface. That is where I discovered the power of **Celery** and the subtleties of Python's **Global Interpreter Lock (GIL)**.
 
-Dans cet article, nous allons explorer comment orchestrer des tâches de fond, comprendre pourquoi le GIL nous oblige à penser différemment, et comment structurer une architecture robuste pour l'asynchronisme.
+In this article, we will explore how to orchestrate background tasks, why the GIL forces us to think differently, and how to structure a robust architecture for asynchronous processing.
 
-{{< diagram src="celery-flow" caption="Architecture de traitement asynchrone avec Celery et Redis" >}}
+{{< diagram src="celery-flow" caption="Asynchronous processing architecture with Celery and Redis" >}}
 
 ---
 
-{{< section-label >}}Fondamentaux{{< /section-label >}}
+{{< section-label >}}Fundamentals{{< /section-label >}}
 
-## Comprendre le Problème : Le GIL
+## Understanding the Problem: The GIL
 
-Avant de plonger dans Celery, il est crucial de comprendre la contrainte majeure de Python : le **GIL**.
+Before diving into Celery, it is important to understand one of Python's main runtime constraints: the **GIL**.
 
 {{< definition term="Global Interpreter Lock (GIL)" icon="🔒" >}}
-Un mécanisme utilisé par l'interpréteur CPython pour s'assurer qu'un seul thread exécute le bytecode Python à la fois. Cela empêche le vrai parallélisme multi-thread sur des tâches intensives en CPU.
+A mechanism used by the CPython interpreter to ensure that only one thread executes Python bytecode at a time. This prevents true multi-threaded parallelism for CPU-intensive tasks.
 {{< /definition >}}
 
-{{< callout type="info" title="Pourquoi est-ce important ?" >}}
-Si votre application Django effectue un calcul lourd directement dans une vue, elle ne pourra pas répondre aux autres requêtes tant que ce calcul n'est pas terminé. Le serveur est littéralement "bloqué".
+{{< callout type="info" title="Why does this matter?" >}}
+If a Django application performs a heavy computation directly inside a view, it cannot respond to other requests until that computation finishes. The server is effectively blocked.
 {{< /callout >}}
 
 ---
 
 {{< section-label >}}Architecture{{< /section-label >}}
 
-## La Solution : Celery & Workers
+## The Solution: Celery & Workers
 
-Pour contourner le GIL et ne pas bloquer l'utilisateur, on délègue le travail à un **Worker**. Celery agit comme un chef d'orchestre qui envoie des messages via un **Broker** (souvent Redis ou RabbitMQ).
+To work around blocking behavior and keep the user experience responsive, we delegate the heavy work to a **worker**. Celery acts as an orchestrator that sends messages through a **broker**, often Redis or RabbitMQ.
 
-Voici comment nous avons implémenté l'orchestration des tâches pour le moteur de recommandation :
+Here is a simplified version of how we implemented task orchestration for the recommendation engine:
 
 {{< codeblock label="tasks.py" lang="python" complexity="O(N log N)" complexitytype="good" >}}
 from celery import shared_task
@@ -48,47 +48,47 @@ import time
 @shared_task(bind=True, max_retries=3)
 def compute_recommendations(self, user_id):
     try:
-        print(f"Démarrage du calcul pour l'utilisateur {user_id}...")
+        print(f"Starting computation for user {user_id}...")
         
-        # Simulation d'un calcul intensif
-        # Dans la réalité, c'était de l'analyse matricielle avec NumPy/Pandas
+        # Simulate an intensive computation
+        # In the real system, this involved matrix analysis with NumPy/Pandas
         time.sleep(5) 
         
         results = {"status": "success", "recommendations": [102, 304, 501]}
         return results
         
     except Exception as exc:
-        # Retry automatique en cas d'erreur réseau ou DB
+        # Automatic retry on network or database errors
         raise self.retry(exc=exc, countdown=60)
 {{< /codeblock >}}
 
 ---
 
-{{< section-label >}}Concepts avancés{{< /section-label >}}
+{{< section-label >}}Advanced Concepts{{< /section-label >}}
 
-## Sync vs Async : Ne pas confondre
+## Sync vs Async: Do Not Confuse Them
 
-Il est facile de confondre l'asynchronisme de Celery (basé sur des processus séparés) avec `asyncio` (basé sur une boucle d'événements). 
+It is easy to confuse Celery-style asynchronous processing, which relies on separate worker processes, with `asyncio`, which relies on an event loop.
 
-- **Celery** : Idéal pour les tâches **CPU-bound** (calculs lourds) ou les tâches très longues.
-- **Asyncio** : Idéal pour les tâches **I/O-bound** (requêtes HTTP, lectures réseau massives) dans un seul processus.
+- **Celery**: best suited for **CPU-bound** work, heavy computations, or long-running tasks.
+- **Asyncio**: best suited for **I/O-bound** work, such as HTTP requests or large amounts of network I/O within a single process.
 
 {{< pillars >}}
-  {{< pillar num="01" title="Délégation" >}}
-  Libérez le thread principal immédiatement en renvoyant une réponse 202 Accepted à l'utilisateur.
+  {{< pillar num="01" title="Delegation" >}}
+  Free the main request thread immediately by returning a 202 Accepted response to the user.
   {{< /pillar >}}
-  {{< pillar num="02" title="Scalabilité" >}}
-  Ajoutez simplement des workers sur d'autres serveurs pour absorber la charge.
+  {{< pillar num="02" title="Scalability" >}}
+  Add workers on other servers to absorb more load.
   {{< /pillar >}}
-  {{< pillar num="03" title="Résilience" >}}
-  Si un worker crash, la tâche reste dans le broker et peut être reprise.
+  {{< pillar num="03" title="Resilience" >}}
+  If a worker crashes, the task remains in the broker and can be picked up again.
   {{< /pillar >}}
 {{< /pillars >}}
 
 ---
 
-{{< conclusion title="Vers des systèmes plus réactifs" >}}
-L'utilisation de **Celery** a transformé la performance de notre plateforme chez CIEMS. En comprenant que le **GIL** n'est pas une fatalité mais une contrainte de conception, nous avons pu bâtir un système capable de traiter des recommandations complexes en arrière-plan tout en offrant une expérience fluide à l'utilisateur.
+{{< conclusion title="Toward more responsive systems" >}}
+Using **Celery** changed the performance profile of our platform at CIEMS. By treating the **GIL** as a design constraint rather than a dead end, we built a system that could process complex recommendations in the background while keeping the user experience smooth.
 
-L'asynchronisme n'est pas seulement un outil technique, c'est une philosophie de conception pour les systèmes modernes et scalables.
+Asynchronous processing is not just a technical tool. It is a design mindset for modern, scalable systems.
 {{< /conclusion >}}

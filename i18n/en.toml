@@ -1,0 +1,117 @@
+[skip_to_content]
+other = "Skip to content"
+
+[theme_toggle]
+other = "Toggle colour theme"
+
+[nav_blog]
+other = "Blog"
+
+[nav_projects]
+other = "Projects"
+
+[nav_tools]
+other = "Tools"
+
+[nav_notes]
+other = "Notes"
+
+[nav_about]
+other = "About"
+
+[language_switcher]
+other = "Language"
+
+[home_parcours]
+other = "Parcours"
+
+[home_latest_article]
+other = "Latest article"
+
+[home_explore]
+other = "Explore"
+
+[home_status_now]
+other = "Now"
+
+[parcours_type_experience]
+other = "Experience"
+
+[parcours_type_education]
+other = "Education"
+
+[series]
+other = "Series"
+
+[post_count]
+one = "post"
+other = "posts"
+
+[all]
+other = "All"
+
+[newer_posts]
+other = "newer posts"
+
+[older_posts]
+other = "older posts"
+
+[no_projects]
+other = "No projects yet."
+
+[no_tools]
+other = "No tools yet."
+
+[no_notes]
+other = "No notes yet."
+
+[interactive_tool]
+other = "Interactive tool"
+
+[source_code]
+other = "Source code"
+
+[live_demo]
+other = "Live demo"
+
+[home]
+other = "home"
+
+[on_this_page]
+other = "On this page"
+
+[contents]
+other = "Contents"
+
+[read_next]
+other = "Read next"
+
+[share]
+other = "Share"
+
+[comments]
+other = "Comments"
+
+[copy_link]
+other = "Copy link"
+
+[share_on_x]
+other = "Share on X"
+
+[share_on_linkedin]
+other = "Share on LinkedIn"
+
+[share_on_whatsapp]
+other = "Share on WhatsApp"
+
+[share_via_email]
+other = "Share via Email"
+
+[link_copied]
+other = "Link copied!"
+
+[code_copied]
+other = "Code copied!"
+
+[min_read]
+other = "min read"

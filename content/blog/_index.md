@@ -1,4 +1,4 @@
 ---
 title: "Blog"
-description: "Réflexions techniques sur le développement, les systèmes et l’ingénierie."
+description: "Technical writing about software engineering, backend systems, and the things I learn while building."
 ---

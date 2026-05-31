@@ -2,14 +2,21 @@
 {{ $caption := .Get "caption" }}
 {{ $alt := .Get "alt" | default $caption | default $src }}
 {{ $dir := strings.TrimPrefix "blog/" .Page.File.Dir }}
-{{ $dark  := resources.Get (printf "diagrams/%s%s-dark.svg"  $dir $src) }}
-{{ $light := resources.Get (printf "diagrams/%s%s-light.svg" $dir $src) }}
+{{ $darkPath := printf "assets/diagrams/%s%s-dark.svg" $dir $src }}
+{{ $lightPath := printf "assets/diagrams/%s%s-light.svg" $dir $src }}
+{{ $dark := "" }}
+{{ $light := "" }}
+{{ if fileExists $darkPath }}{{ $dark = readFile $darkPath }}{{ end }}
+{{ if fileExists $lightPath }}{{ $light = readFile $lightPath }}{{ end }}
+{{ if and (not $dark) (not $light) }}
+  {{ warnf "Diagram shortcode could not find generated SVGs for %q on %s. Run `make diagrams` or `make build` before Hugo builds." $src .Page.File.Path }}
+{{ end }}
 <figure class="diagram diagram-clickable" role="button" tabindex="0" aria-label="Click to enlarge: {{ $alt }}">
   {{ with $dark }}
-  <div class="diagram-inner diagram-dark">{{ .Content | safeHTML }}</div>
+  <div class="diagram-inner diagram-dark">{{ . | safeHTML }}</div>
   {{ end }}
   {{ with $light }}
-  <div class="diagram-inner diagram-light">{{ .Content | safeHTML }}</div>
+  <div class="diagram-inner diagram-light">{{ . | safeHTML }}</div>
   {{ end }}
   {{ with $caption }}
   <figcaption class="diagram-caption">{{ . }}</figcaption>

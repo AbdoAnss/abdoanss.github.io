@@ -1,20 +1,20 @@
-{{ define "nav-back" }}<a href="{{ "/blog/" | relURL }}?tab={{ .CurrentSection.Title | urlize }}" class="nav-back">&larr; {{ .CurrentSection.Title }}</a>{{ end }}
+{{ define "nav-back" }}<a href="/blog/?tab={{ .CurrentSection.Title | urlize }}" class="nav-back">&larr; {{ .CurrentSection.Title }}</a>{{ end }}
 
 {{ define "main" }}
 {{ if .TableOfContents }}
-<aside class="toc-sidebar" aria-label="On this page">
-  <p class="toc-label">On this page</p>
+<aside class="toc-sidebar" aria-label="{{ i18n "on_this_page" }}">
+  <p class="toc-label">{{ i18n "on_this_page" }}</p>
   {{ .TableOfContents }}
 </aside>
 {{ end }}
 <nav class="breadcrumb" aria-label="Breadcrumb">
-  <a href="{{ "/" | relURL }}">home</a>
+  <a href="{{ .Site.Home.RelPermalink }}">{{ i18n "home" }}</a>
   <span class="breadcrumb-sep">/</span>
-  <a href="{{ "/blog/" | relURL }}">blog</a>
+  <a href="/blog/">{{ i18n "nav_blog" | lower }}</a>
   {{ with .CurrentSection.Title }}
   {{ if ne . "Blog" }}
   <span class="breadcrumb-sep">/</span>
-  <a href="{{ "/blog/" | relURL }}?tab={{ . | urlize }}">{{ . | lower }}</a>
+  <a href="/blog/?tab={{ . | urlize }}">{{ . | lower }}</a>
   {{ end }}
   {{ end }}
   <span class="breadcrumb-sep">/</span>
@@ -44,32 +44,32 @@
 {{ if .TableOfContents }}
 <div class="toc-float" id="toc-float">
   <div class="toc-float-panel" id="toc-float-panel" aria-hidden="true">
-    <p class="toc-float-heading">On this page</p>
+    <p class="toc-float-heading">{{ i18n "on_this_page" }}</p>
     {{ .TableOfContents }}
   </div>
   <button class="toc-float-btn" id="toc-float-btn" aria-expanded="false" aria-controls="toc-float-panel">
     {{ partial "icons.html" "toc" }}
-    <span>Contents</span>
+    <span>{{ i18n "contents" }}</span>
   </button>
 </div>
 {{ end }}
 
 <div class="share-bar">
-  <span class="share-label">Share</span>
+  <span class="share-label">{{ i18n "share" }}</span>
   <div class="share-actions">
-    <a href="https://x.com/intent/tweet?text={{ .Title | urlquery }}&url={{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" class="share-btn" aria-label="Share on X">
+    <a href="https://x.com/intent/tweet?text={{ .Title | urlquery }}&url={{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" class="share-btn" aria-label="{{ i18n "share_on_x" }}">
       {{ partial "icons.html" "share-x" }}
     </a>
-    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" class="share-btn" aria-label="Share on LinkedIn">
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" class="share-btn" aria-label="{{ i18n "share_on_linkedin" }}">
       {{ partial "icons.html" "share-linkedin" }}
     </a>
-    <a href="https://api.whatsapp.com/send?text={{ .Title | urlquery }}%20{{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" class="share-btn" aria-label="Share on WhatsApp">
+    <a href="https://api.whatsapp.com/send?text={{ .Title | urlquery }}%20{{ .Permalink | urlquery }}" target="_blank" rel="noopener noreferrer" class="share-btn" aria-label="{{ i18n "share_on_whatsapp" }}">
       {{ partial "icons.html" "share-whatsapp" }}
     </a>
-    <a href="mailto:?subject={{ .Title | urlquery }}&body={{ .Permalink | urlquery }}" class="share-btn" aria-label="Share via Email">
+    <a href="mailto:?subject={{ .Title | urlquery }}&body={{ .Permalink | urlquery }}" class="share-btn" aria-label="{{ i18n "share_via_email" }}">
       {{ partial "icons.html" "share-email" }}
     </a>
-    <button class="share-btn" id="copy-link-btn" aria-label="Copy link">
+    <button class="share-btn" id="copy-link-btn" aria-label="{{ i18n "copy_link" }}">
       {{ partial "icons.html" "copy-link" }}
     </button>
   </div>
@@ -86,7 +86,7 @@
 {{ end }}
 {{ with $readNext }}
 <section class="read-next">
-  <p class="read-next-label">Read next</p>
+  <p class="read-next-label">{{ i18n "read_next" }}</p>
   <a href="{{ .RelPermalink }}" class="read-next-card">
     {{ with .CurrentSection.Title }}<span class="read-next-category">{{ . }}</span>{{ end }}
     <span class="read-next-title">{{ .Title | safeHTML }}</span>
@@ -98,7 +98,7 @@
 {{ with .Site.Params.giscusRepo }}
 <div class="giscus-wrap">
   <button class="giscus-toggle" id="giscus-toggle" aria-expanded="true" aria-controls="giscus-container">
-    <span class="giscus-label">Comments</span>
+    <span class="giscus-label">{{ i18n "comments" }}</span>
     {{ partial "icons.html" "chevron-down" }}
   </button>
   <div class="giscus-body is-open" id="giscus-container"

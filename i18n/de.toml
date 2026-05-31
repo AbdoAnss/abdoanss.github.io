@@ -1,0 +1,117 @@
+[skip_to_content]
+other = "Zum Inhalt springen"
+
+[theme_toggle]
+other = "Farbschema wechseln"
+
+[nav_blog]
+other = "Blog"
+
+[nav_projects]
+other = "Projekte"
+
+[nav_tools]
+other = "Tools"
+
+[nav_notes]
+other = "Notizen"
+
+[nav_about]
+other = "Über mich"
+
+[language_switcher]
+other = "Sprache"
+
+[home_parcours]
+other = "Werdegang"
+
+[home_latest_article]
+other = "Neuester Artikel"
+
+[home_explore]
+other = "Entdecken"
+
+[home_status_now]
+other = "Jetzt"
+
+[parcours_type_experience]
+other = "Erfahrung"
+
+[parcours_type_education]
+other = "Ausbildung"
+
+[series]
+other = "Serie"
+
+[post_count]
+one = "Beitrag"
+other = "Beiträge"
+
+[all]
+other = "Alle"
+
+[newer_posts]
+other = "neuere Beiträge"
+
+[older_posts]
+other = "ältere Beiträge"
+
+[no_projects]
+other = "Noch keine Projekte."
+
+[no_tools]
+other = "Noch keine Tools."
+
+[no_notes]
+other = "Noch keine Notizen."
+
+[interactive_tool]
+other = "Interaktives Tool"
+
+[source_code]
+other = "Quellcode"
+
+[live_demo]
+other = "Demo"
+
+[home]
+other = "start"
+
+[on_this_page]
+other = "Auf dieser Seite"
+
+[contents]
+other = "Inhalt"
+
+[read_next]
+other = "Weiterlesen"
+
+[share]
+other = "Teilen"
+
+[comments]
+other = "Kommentare"
+
+[copy_link]
+other = "Link kopieren"
+
+[share_on_x]
+other = "Auf X teilen"
+
+[share_on_linkedin]
+other = "Auf LinkedIn teilen"
+
+[share_on_whatsapp]
+other = "Auf WhatsApp teilen"
+
+[share_via_email]
+other = "Per E-Mail teilen"
+
+[link_copied]
+other = "Link kopiert!"
+
+[code_copied]
+other = "Code kopiert!"
+
+[min_read]
+other = "Min. Lesezeit"

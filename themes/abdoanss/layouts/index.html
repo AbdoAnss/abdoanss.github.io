@@ -1,76 +1,130 @@
 {{ define "main" }}
-{{ $latest := index (where .Site.RegularPages "Type" "blog").ByDate.Reverse 0 }}
+{{ $canonicalSite := index hugo.Sites 0 }}
+{{ $latest := "" }}
+{{ with (where $canonicalSite.RegularPages "Type" "blog").ByDate.Reverse }}
+  {{ $latest = index . 0 }}
+{{ end }}
+
 <div class="hub">
-  <header class="hub-header">
-    <div class="hub-header-content">
-      <div class="hub-header-text">
-        <p class="eyebrow">{{ .Site.Params.tagline }}</p>
-        <h1>{{ .Site.Title }}</h1>
-        <p class="hub-intro">{{ .Site.Params.intro }}</p>
-      </div>
-      {{ with .Site.Params.profilePicture }}
-      <div class="hub-profile">
-        <img src="{{ . | relURL }}" alt="{{ $.Site.Params.author }}" class="profile-img">
-      </div>
-      {{ end }}
+  <div class="hub-blueprint" aria-hidden="true">
+    <svg viewBox="0 0 420 260" role="img">
+      <path class="blueprint-line" d="M62 180h78l38-74 58 112 44-152 52 86h42" />
+      <path class="blueprint-soft" d="M58 204h316M92 54v164M184 54v164M276 54v164M368 54v164" />
+      <circle cx="178" cy="106" r="5" />
+      <circle cx="236" cy="218" r="5" />
+      <circle cx="280" cy="66" r="5" />
+    </svg>
+  </div>
+  <header class="hub-hero">
+    {{ with .Site.Params.profilePicture }}
+    <div class="hub-profile">
+      <span class="figure-label profile-label-top">FIG.001 / PROFILE</span>
+      <span class="figure-label profile-label-side">AXIS Y</span>
+      <span class="profile-corner profile-corner-tl" aria-hidden="true"></span>
+      <span class="profile-corner profile-corner-br" aria-hidden="true"></span>
+      <img src="{{ . | relURL }}" alt="{{ $.Site.Params.author }}" class="profile-img">
     </div>
-  </header>
-
-  <section class="hub-parcours">
-    <p class="hub-sections-label">Parcours</p>
-    <div class="parcours-timeline">
-      <div class="parcours-items">
-        {{ range .Site.Params.parcours }}
-        <div class="parcours-item">
-          <div class="parcours-item-card">
-            <span class="parcours-item-type">{{ .type }}</span>
-            <p class="eyebrow">{{ .date }}</p>
-            <h4 class="parcours-item-title">{{ .title }}</h4>
-            <span class="parcours-item-org">{{ .org }}</span>
-            <p class="parcours-item-desc">{{ .desc }}</p>
-          </div>
-        </div>
-        {{ end }}
-      </div>
-    </div>
-  </section>
-
-  {{ with $latest }}
-  <section class="hub-latest" aria-label="Dernier article">
-    <p class="hub-sections-label">Dernier article</p>
-    <a href="{{ .RelPermalink }}" class="hub-latest-link">
-      <span class="hub-latest-main">
-        {{ with .CurrentSection.Title }}
-        {{ if ne . "Blog" }}<span class="hub-latest-category">{{ . }}</span>{{ end }}
-        {{ end }}
-        <span class="hub-latest-title">{{ .Title | safeHTML }}</span>
-        {{ with .Params.subtitle }}<span class="hub-latest-subtitle">{{ . }}</span>{{ end }}
-        <span class="hub-latest-meta">{{ .Date.Format "Jan 2006" }} · {{ partial "read-time.html" . }}</span>
-      </span>
-    </a>
-  </section>
-  {{ end }}
-
-  <header class="hub-sections-header">
-    <p class="hub-sections-label">Explorer</p>
-  </header>
-
-  <nav class="hub-sections" aria-label="Sections du site">
-    {{ range $i, $s := .Site.Params.sections }}
-    {{ $page := site.GetPage $s.url }}
-    {{ $count := 0 }}
-    {{ with $page }}{{ $count = len .RegularPagesRecursive }}{{ end }}
-    <a href="{{ $s.url | relURL }}" class="hub-section" style="--i:{{ $i }}">
-      <div class="hub-section-left">
-        <span class="hub-section-title">{{ $s.title }}</span>
-        {{ if gt $count 0 }}
-        <span class="hub-section-count">{{ $count }}</span>
-        {{ end }}
-      </div>
-      <span class="hub-section-desc">{{ $s.description }}</span>
-      <span class="hub-section-arrow">&rarr;</span>
-    </a>
     {{ end }}
-  </nav>
+    <div class="hub-hero-copy">
+      <div class="hero-annotation" aria-hidden="true">
+        <span>REF: SOFTWARE SYSTEMS</span>
+        <span>REV. 2026</span>
+      </div>
+      <h1>{{ .Site.Params.headline }} <em>{{ .Site.Params.headlineAccent }}</em></h1>
+      <p class="hub-intro">{{ .Site.Params.intro }}</p>
+      <div class="hub-actions" aria-label="Profile links">
+        {{ with .Site.Params.github }}
+        <a href="{{ . }}" class="hub-action hub-action-primary" target="_blank" rel="noopener noreferrer">
+          {{ partial "icons.html" "github-sm" }}
+          <span>GitHub</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        {{ end }}
+        {{ with .Site.Params.linkedin }}
+        <a href="{{ . }}" class="hub-action" target="_blank" rel="noopener noreferrer">
+          {{ partial "icons.html" "linkedin-sm" }}
+          <span>LinkedIn</span>
+          <span aria-hidden="true">↗</span>
+        </a>
+        {{ end }}
+      </div>
+      <p class="hub-meta-line">
+        <span>{{ .Site.Params.location }}</span>
+        <span>{{ .Site.Params.availability }}</span>
+      </p>
+    </div>
+  </header>
+
+  <div class="hub-dashboard">
+    <section class="hub-parcours" aria-labelledby="parcours-title">
+      <div class="hub-section-heading">
+        <span aria-hidden="true">//</span>
+        <h2 id="parcours-title">{{ i18n "home_parcours" }}</h2>
+        <small>FIG.002</small>
+      </div>
+      <div class="parcours-roadmap">
+        {{ range .Site.Params.parcours }}
+        {{ $typeKey := printf "parcours_type_%s" .type }}
+        <article class="parcours-item{{ if .highlight }} is-highlighted{{ end }}">
+          <div class="parcours-date">
+            {{ if .highlight }}{{ i18n "home_status_now" }}{{ else }}{{ .date }}{{ end }}
+          </div>
+          <div class="parcours-node" aria-hidden="true"></div>
+          <div class="parcours-content">
+            <div class="parcours-line">
+              <span class="parcours-type">{{ i18n $typeKey }}</span>
+              <h3>{{ .title }} <span>·</span> {{ .org }}</h3>
+              {{ if .highlight }}<span class="parcours-date-inline">{{ .date }}</span>{{ end }}
+            </div>
+            <p>{{ .desc }}</p>
+          </div>
+        </article>
+        {{ end }}
+      </div>
+      <a href="/about/" class="hub-text-link">{{ .Site.Params.parcoursCta }} <span aria-hidden="true">→</span></a>
+    </section>
+
+    <aside class="hub-side">
+      {{ with $latest }}
+      <section class="hub-latest" aria-label="{{ i18n "home_latest_article" }}">
+        <div class="hub-section-heading">
+          <span aria-hidden="true">//</span>
+          <h2>{{ i18n "home_latest_article" }}</h2>
+          <small>FIG.003</small>
+        </div>
+        <a href="{{ .RelPermalink }}" class="hub-latest-link">
+          <span class="hub-latest-date">{{ .Date.Format "Jan 02, 2006" }}</span>
+          <span class="hub-latest-title">{{ .Title | safeHTML }}</span>
+          {{ with .Params.subtitle }}<span class="hub-latest-subtitle">{{ . }}</span>{{ end }}
+          <span class="hub-text-link">{{ $.Site.Params.latestArticleCta }} <span aria-hidden="true">→</span></span>
+        </a>
+      </section>
+      {{ end }}
+
+      <section class="hub-explore" aria-labelledby="explore-title">
+        <div class="hub-section-heading">
+          <span aria-hidden="true">//</span>
+          <h2 id="explore-title">{{ i18n "home_explore" }}</h2>
+          <small>INDEX</small>
+        </div>
+        <nav class="hub-sections" aria-label="{{ i18n "home_explore" }}">
+          {{ range $i, $s := .Site.Params.sections }}
+          {{ $page := $canonicalSite.GetPage $s.url }}
+          {{ $count := 0 }}
+          {{ with $page }}{{ $count = len .RegularPagesRecursive }}{{ end }}
+          <a href="{{ $s.url }}" class="hub-section" style="--i:{{ $i }}">
+            <span class="hub-section-index">{{ printf "%02d" (add $i 1) }}</span>
+            <span class="hub-section-main">
+              <span class="hub-section-title">{{ $s.title }}</span>
+              <span class="hub-section-desc">{{ $s.description }}</span>
+            </span>
+            {{ if gt $count 0 }}<span class="hub-section-count">{{ $count }}</span>{{ end }}
+            <span class="hub-section-arrow" aria-hidden="true">→</span>
+          </a>
+          {{ end }}
+        </nav>
+      </section>
+    </aside>
+  </div>
 </div>
 {{ end }}
