@@ -1804,7 +1804,7 @@ article hr {
 .parcours-roadmap {
   position: relative;
   display: grid;
-  gap: 28px;
+  gap: 34px;
   margin-bottom: 24px;
 }
 
@@ -1815,7 +1815,9 @@ article hr {
   top: 16px;
   bottom: 18px;
   width: 1px;
-  background: linear-gradient(to bottom, var(--accent), var(--blueprint-rule), transparent);
+  background:
+    linear-gradient(to bottom, var(--accent), color-mix(in srgb, var(--blueprint-rule) 78%, transparent), transparent),
+    repeating-linear-gradient(to bottom, transparent 0 13px, color-mix(in srgb, var(--accent) 28%, transparent) 13px 14px);
 }
 
 .parcours-item {
@@ -1838,6 +1840,7 @@ article hr {
   color: var(--text-dim);
   padding-top: 2px;
   text-align: right;
+  line-height: 1.55;
 }
 
 .parcours-item.is-highlighted .parcours-date {
@@ -1845,12 +1848,12 @@ article hr {
 }
 
 .parcours-node {
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  border: 1px solid var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 72%, var(--blueprint-rule));
   background: var(--bg);
-  margin: 4px auto 0;
+  margin: 6px auto 0;
   position: relative;
   z-index: 1;
 }
@@ -1864,14 +1867,30 @@ article hr {
   opacity: 0;
 }
 
+.parcours-node::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: inherit;
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
 .parcours-item.is-highlighted .parcours-node {
   background: var(--accent);
   border-color: var(--accent);
-  box-shadow: 0 0 22px color-mix(in srgb, var(--accent) 45%, transparent);
+  box-shadow:
+    0 0 0 7px color-mix(in srgb, var(--accent) 9%, transparent),
+    0 0 24px color-mix(in srgb, var(--accent) 38%, transparent);
+  margin-top: 18px;
 }
 
 .parcours-item.is-highlighted .parcours-node::after {
   opacity: 1;
+}
+
+.parcours-item.is-highlighted .parcours-node::before {
+  inset: 0;
+  background: var(--accent);
 }
 
 .parcours-line {
@@ -1880,6 +1899,15 @@ article hr {
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 8px;
+}
+
+.parcours-item.is-highlighted .parcours-line {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: start;
+  column-gap: 12px;
+  row-gap: 14px;
+  margin-bottom: 18px;
 }
 
 .parcours-line h3 {
@@ -1892,6 +1920,13 @@ article hr {
   letter-spacing: 0.02em;
 }
 
+.parcours-item.is-highlighted .parcours-line h3 {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  font-size: clamp(1.02rem, 1.9vw, 1.18rem);
+  min-width: 0;
+}
+
 .parcours-line h3 span {
   color: var(--text-dim);
 }
@@ -1902,9 +1937,25 @@ article hr {
   text-transform: uppercase;
 }
 
+.parcours-item.is-highlighted .parcours-type,
+.parcours-item.is-highlighted .parcours-date-inline {
+  border: 1px solid color-mix(in srgb, var(--accent) 58%, transparent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  padding: 3px 9px;
+  line-height: 1.25;
+}
+
 .parcours-date-inline {
   margin-left: auto;
   text-transform: none;
+}
+
+.parcours-item.is-highlighted .parcours-date-inline {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+  margin-left: 0;
+  white-space: nowrap;
 }
 
 .parcours-content p {
@@ -1920,16 +1971,60 @@ article hr {
   position: relative;
 }
 
+.parcours-item:not(.is-highlighted) .parcours-content {
+  padding-top: 14px;
+  border-top: 1px solid color-mix(in srgb, var(--blueprint-rule) 48%, transparent);
+}
+
 .parcours-item.is-highlighted .parcours-content::before {
   content: '';
   position: absolute;
-  left: -16px;
-  right: 0;
+  left: -10px;
   top: -10px;
-  bottom: -12px;
-  border-top: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
-  border-bottom: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+  width: 28px;
+  height: 28px;
+  border-top: 2px solid var(--accent);
+  border-left: 2px solid var(--accent);
   pointer-events: none;
+}
+
+.parcours-item.is-highlighted .parcours-content::after {
+  content: '';
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+  width: 28px;
+  height: 28px;
+  border-right: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  pointer-events: none;
+}
+
+.parcours-item.is-highlighted .parcours-content {
+  padding: 22px 24px 24px;
+  border: 1px solid color-mix(in srgb, var(--accent) 58%, transparent);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 14%, transparent), transparent 18%),
+    linear-gradient(180deg, color-mix(in srgb, var(--surface) 86%, transparent), color-mix(in srgb, var(--bg) 70%, transparent));
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--accent) 24%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.parcours-item.is-highlighted .parcours-content p {
+  position: relative;
+  padding-top: 18px;
+}
+
+.parcours-item.is-highlighted .parcours-content p::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background:
+    linear-gradient(90deg, var(--accent) 0 52%, color-mix(in srgb, var(--blueprint-rule) 68%, transparent) 52% 100%);
 }
 
 .hub-text-link {
@@ -2979,8 +3074,19 @@ article hr {
     flex-direction: column;
     gap: 4px;
   }
+  .parcours-item.is-highlighted .parcours-line {
+    grid-template-columns: 1fr;
+  }
+  .parcours-item.is-highlighted .parcours-line h3,
+  .parcours-item.is-highlighted .parcours-date-inline {
+    grid-column: 1;
+    grid-row: auto;
+  }
   .parcours-date-inline {
     margin-left: 0;
+  }
+  .parcours-item.is-highlighted .parcours-date-inline {
+    justify-self: start;
   }
   .hub-section {
     grid-template-columns: 28px minmax(0, 1fr) 18px;
