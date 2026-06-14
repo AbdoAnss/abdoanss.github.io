@@ -1,40 +1,33 @@
 {{ define "main" }}
 {{ $canonicalSite := index hugo.Sites 0 }}
-{{ $latest := "" }}
-{{ with (where $canonicalSite.RegularPages "Type" "blog").ByDate.Reverse }}
-  {{ $latest = index . 0 }}
-{{ end }}
+{{ $latestArticles := first 3 ((where $canonicalSite.RegularPages "Type" "blog").ByDate.Reverse) }}
+{{ $featuredProjects := first 2 .Site.Params.featuredProjects }}
 
 <div class="hub">
-  <div class="hub-blueprint" aria-hidden="true">
-    <svg viewBox="0 0 420 260" role="img">
-      <path class="blueprint-line" d="M62 180h78l38-74 58 112 44-152 52 86h42" />
-      <path class="blueprint-soft" d="M58 204h316M92 54v164M184 54v164M276 54v164M368 54v164" />
-      <circle cx="178" cy="106" r="5" />
-      <circle cx="236" cy="218" r="5" />
-      <circle cx="280" cy="66" r="5" />
-    </svg>
-  </div>
-  <header class="hub-hero">
+  <header class="hub-hero hub-card">
     {{ with .Site.Params.profilePicture }}
     <div class="hub-profile">
-      <span class="figure-label profile-label-top">FIG.001 / PROFILE</span>
-      <span class="figure-label profile-label-side">AXIS Y</span>
-      <span class="profile-corner profile-corner-tl" aria-hidden="true"></span>
-      <span class="profile-corner profile-corner-br" aria-hidden="true"></span>
+      <span class="figure-label">FIG.01 / PROFILE</span>
       <img src="{{ . | relURL }}" alt="{{ $.Site.Params.author }}" class="profile-img">
+      <div class="profile-caption">
+        <strong>{{ $.Site.Params.author }}</strong>
+        <span>{{ $.Site.Params.tagline }}</span>
+      </div>
     </div>
     {{ end }}
     <div class="hub-hero-copy">
-      <div class="hero-annotation" aria-hidden="true">
-        <span>REF: SOFTWARE SYSTEMS</span>
-        <span>REV. 2026</span>
-      </div>
+      <span class="figure-label">FIG.02 / INTRO</span>
       <h1>{{ .Site.Params.headline }} <em>{{ .Site.Params.headlineAccent }}</em></h1>
       <p class="hub-intro">{{ .Site.Params.intro }}</p>
       <div class="hub-actions" aria-label="Profile links">
+        {{ with .Site.Params.email }}
+        <a href="mailto:{{ . }}" class="hub-action hub-action-primary">
+          <span>Contact me</span>
+          <span aria-hidden="true">→</span>
+        </a>
+        {{ end }}
         {{ with .Site.Params.github }}
-        <a href="{{ . }}" class="hub-action hub-action-primary" target="_blank" rel="noopener noreferrer">
+        <a href="{{ . }}" class="hub-action" target="_blank" rel="noopener noreferrer">
           {{ partial "icons.html" "github-sm" }}
           <span>GitHub</span>
           <span aria-hidden="true">↗</span>
@@ -52,79 +45,133 @@
         <span>{{ .Site.Params.location }}</span>
         <span>{{ .Site.Params.availability }}</span>
       </p>
+      {{ with .Site.Params.techStack }}
+      <div class="hero-stack" aria-label="Tech stack">
+        {{ range . }}<span class="skill-pill">{{ . }}</span>{{ end }}
+      </div>
+      {{ end }}
     </div>
   </header>
 
-  <div class="hub-dashboard">
-    <section class="hub-parcours" aria-labelledby="parcours-title">
-      <div class="hub-section-heading">
-        <span aria-hidden="true">//</span>
-        <h2 id="parcours-title">{{ i18n "home_parcours" }}</h2>
-        <small>FIG.002</small>
-      </div>
-      <div class="parcours-roadmap">
-        {{ range .Site.Params.parcours }}
+  <section class="hub-parcours hub-card" aria-labelledby="parcours-title">
+    <div class="hub-section-heading">
+      <span class="figure-label">FIG.03</span>
+      <h2 id="parcours-title">{{ i18n "home_parcours" }}</h2>
+    </div>
+    <div class="parcours-roadmap">
+      {{ $lastType := "" }}
+      {{ range .Site.Params.parcours }}
         {{ $typeKey := printf "parcours_type_%s" .type }}
-        <article class="parcours-item{{ if .highlight }} is-highlighted{{ end }}">
-          <div class="parcours-date">
-            {{ if .highlight }}{{ i18n "home_status_now" }}{{ else }}{{ .date }}{{ end }}
-          </div>
-          <div class="parcours-node" aria-hidden="true"></div>
-          <div class="parcours-content">
-            <div class="parcours-line">
-              <span class="parcours-type">{{ i18n $typeKey }}</span>
-              <h3>{{ .title }} <span>·</span> {{ .org }}</h3>
-              {{ if .highlight }}<span class="parcours-date-inline">{{ .date }}</span>{{ end }}
-            </div>
-            <p>{{ .desc }}</p>
-          </div>
-        </article>
+        {{ if ne $lastType .type }}
+          <div class="timeline-label">{{ i18n $typeKey }}</div>
+          {{ $lastType = .type }}
         {{ end }}
-      </div>
-      <a href="/about/" class="hub-text-link">{{ .Site.Params.parcoursCta }} <span aria-hidden="true">→</span></a>
-    </section>
-
-    <aside class="hub-side">
-      {{ with $latest }}
-      <section class="hub-latest" aria-label="{{ i18n "home_latest_article" }}">
-        <div class="hub-section-heading">
-          <span aria-hidden="true">//</span>
-          <h2>{{ i18n "home_latest_article" }}</h2>
-          <small>FIG.003</small>
-        </div>
-        <a href="{{ .RelPermalink }}" class="hub-latest-link">
-          <span class="hub-latest-date">{{ .Date.Format "Jan 02, 2006" }}</span>
-          <span class="hub-latest-title">{{ .Title | safeHTML }}</span>
-          {{ with .Params.subtitle }}<span class="hub-latest-subtitle">{{ . }}</span>{{ end }}
-          <span class="hub-text-link">{{ $.Site.Params.latestArticleCta }} <span aria-hidden="true">→</span></span>
-        </a>
-      </section>
-      {{ end }}
-
-      <section class="hub-explore" aria-labelledby="explore-title">
-        <div class="hub-section-heading">
-          <span aria-hidden="true">//</span>
-          <h2 id="explore-title">{{ i18n "home_explore" }}</h2>
-          <small>INDEX</small>
-        </div>
-        <nav class="hub-sections" aria-label="{{ i18n "home_explore" }}">
-          {{ range $i, $s := .Site.Params.sections }}
-          {{ $page := $canonicalSite.GetPage $s.url }}
-          {{ $count := 0 }}
-          {{ with $page }}{{ $count = len .RegularPagesRecursive }}{{ end }}
-          <a href="{{ $s.url }}" class="hub-section" style="--i:{{ $i }}">
-            <span class="hub-section-index">{{ printf "%02d" (add $i 1) }}</span>
-            <span class="hub-section-main">
-              <span class="hub-section-title">{{ $s.title }}</span>
-              <span class="hub-section-desc">{{ $s.description }}</span>
-            </span>
-            {{ if gt $count 0 }}<span class="hub-section-count">{{ $count }}</span>{{ end }}
-            <span class="hub-section-arrow" aria-hidden="true">→</span>
-          </a>
+      <article class="parcours-item{{ if .highlight }} is-highlighted{{ end }}">
+        <div class="parcours-node" aria-hidden="true"></div>
+        <div class="parcours-content">
+          <div class="parcours-card-top">
+            <h3>{{ .title }} <span>{{ .org }}</span></h3>
+            <span class="parcours-date">{{ if .highlight }}{{ i18n "home_status_now" }} / {{ .date }}{{ else }}{{ .date }}{{ end }}</span>
+          </div>
+          <p>{{ .desc }}</p>
+          {{ with .skills }}
+          <div class="parcours-skills">
+            {{ range . }}<span class="skill-pill skill-pill-outline">{{ . }}</span>{{ end }}
+          </div>
           {{ end }}
-        </nav>
-      </section>
-    </aside>
-  </div>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+    <a href="/about/" class="hub-text-link">{{ .Site.Params.parcoursCta }} <span aria-hidden="true">→</span></a>
+  </section>
+
+  {{ with $latestArticles }}
+  <section class="hub-latest hub-card" aria-label="{{ i18n "home_latest_article" }}">
+    <div class="hub-section-heading">
+      <span class="figure-label">FIG.04</span>
+      <h2>{{ i18n "home_latest_article" }}</h2>
+    </div>
+    <div class="article-grid">
+      {{ range . }}
+      <a href="{{ .RelPermalink }}" class="article-preview-card">
+        <span class="hub-latest-date">{{ .Date.Format "Jan 02, 2006" }} · {{ partial "read-time.html" . }}</span>
+        <span class="hub-latest-title">{{ .Title | safeHTML }}</span>
+        <span class="article-tags">
+          {{ range first 2 .Params.tags }}<span class="skill-pill skill-pill-outline">{{ . }}</span>{{ end }}
+        </span>
+      </a>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+
+  <section class="hub-explore hub-card" aria-labelledby="explore-title">
+    <div class="hub-section-heading">
+      <span class="figure-label">FIG.05</span>
+      <h2 id="explore-title">{{ i18n "home_explore" }}</h2>
+    </div>
+    <nav class="hub-sections" aria-label="{{ i18n "home_explore" }}">
+      {{ range $i, $s := .Site.Params.sections }}
+      {{ if ne $s.url "/notes/" }}
+      <a href="{{ $s.url }}" class="hub-section" style="--i:{{ $i }}">
+        <span class="hub-section-index">{{ printf "%02d" (add $i 1) }}</span>
+        <span class="hub-section-main">
+          <span class="hub-section-title">{{ $s.title }}</span>
+          <span class="hub-section-desc">{{ $s.description }}</span>
+        </span>
+        <span class="hub-section-arrow" aria-hidden="true">→</span>
+      </a>
+      {{ end }}
+      {{ end }}
+    </nav>
+  </section>
+
+  <section class="hub-projects hub-card" aria-labelledby="projects-title">
+    <div class="hub-section-heading">
+      <span class="figure-label">FIG.06</span>
+      <h2 id="projects-title">{{ i18n "home_featured_projects" }}</h2>
+    </div>
+    <div class="project-preview-grid">
+      {{ range $featuredProjects }}
+      <a href="{{ .url }}" class="project-preview-card">
+        <h3>{{ .name }}</h3>
+        <p>{{ .description }}</p>
+        <span class="article-tags">
+          {{ range .tech }}<span class="skill-pill skill-pill-outline">{{ . }}</span>{{ end }}
+        </span>
+        <span class="hub-text-link">{{ with .cta }}{{ . }}{{ else }}{{ i18n "source_code" }}{{ end }} <span aria-hidden="true">→</span></span>
+      </a>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="hub-skills hub-card" aria-labelledby="skills-title">
+    <div class="hub-section-heading">
+      <span class="figure-label">FIG.07</span>
+      <h2 id="skills-title">{{ i18n "home_skills" }}</h2>
+    </div>
+    <div class="skills-grid">
+      {{ range .Site.Params.skillGroups }}
+      <div class="skill-group">
+        <h3>{{ .title }}</h3>
+        <div class="skill-list">
+          {{ range .items }}<span class="skill-pill">{{ . }}</span>{{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="hub-contact hub-card" aria-labelledby="contact-title">
+    <div class="hub-section-heading">
+      <span class="figure-label">FIG.08</span>
+      <h2 id="contact-title">{{ i18n "home_contact" }}</h2>
+    </div>
+    <p>{{ .Site.Params.contactText }}</p>
+    {{ with .Site.Params.email }}
+    <a href="mailto:{{ . }}" class="contact-email">{{ . }}</a>
+    {{ end }}
+  </section>
 </div>
 {{ end }}

@@ -26,10 +26,19 @@ other = "Langue"
 other = "Parcours"
 
 [home_latest_article]
-other = "Dernier article"
+other = "Derniers articles"
 
 [home_explore]
 other = "Explorer"
+
+[home_featured_projects]
+other = "Projets sélectionnés"
+
+[home_skills]
+other = "Compétences"
+
+[home_contact]
+other = "Contact"
 
 [home_status_now]
 other = "Maintenant"

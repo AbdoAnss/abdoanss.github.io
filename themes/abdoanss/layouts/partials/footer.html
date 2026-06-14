@@ -1,12 +1,32 @@
   <footer class="site-footer">
-    <span class="footer-copy">&copy; {{ now.Year }} {{ .Site.Params.author }}</span>
-    <nav class="footer-links">
-      {{ with .Site.Params.github }}
-      <a href="{{ . }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">{{ partial "icons.html" "github-sm" }}</a>
-      {{ end }}
-      {{ with .Site.Params.linkedin }}
-      <a href="{{ . }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">{{ partial "icons.html" "linkedin-sm" }}</a>
-      {{ end }}
-      <a href="{{ "index.xml" | absURL }}" aria-label="RSS feed">{{ partial "icons.html" "rss" }}</a>
-    </nav>
+    <div class="footer-identity">
+      <span class="footer-copy">&copy; {{ now.Year }} {{ .Site.Params.author }}</span>
+      {{ with .Site.Params.email }}<a href="mailto:{{ . }}" class="footer-email">{{ . }}</a>{{ end }}
+    </div>
+    <div class="footer-meta">
+      <nav class="language-switcher" aria-label="{{ i18n "language_switcher" }}">
+        {{ $currentPage := . }}
+        {{ range hugo.Sites }}
+          {{ $lang := .Language.Lang }}
+          {{ $href := $currentPage.RelPermalink }}
+          {{ if $currentPage.IsHome }}
+            {{ $href = .Home.RelPermalink }}
+          {{ else }}
+            {{ range $currentPage.AllTranslations }}
+              {{ if eq .Language.Lang $lang }}{{ $href = .RelPermalink }}{{ end }}
+            {{ end }}
+          {{ end }}
+          <a href="{{ $href }}" hreflang="{{ $lang }}" lang="{{ $lang }}" class="language-link{{ if eq $.Site.Language.Lang $lang }} is-active{{ end }}">{{ upper $lang }}</a>
+        {{ end }}
+      </nav>
+      <nav class="footer-links">
+        {{ with .Site.Params.github }}
+        <a href="{{ . }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">{{ partial "icons.html" "github-sm" }}</a>
+        {{ end }}
+        {{ with .Site.Params.linkedin }}
+        <a href="{{ . }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">{{ partial "icons.html" "linkedin-sm" }}</a>
+        {{ end }}
+        <a href="{{ "index.xml" | absURL }}" aria-label="RSS feed">{{ partial "icons.html" "rss" }}</a>
+      </nav>
+    </div>
   </footer>

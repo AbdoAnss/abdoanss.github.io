@@ -37,6 +37,34 @@ defaultContentLanguageInSubdir = false
   profilePicture = '/profile.jpg'
   github = 'https://github.com/AbdoAnss'
   linkedin = 'https://www.linkedin.com/in/abdoanss/'
+  email = 'abdessamad.anssem@gmail.com'
+  techStack = ['Java', 'Spring Boot', 'Python', 'PostgreSQL', 'Docker', 'Go', 'Redis', 'Kubernetes']
+
+  [[params.skillGroups]]
+    title = 'Backend'
+    items = ['Java', 'Spring Boot', 'Python', 'Go', 'REST APIs', 'Celery']
+
+  [[params.skillGroups]]
+    title = 'Data & Infra'
+    items = ['PostgreSQL', 'Redis', 'Docker', 'CI/CD', 'Linux', 'Cloud Foundry']
+
+  [[params.skillGroups]]
+    title = 'Engineering'
+    items = ['Distributed systems', 'Observability', 'DevOps', 'Testing', 'System design']
+
+  [[params.featuredProjects]]
+    name = 'go-fantasy-pl'
+    description = 'A typed Go client for the Fantasy Premier League API.'
+    url = '/projects/go-fantasy-pl/'
+    tech = ['Go', 'FPL API', 'Caching', 'Rate limiting']
+    cta = 'View project'
+
+  [[params.featuredProjects]]
+    name = 'Backend Latency Simulator'
+    description = 'A visual comparison of blocking requests and async queue-backed workflows.'
+    url = '/tools/backend-latency-simulator/'
+    tech = ['Backend', 'Async', 'Queues', 'UX']
+    cta = 'Open tool'
 
 [languages]
   [languages.en]
@@ -54,6 +82,7 @@ defaultContentLanguageInSubdir = false
       availability = 'Open to opportunities'
       parcoursCta = 'View full parcours'
       latestArticleCta = 'Read article'
+      contactText = 'Open to backend, platform, and software engineering opportunities. Email is the fastest way to reach me.'
 
       [[languages.en.params.sections]]
         title = 'Blog'
@@ -86,6 +115,7 @@ defaultContentLanguageInSubdir = false
         org = 'SAP'
         date = '04/2026 - Present'
         desc = 'Develop backend features and data-processing workflows for the Group Reporting Data Collection (GRDC) platform on SAP BTP Cloud Foundry, using Java, Spring Boot, CAP, and Node.js.'
+        skills = ['Java', 'Spring Boot', 'CAP', 'Cloud Foundry']
         highlight = true
 
       [[languages.en.params.parcours]]
@@ -94,6 +124,7 @@ defaultContentLanguageInSubdir = false
         org = 'Institut Universitaire Européen de la Mer (IUEM)'
         date = '09/2025 - 01/2026'
         desc = 'Migrated the PyCoast graphical interface from Bokeh to Panel, designing and prototyping with researchers.'
+        skills = ['Python', 'Panel', 'Bokeh', 'UI']
 
       [[languages.en.params.parcours]]
         type = 'education'
@@ -101,6 +132,7 @@ defaultContentLanguageInSubdir = false
         org = 'Université de Bretagne Occidentale. Software Engineering, Applications for Environmental Data'
         date = '09/2025 - Present'
         desc = 'Key topics: multi-agent systems, cyber-physical systems, advanced information systems, Web Services & Java EE, Big Data, virtualization, and security.'
+        skills = ['Java EE', 'Big Data', 'Security', 'Virtualization']
 
       [[languages.en.params.parcours]]
         type = 'experience'
@@ -108,6 +140,7 @@ defaultContentLanguageInSubdir = false
         org = 'CIEMS - Rabat, Morocco'
         date = '06/2024 - 08/2024'
         desc = 'Designed an insurance recommendation engine with collaborative filtering, asynchronous Celery/Redis workflows, AI-assisted messaging, PostgreSQL schemas, and Jinja2 templates.'
+        skills = ['Python', 'Celery', 'Redis', 'PostgreSQL']
 
       [[languages.en.params.parcours]]
         type = 'education'
@@ -115,6 +148,7 @@ defaultContentLanguageInSubdir = false
         org = 'Institut National des Postes et Télécommunications (INPT)'
         date = '2023 - Present'
         desc = 'Key topics: algorithms, data structures, OOP, backend and frontend development, databases, Big Data, DevOps, CI/CD, Docker, Agile methods, IoT, and Power BI.'
+        skills = ['Algorithms', 'Docker', 'DevOps', 'Databases']
 
       [[languages.en.params.parcours]]
         type = 'education'
@@ -122,6 +156,7 @@ defaultContentLanguageInSubdir = false
         org = 'Prepa Scientifique'
         date = '2021 - 2023'
         desc = 'Two years of rigorous mathematics and physics training in Agadir, leading to admission to INPT through the CNC entrance exam.'
+        skills = ['Mathematics', 'Physics', 'Problem solving']
 
   [languages.fr]
     languageCode = 'fr-fr'
@@ -138,6 +173,7 @@ defaultContentLanguageInSubdir = false
       availability = 'Ouvert aux opportunités'
       parcoursCta = 'Voir tout le parcours'
       latestArticleCta = "Lire l'article"
+      contactText = "Ouvert aux opportunités backend, plateforme et ingénierie logicielle. L'e-mail est le moyen le plus direct pour me contacter."
 
       [[languages.fr.params.sections]]
         title = 'Blog'
@@ -170,6 +206,7 @@ defaultContentLanguageInSubdir = false
         org = 'SAP'
         date = '04/2026 - Présent'
         desc = 'Développement de fonctionnalités backend et de workflows de traitement de données pour la plateforme Group Reporting Data Collection (GRDC) sur SAP BTP Cloud Foundry, avec Java, Spring Boot, CAP et Node.js.'
+        skills = ['Java', 'Spring Boot', 'CAP', 'Cloud Foundry']
         highlight = true
 
       [[languages.fr.params.parcours]]
@@ -178,6 +215,7 @@ defaultContentLanguageInSubdir = false
         org = 'Institut Universitaire Européen de la Mer (IUEM)'
         date = '09/2025 - 01/2026'
         desc = 'Migration de l’interface graphique de PyCoast de Bokeh vers Panel. Conception et prototypage en collaboration avec les chercheurs.'
+        skills = ['Python', 'Panel', 'Bokeh', 'UI']
 
       [[languages.fr.params.parcours]]
         type = 'education'
@@ -185,6 +223,7 @@ defaultContentLanguageInSubdir = false
         org = 'Université de Bretagne Occidentale. Ingénierie du Logiciel, Applications aux Données Environnementales'
         date = '09/2025 - Présent'
         desc = 'Compétences clés : systèmes multi-agents, systèmes cyber-physiques, systèmes d’information avancés, Services Web & Java EE, Big Data, virtualisation, sécurité.'
+        skills = ['Java EE', 'Big Data', 'Sécurité', 'Virtualisation']
 
       [[languages.fr.params.parcours]]
         type = 'experience'
@@ -192,6 +231,7 @@ defaultContentLanguageInSubdir = false
         org = 'CIEMS - Rabat, Maroc'
         date = '06/2024 - 08/2024'
         desc = 'Conception d’un moteur de recommandation d’assurances par filtrage collaboratif, workflows Celery/Redis, automatisation de messages IA, schéma PostgreSQL et templates Jinja2.'
+        skills = ['Python', 'Celery', 'Redis', 'PostgreSQL']
 
       [[languages.fr.params.parcours]]
         type = 'education'
@@ -199,6 +239,7 @@ defaultContentLanguageInSubdir = false
         org = 'Institut National des Postes et Télécommunications (INPT)'
         date = '2023 - Présent'
         desc = 'Compétences clés : algorithmes, structures de données, POO, développement backend et frontend, bases de données, Big Data, DevOps, CI/CD, Docker, méthodes agiles, IoT et Power BI.'
+        skills = ['Algorithmes', 'Docker', 'DevOps', 'Bases de données']
 
       [[languages.fr.params.parcours]]
         type = 'education'
@@ -206,6 +247,7 @@ defaultContentLanguageInSubdir = false
         org = 'Prepa Scientifique'
         date = '2021 - 2023'
         desc = "Deux années de formation académique rigoureuse à Agadir en mathématiques et physique, menant à l'admission à l'INPT via le concours CNC."
+        skills = ['Mathématiques', 'Physique', 'Résolution de problèmes']
 
   [languages.de]
     languageCode = 'de-de'
@@ -222,6 +264,7 @@ defaultContentLanguageInSubdir = false
       availability = 'Offen für Möglichkeiten'
       parcoursCta = 'Vollständigen Werdegang ansehen'
       latestArticleCta = 'Artikel lesen'
+      contactText = 'Offen für Backend-, Plattform- und Software-Engineering-Möglichkeiten. E-Mail ist der direkteste Kontaktweg.'
 
       [[languages.de.params.sections]]
         title = 'Blog'
@@ -254,6 +297,7 @@ defaultContentLanguageInSubdir = false
         org = 'SAP'
         date = '04/2026 - Heute'
         desc = 'Entwicklung von Backend-Funktionen und Datenverarbeitungs-Workflows für die Group Reporting Data Collection (GRDC) Plattform auf SAP BTP Cloud Foundry mit Java, Spring Boot, CAP und Node.js.'
+        skills = ['Java', 'Spring Boot', 'CAP', 'Cloud Foundry']
         highlight = true
 
       [[languages.de.params.parcours]]
@@ -262,6 +306,7 @@ defaultContentLanguageInSubdir = false
         org = 'Institut Universitaire Européen de la Mer (IUEM)'
         date = '09/2025 - 01/2026'
         desc = 'Migration der grafischen PyCoast-Oberfläche von Bokeh zu Panel, inklusive Design und Prototyping mit Forschenden.'
+        skills = ['Python', 'Panel', 'Bokeh', 'UI']
 
       [[languages.de.params.parcours]]
         type = 'education'
@@ -269,6 +314,7 @@ defaultContentLanguageInSubdir = false
         org = 'Université de Bretagne Occidentale. Software Engineering, Anwendungen für Umweltdaten'
         date = '09/2025 - Heute'
         desc = 'Schwerpunkte: Multi-Agenten-Systeme, cyber-physische Systeme, fortgeschrittene Informationssysteme, Web Services & Java EE, Big Data, Virtualisierung und Sicherheit.'
+        skills = ['Java EE', 'Big Data', 'Sicherheit', 'Virtualisierung']
 
       [[languages.de.params.parcours]]
         type = 'experience'
@@ -276,6 +322,7 @@ defaultContentLanguageInSubdir = false
         org = 'CIEMS - Rabat, Marokko'
         date = '06/2024 - 08/2024'
         desc = 'Entwicklung einer Empfehlungsmaschine für Versicherungen mit kollaborativem Filtering, asynchronen Celery/Redis-Workflows, KI-gestützter Kommunikation, PostgreSQL-Schema und Jinja2-Templates.'
+        skills = ['Python', 'Celery', 'Redis', 'PostgreSQL']
 
       [[languages.de.params.parcours]]
         type = 'education'
@@ -283,6 +330,7 @@ defaultContentLanguageInSubdir = false
         org = 'Institut National des Postes et Télécommunications (INPT)'
         date = '2023 - Heute'
         desc = 'Schwerpunkte: Algorithmen, Datenstrukturen, OOP, Backend- und Frontend-Entwicklung, Datenbanken, Big Data, DevOps, CI/CD, Docker, agile Methoden, IoT und Power BI.'
+        skills = ['Algorithmen', 'Docker', 'DevOps', 'Datenbanken']
 
       [[languages.de.params.parcours]]
         type = 'education'
@@ -290,6 +338,7 @@ defaultContentLanguageInSubdir = false
         org = 'Prepa Scientifique'
         date = '2021 - 2023'
         desc = 'Zwei Jahre intensive mathematisch-physikalische Ausbildung in Agadir mit anschließender Aufnahme am INPT über die CNC-Aufnahmeprüfung.'
+        skills = ['Mathematik', 'Physik', 'Problemlösung']
 
 [markup]
   [markup.tableOfContents]
