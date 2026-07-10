@@ -1,130 +1,172 @@
 {{ define "main" }}
 {{ $canonicalSite := index hugo.Sites 0 }}
-{{ $latest := "" }}
+{{ $latestBlog := "" }}
 {{ with (where $canonicalSite.RegularPages "Type" "blog").ByDate.Reverse }}
-  {{ $latest = index . 0 }}
+  {{ $latestBlog = index . 0 }}
+{{ end }}
+{{ $latestProject := "" }}
+{{ with (where $canonicalSite.RegularPages "Type" "projects").ByDate.Reverse }}
+  {{ $latestProject = index . 0 }}
 {{ end }}
 
-<div class="hub">
-  <div class="hub-blueprint" aria-hidden="true">
-    <svg viewBox="0 0 420 260" role="img">
-      <path class="blueprint-line" d="M62 180h78l38-74 58 112 44-152 52 86h42" />
-      <path class="blueprint-soft" d="M58 204h316M92 54v164M184 54v164M276 54v164M368 54v164" />
-      <circle cx="178" cy="106" r="5" />
-      <circle cx="236" cy="218" r="5" />
-      <circle cx="280" cy="66" r="5" />
-    </svg>
-  </div>
-  <header class="hub-hero">
-    {{ with .Site.Params.profilePicture }}
-    <div class="hub-profile">
-      <span class="figure-label profile-label-top">FIG.001 / PROFILE</span>
-      <span class="figure-label profile-label-side">AXIS Y</span>
-      <span class="profile-corner profile-corner-tl" aria-hidden="true"></span>
-      <span class="profile-corner profile-corner-br" aria-hidden="true"></span>
-      <img src="{{ . | relURL }}" alt="{{ $.Site.Params.author }}" class="profile-img">
-    </div>
-    {{ end }}
-    <div class="hub-hero-copy">
-      <div class="hero-annotation" aria-hidden="true">
-        <span>REF: SOFTWARE SYSTEMS</span>
-        <span>REV. 2026</span>
-      </div>
-      <h1>{{ .Site.Params.headline }} <em>{{ .Site.Params.headlineAccent }}</em></h1>
-      <p class="hub-intro">{{ .Site.Params.intro }}</p>
-      <div class="hub-actions" aria-label="Profile links">
+<div class="folio-home">
+  <section class="folio-hero" aria-labelledby="folio-hero-title">
+    <div class="folio-hero-copy">
+      <p class="folio-kicker">
+        <span>{{ i18n "home_hello" }} {{ .Site.Params.author }}</span>
+        <span>{{ .Site.Params.location }}</span>
+      </p>
+      <h1 id="folio-hero-title">{{ .Site.Params.headline }} <em>{{ .Site.Params.headlineAccent }}</em></h1>
+      <p class="folio-intro">{{ .Site.Params.intro }}</p>
+      <div class="folio-actions" aria-label="Profile links">
         {{ with .Site.Params.github }}
-        <a href="{{ . }}" class="hub-action hub-action-primary" target="_blank" rel="noopener noreferrer">
+        <a href="{{ . }}" class="folio-action folio-action-primary" target="_blank" rel="noopener noreferrer">
           {{ partial "icons.html" "github-sm" }}
           <span>GitHub</span>
-          <span aria-hidden="true">↗</span>
         </a>
         {{ end }}
         {{ with .Site.Params.linkedin }}
-        <a href="{{ . }}" class="hub-action" target="_blank" rel="noopener noreferrer">
+        <a href="{{ . }}" class="folio-action" target="_blank" rel="noopener noreferrer">
           {{ partial "icons.html" "linkedin-sm" }}
           <span>LinkedIn</span>
-          <span aria-hidden="true">↗</span>
         </a>
         {{ end }}
+        <a href="/about/" class="folio-action">
+          {{ partial "icons.html" "external" }}
+          <span>{{ i18n "nav_about" }}</span>
+        </a>
       </div>
-      <p class="hub-meta-line">
-        <span>{{ .Site.Params.location }}</span>
-        <span>{{ .Site.Params.availability }}</span>
-      </p>
+      <dl class="folio-facts" aria-label="Profile details">
+        <div>
+          <dt>{{ i18n "home_focus" }}</dt>
+          <dd>{{ i18n "home_focus_detail" }}</dd>
+        </div>
+        <div>
+          <dt>{{ i18n "home_location" }}</dt>
+          <dd>{{ .Site.Params.location }}</dd>
+        </div>
+        <div>
+          <dt>{{ i18n "home_status" }}</dt>
+          <dd>{{ .Site.Params.availability }}</dd>
+        </div>
+      </dl>
     </div>
-  </header>
+    <figure class="folio-hero-visual">
+      <img src="{{ "/home-hero.png" | relURL }}" alt="A calm workspace with software design notes and a laptop" loading="eager">
+      <figcaption>{{ i18n "home_hero_caption" }}</figcaption>
+    </figure>
+  </section>
 
-  <div class="hub-dashboard">
-    <section class="hub-parcours" aria-labelledby="parcours-title">
-      <div class="hub-section-heading">
-        <span aria-hidden="true">//</span>
-        <h2 id="parcours-title">{{ i18n "home_parcours" }}</h2>
-        <small>FIG.002</small>
-      </div>
-      <div class="parcours-roadmap">
-        {{ range .Site.Params.parcours }}
-        {{ $typeKey := printf "parcours_type_%s" .type }}
-        <article class="parcours-item{{ if .highlight }} is-highlighted{{ end }}">
-          <div class="parcours-date">
-            {{ if .highlight }}{{ i18n "home_status_now" }}{{ else }}{{ .date }}{{ end }}
+  <section class="folio-band" aria-labelledby="selected-work-title">
+    <div class="folio-section-heading">
+      <span class="folio-section-mark" aria-hidden="true"></span>
+      <h2 id="selected-work-title">{{ i18n "home_selected_work" }}</h2>
+    </div>
+    <div class="folio-work-grid">
+      <article class="folio-feature">
+        <div class="folio-card-kicker">{{ i18n "home_project" }}</div>
+        {{ with $latestProject }}
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        <p>{{ with .Params.subtitle }}{{ . }}{{ else }}{{ .Params.description | default .Summary | plainify | truncate 140 }}{{ end }}</p>
+        {{ with .Params.tags }}
+        <div class="folio-tags" aria-label="{{ i18n "home_project_tags" }}">
+          {{ range first 4 . }}<span>{{ . }}</span>{{ end }}
+        </div>
+        {{ end }}
+        <a href="{{ .RelPermalink }}" class="folio-link">{{ i18n "home_view_project" }} <span aria-hidden="true">→</span></a>
+        {{ else }}
+        <p>No project has been published yet.</p>
+        <a href="/projects/" class="folio-link">{{ i18n "nav_projects" }} <span aria-hidden="true">→</span></a>
+        {{ end }}
+      </article>
+
+      <article class="folio-feature folio-feature-muted">
+        <div class="folio-card-kicker">{{ i18n "home_writing" }}</div>
+        {{ with $latestBlog }}
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        <p>{{ with .Params.subtitle }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 140 }}{{ end }}</p>
+        <div class="folio-meta-row">
+          <span>{{ .Date.Format "Jan 02, 2006" }}</span>
+          <span>{{ .ReadingTime }} min read</span>
+        </div>
+        <a href="{{ .RelPermalink }}" class="folio-link">{{ i18n "home_read_article" }} <span aria-hidden="true">→</span></a>
+        {{ else }}
+        <p>No article has been published yet.</p>
+        <a href="/blog/" class="folio-link">{{ i18n "nav_blog" }} <span aria-hidden="true">→</span></a>
+        {{ end }}
+      </article>
+    </div>
+  </section>
+
+  <section class="folio-band" aria-labelledby="focus-title">
+    <div class="folio-section-heading">
+      <span class="folio-section-mark" aria-hidden="true"></span>
+      <h2 id="focus-title">{{ i18n "home_what_i_build" }}</h2>
+    </div>
+    <div class="folio-capabilities">
+      {{ range $i, $s := .Site.Params.sections }}
+      {{ $page := $canonicalSite.GetPage $s.url }}
+      {{ $count := 0 }}
+      {{ with $page }}{{ $count = len .RegularPagesRecursive }}{{ end }}
+      <a href="{{ $s.url }}" class="folio-capability" style="--i:{{ $i }}">
+        <span class="folio-capability-index">{{ printf "%02d" (add $i 1) }}</span>
+        <span class="folio-capability-body">
+          <strong>{{ $s.title }}</strong>
+          <span>{{ $s.description }}</span>
+        </span>
+        {{ if gt $count 0 }}<span class="folio-capability-count">{{ $count }}</span>{{ end }}
+      </a>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="folio-band" aria-labelledby="background-title">
+    <div class="folio-section-heading">
+      <span class="folio-section-mark" aria-hidden="true"></span>
+      <h2 id="background-title">{{ i18n "home_parcours" }}</h2>
+    </div>
+    <div class="folio-timeline">
+      {{ range first 4 .Site.Params.parcours }}
+      {{ $typeKey := printf "parcours_type_%s" .type }}
+      <article class="folio-timeline-item{{ if .highlight }} is-highlighted{{ end }}">
+        <div class="folio-timeline-date">
+          {{ if .highlight }}{{ i18n "home_status_now" }}{{ else }}{{ .date }}{{ end }}
+        </div>
+        <div class="folio-timeline-body">
+          <div class="folio-timeline-top">
+            <span class="folio-timeline-type">{{ i18n $typeKey }}</span>
+            <h3>{{ .title }}</h3>
           </div>
-          <div class="parcours-node" aria-hidden="true"></div>
-          <div class="parcours-content">
-            <div class="parcours-line">
-              <span class="parcours-type">{{ i18n $typeKey }}</span>
-              <h3>{{ .title }} <span>·</span> {{ .org }}</h3>
-              {{ if .highlight }}<span class="parcours-date-inline">{{ .date }}</span>{{ end }}
-            </div>
-            <p>{{ .desc }}</p>
-          </div>
-        </article>
+          <p>{{ .desc }}</p>
+        </div>
+      </article>
+      {{ end }}
+    </div>
+    <a href="/about/" class="folio-link">{{ .Site.Params.parcoursCta }} <span aria-hidden="true">→</span></a>
+  </section>
+
+  <section class="folio-band folio-closing" aria-labelledby="closing-title">
+    <div class="folio-section-heading">
+      <span class="folio-section-mark" aria-hidden="true"></span>
+      <h2 id="closing-title">{{ i18n "home_contact" }}</h2>
+    </div>
+    <div class="folio-closing-grid">
+      <p>{{ i18n "home_contact_blurb" }}</p>
+      <div class="folio-actions">
+        {{ with .Site.Params.github }}
+        <a href="{{ . }}" class="folio-action folio-action-primary" target="_blank" rel="noopener noreferrer">
+          {{ partial "icons.html" "github-sm" }}
+          <span>GitHub</span>
+        </a>
+        {{ end }}
+        {{ with .Site.Params.linkedin }}
+        <a href="{{ . }}" class="folio-action" target="_blank" rel="noopener noreferrer">
+          {{ partial "icons.html" "linkedin-sm" }}
+          <span>LinkedIn</span>
+        </a>
         {{ end }}
       </div>
-      <a href="/about/" class="hub-text-link">{{ .Site.Params.parcoursCta }} <span aria-hidden="true">→</span></a>
-    </section>
-
-    <aside class="hub-side">
-      {{ with $latest }}
-      <section class="hub-latest" aria-label="{{ i18n "home_latest_article" }}">
-        <div class="hub-section-heading">
-          <span aria-hidden="true">//</span>
-          <h2>{{ i18n "home_latest_article" }}</h2>
-          <small>FIG.003</small>
-        </div>
-        <a href="{{ .RelPermalink }}" class="hub-latest-link">
-          <span class="hub-latest-date">{{ .Date.Format "Jan 02, 2006" }}</span>
-          <span class="hub-latest-title">{{ .Title | safeHTML }}</span>
-          {{ with .Params.subtitle }}<span class="hub-latest-subtitle">{{ . }}</span>{{ end }}
-          <span class="hub-text-link">{{ $.Site.Params.latestArticleCta }} <span aria-hidden="true">→</span></span>
-        </a>
-      </section>
-      {{ end }}
-
-      <section class="hub-explore" aria-labelledby="explore-title">
-        <div class="hub-section-heading">
-          <span aria-hidden="true">//</span>
-          <h2 id="explore-title">{{ i18n "home_explore" }}</h2>
-          <small>INDEX</small>
-        </div>
-        <nav class="hub-sections" aria-label="{{ i18n "home_explore" }}">
-          {{ range $i, $s := .Site.Params.sections }}
-          {{ $page := $canonicalSite.GetPage $s.url }}
-          {{ $count := 0 }}
-          {{ with $page }}{{ $count = len .RegularPagesRecursive }}{{ end }}
-          <a href="{{ $s.url }}" class="hub-section" style="--i:{{ $i }}">
-            <span class="hub-section-index">{{ printf "%02d" (add $i 1) }}</span>
-            <span class="hub-section-main">
-              <span class="hub-section-title">{{ $s.title }}</span>
-              <span class="hub-section-desc">{{ $s.description }}</span>
-            </span>
-            {{ if gt $count 0 }}<span class="hub-section-count">{{ $count }}</span>{{ end }}
-            <span class="hub-section-arrow" aria-hidden="true">→</span>
-          </a>
-          {{ end }}
-        </nav>
-      </section>
-    </aside>
-  </div>
+    </div>
+  </section>
 </div>
 {{ end }}

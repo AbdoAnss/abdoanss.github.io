@@ -3,7 +3,7 @@
 <head>
   {{ partial "head.html" . }}
 </head>
-<body data-link-copied="{{ i18n "link_copied" }}" data-code-copied="{{ i18n "code_copied" }}" data-giscus-lang="{{ .Site.Language.Lang }}">
+<body class="{{ if .IsHome }}page-home{{ else }}page-{{ .Type }}{{ end }}" data-link-copied="{{ i18n "link_copied" }}" data-code-copied="{{ i18n "code_copied" }}" data-giscus-lang="{{ .Site.Language.Lang }}">
   {{ partial "header.html" . }}
     <main id="main-content">{{ block "main" . }}{{ end }}</main>
   {{ partial "footer.html" . }}

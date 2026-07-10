@@ -28,6 +28,51 @@ other = "Parcours"
 [home_latest_article]
 other = "Dernier article"
 
+[home_hello]
+other = "Bonjour, je suis"
+
+[home_selected_work]
+other = "Travaux sélectionnés"
+
+[home_what_i_build]
+other = "Ce que je construis"
+
+[home_contact]
+other = "Contact"
+
+[home_project]
+other = "Projet"
+
+[home_writing]
+other = "Écriture"
+
+[home_view_project]
+other = "Voir le projet"
+
+[home_read_article]
+other = "Lire l'article"
+
+[home_focus]
+other = "Focalisation"
+
+[home_focus_detail]
+other = "Systèmes backend, scalabilité, expérience développeur"
+
+[home_location]
+other = "Localisation"
+
+[home_status]
+other = "Statut"
+
+[home_hero_caption]
+other = "Vue éditoriale de la priorité actuelle : systèmes, réflexion produit et exécution."
+
+[home_project_tags]
+other = "Tags du projet"
+
+[home_contact_blurb]
+other = "Je développe des logiciels backend qui restent compréhensibles quand le système devient réel. En bref : des API fiables, des outils pratiques et moins de friction pour les personnes qui les utilisent."
+
 [home_explore]
 other = "Explorer"
 

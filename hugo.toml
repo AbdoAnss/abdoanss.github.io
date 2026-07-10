@@ -34,7 +34,6 @@ defaultContentLanguageInSubdir = false
 
 [params]
   author = 'Abdessamad Anssem'
-  profilePicture = '/profile.jpg'
   github = 'https://github.com/AbdoAnss'
   linkedin = 'https://www.linkedin.com/in/abdoanss/'
 
@@ -47,13 +46,13 @@ defaultContentLanguageInSubdir = false
     [languages.en.params]
       description = 'Software engineer focused on backend systems, scalability, developer experience, and reliable distributed architectures.'
       tagline = 'Software Engineer'
-      headline = 'Engineering reliable software for'
-      headlineAccent = 'distributed systems.'
-      intro = 'Software engineer focused on backend systems, scalability, and developer experience. I enjoy turning complex ideas into simple, maintainable, and observable systems.'
-      location = 'Based in Paris, France'
-      availability = 'Open to opportunities'
-      parcoursCta = 'View full parcours'
-      latestArticleCta = 'Read article'
+      headline = 'Turning complex backend problems into'
+      headlineAccent = 'simple software.'
+      intro = 'Backend-focused software engineer working on systems, developer experience, and clear product surfaces. I like turning complex requirements into software that is easy to understand, operate, and evolve.'
+      location = 'Paris, France'
+      availability = 'Open to internships and junior roles'
+      parcoursCta = 'See full background'
+      latestArticleCta = 'Open article'
 
       [[languages.en.params.sections]]
         title = 'Blog'
@@ -131,13 +130,13 @@ defaultContentLanguageInSubdir = false
     [languages.fr.params]
       description = 'Ingénieur logiciel orienté backend, scalabilité, expérience développeur et architectures distribuées fiables.'
       tagline = 'Ingénieur Logiciel'
-      headline = 'Concevoir des logiciels fiables pour les'
-      headlineAccent = 'systèmes distribués.'
-      intro = "Ingénieur logiciel orienté backend, scalabilité et expérience développeur. J'aime transformer des idées complexes en systèmes simples, maintenables et observables."
-      location = 'Basé a Paris, France'
-      availability = 'Ouvert aux opportunités'
-      parcoursCta = 'Voir tout le parcours'
-      latestArticleCta = "Lire l'article"
+      headline = 'Transformer les problèmes backend complexes en'
+      headlineAccent = 'logiciels simples.'
+      intro = "Ingénieur logiciel orienté backend, systèmes et expérience développeur. J'aime transformer des besoins complexes en logiciels simples, maintenables et faciles à exploiter."
+      location = 'Paris, France'
+      availability = 'Ouvert aux stages et postes juniors'
+      parcoursCta = 'Voir le parcours complet'
+      latestArticleCta = "Ouvrir l'article"
 
       [[languages.fr.params.sections]]
         title = 'Blog'
@@ -215,13 +214,13 @@ defaultContentLanguageInSubdir = false
     [languages.de.params]
       description = 'Software Engineer mit Fokus auf Backend-Systeme, Skalierbarkeit, Developer Experience und zuverlässige verteilte Architekturen.'
       tagline = 'Software Engineer'
-      headline = 'Zuverlässige Software entwickeln für'
-      headlineAccent = 'verteilte Systeme.'
-      intro = 'Software Engineer mit Fokus auf Backend-Systeme, Skalierbarkeit und Developer Experience. Ich verwandle komplexe Ideen gern in einfache, wartbare und beobachtbare Systeme.'
-      location = 'In Paris, France ansässig'
-      availability = 'Offen für Möglichkeiten'
-      parcoursCta = 'Vollständigen Werdegang ansehen'
-      latestArticleCta = 'Artikel lesen'
+      headline = 'Komplexe Backend-Probleme in'
+      headlineAccent = 'einfache Software verwandeln.'
+      intro = 'Software Engineer mit Fokus auf Backend-Systeme, Entwicklererlebnis und klare Produktoberflächen. Ich mache aus komplexen Anforderungen Software, die sich leicht verstehen, betreiben und weiterentwickeln lässt.'
+      location = 'Paris, Frankreich'
+      availability = 'Offen für Praktika und Junior-Positionen'
+      parcoursCta = 'Vollen Werdegang ansehen'
+      latestArticleCta = 'Artikel öffnen'
 
       [[languages.de.params.sections]]
         title = 'Blog'
