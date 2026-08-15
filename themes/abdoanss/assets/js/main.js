@@ -449,5 +449,32 @@
     });
   };
 
+  // ── Sticky header state ──
+  const siteHeader = document.querySelector('.site-header');
+  if (siteHeader) {
+    const onHeaderScroll = () => siteHeader.classList.toggle('is-scrolled', window.scrollY > 8);
+    onHeaderScroll();
+    window.addEventListener('scroll', onHeaderScroll, { passive: true });
+  }
+
+  // ── Home reveal-on-scroll ──
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if (revealEls.length) {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if ('IntersectionObserver' in window && !reducedMotion) {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-in');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.06 });
+      revealEls.forEach((el) => revealObserver.observe(el));
+    } else {
+      revealEls.forEach((el) => el.classList.add('is-in'));
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', makeHyphensNonBreaking);
 })();

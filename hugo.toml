@@ -50,7 +50,7 @@ defaultContentLanguageInSubdir = false
       headlineAccent = 'simple software.'
       intro = 'Backend-focused software engineer working on systems, developer experience, and clear product surfaces. I like turning complex requirements into software that is easy to understand, operate, and evolve.'
       location = 'Paris, France'
-      availability = 'Open to internships and junior roles'
+      availability = 'Open to junior and entry-level roles, or freelance'
       parcoursCta = 'See full background'
       latestArticleCta = 'Open article'
 
@@ -81,6 +81,7 @@ defaultContentLanguageInSubdir = false
 
       [[languages.en.params.parcours]]
         type = 'experience'
+        logo = 'sap'
         title = 'Software Engineer Intern'
         org = 'SAP'
         date = '04/2026 - Present'
@@ -89,6 +90,7 @@ defaultContentLanguageInSubdir = false
 
       [[languages.en.params.parcours]]
         type = 'experience'
+        logo = 'iuem'
         title = 'Software Engineer Intern'
         org = 'Institut Universitaire Européen de la Mer (IUEM)'
         date = '09/2025 - 01/2026'
@@ -96,6 +98,7 @@ defaultContentLanguageInSubdir = false
 
       [[languages.en.params.parcours]]
         type = 'education'
+        logo = 'ubo'
         title = 'MSc Computer Science - Software Engineering'
         org = 'Université de Bretagne Occidentale. Software Engineering, Applications for Environmental Data'
         date = '09/2025 - Present'
@@ -103,6 +106,7 @@ defaultContentLanguageInSubdir = false
 
       [[languages.en.params.parcours]]
         type = 'experience'
+        logo = 'ciems'
         title = 'Backend Developer Intern'
         org = 'CIEMS - Rabat, Morocco'
         date = '06/2024 - 08/2024'
@@ -110,6 +114,7 @@ defaultContentLanguageInSubdir = false
 
       [[languages.en.params.parcours]]
         type = 'education'
+        logo = 'inpt'
         title = 'State Engineering Degree in Computer Science'
         org = 'Institut National des Postes et Télécommunications (INPT)'
         date = '2023 - Present'
@@ -117,6 +122,7 @@ defaultContentLanguageInSubdir = false
 
       [[languages.en.params.parcours]]
         type = 'education'
+        logo = 'cpge'
         title = 'Preparatory Classes - Mathematics, Physics, and Computer Science'
         org = 'Prepa Scientifique'
         date = '2021 - 2023'
@@ -134,7 +140,7 @@ defaultContentLanguageInSubdir = false
       headlineAccent = 'logiciels simples.'
       intro = "Ingénieur logiciel orienté backend, systèmes et expérience développeur. J'aime transformer des besoins complexes en logiciels simples, maintenables et faciles à exploiter."
       location = 'Paris, France'
-      availability = 'Ouvert aux stages et postes juniors'
+      availability = 'Ouvert aux postes juniors et missions freelance'
       parcoursCta = 'Voir le parcours complet'
       latestArticleCta = "Ouvrir l'article"
 
@@ -165,6 +171,7 @@ defaultContentLanguageInSubdir = false
 
       [[languages.fr.params.parcours]]
         type = 'experience'
+        logo = 'sap'
         title = 'Stagiaire Ingénieur Logiciel'
         org = 'SAP'
         date = '04/2026 - Présent'
@@ -173,6 +180,7 @@ defaultContentLanguageInSubdir = false
 
       [[languages.fr.params.parcours]]
         type = 'experience'
+        logo = 'iuem'
         title = 'Stagiaire Ingénieur Logiciel'
         org = 'Institut Universitaire Européen de la Mer (IUEM)'
         date = '09/2025 - 01/2026'
@@ -180,6 +188,7 @@ defaultContentLanguageInSubdir = false
 
       [[languages.fr.params.parcours]]
         type = 'education'
+        logo = 'ubo'
         title = 'Master Informatique - Génie Logiciel'
         org = 'Université de Bretagne Occidentale. Ingénierie du Logiciel, Applications aux Données Environnementales'
         date = '09/2025 - Présent'
@@ -187,6 +196,7 @@ defaultContentLanguageInSubdir = false
 
       [[languages.fr.params.parcours]]
         type = 'experience'
+        logo = 'ciems'
         title = 'Stagiaire Développeur Backend'
         org = 'CIEMS - Rabat, Maroc'
         date = '06/2024 - 08/2024'
@@ -194,6 +204,7 @@ defaultContentLanguageInSubdir = false
 
       [[languages.fr.params.parcours]]
         type = 'education'
+        logo = 'inpt'
         title = 'Diplôme d’Ingénieur d’État en Informatique'
         org = 'Institut National des Postes et Télécommunications (INPT)'
         date = '2023 - Présent'
@@ -201,6 +212,7 @@ defaultContentLanguageInSubdir = false
 
       [[languages.fr.params.parcours]]
         type = 'education'
+        logo = 'cpge'
         title = 'CPGE - Mathématiques, Physique et Informatique'
         org = 'Prepa Scientifique'
         date = '2021 - 2023'
@@ -218,7 +230,7 @@ defaultContentLanguageInSubdir = false
       headlineAccent = 'einfache Software verwandeln.'
       intro = 'Software Engineer mit Fokus auf Backend-Systeme, Entwicklererlebnis und klare Produktoberflächen. Ich mache aus komplexen Anforderungen Software, die sich leicht verstehen, betreiben und weiterentwickeln lässt.'
       location = 'Paris, Frankreich'
-      availability = 'Offen für Praktika und Junior-Positionen'
+      availability = 'Offen für Junior-Positionen und Freelance-Aufträge'
       parcoursCta = 'Vollen Werdegang ansehen'
       latestArticleCta = 'Artikel öffnen'
 
@@ -249,6 +261,7 @@ defaultContentLanguageInSubdir = false
 
       [[languages.de.params.parcours]]
         type = 'experience'
+        logo = 'sap'
         title = 'Software Engineer Intern'
         org = 'SAP'
         date = '04/2026 - Heute'
@@ -257,6 +270,7 @@ defaultContentLanguageInSubdir = false
 
       [[languages.de.params.parcours]]
         type = 'experience'
+        logo = 'iuem'
         title = 'Software Engineer Intern'
         org = 'Institut Universitaire Européen de la Mer (IUEM)'
         date = '09/2025 - 01/2026'
@@ -264,6 +278,7 @@ defaultContentLanguageInSubdir = false
 
       [[languages.de.params.parcours]]
         type = 'education'
+        logo = 'ubo'
         title = 'Master Informatik - Software Engineering'
         org = 'Université de Bretagne Occidentale. Software Engineering, Anwendungen für Umweltdaten'
         date = '09/2025 - Heute'
@@ -271,6 +286,7 @@ defaultContentLanguageInSubdir = false
 
       [[languages.de.params.parcours]]
         type = 'experience'
+        logo = 'ciems'
         title = 'Backend Developer Intern'
         org = 'CIEMS - Rabat, Marokko'
         date = '06/2024 - 08/2024'
@@ -278,6 +294,7 @@ defaultContentLanguageInSubdir = false
 
       [[languages.de.params.parcours]]
         type = 'education'
+        logo = 'inpt'
         title = 'Staatliches Ingenieurdiplom in Informatik'
         org = 'Institut National des Postes et Télécommunications (INPT)'
         date = '2023 - Heute'
@@ -285,6 +302,7 @@ defaultContentLanguageInSubdir = false
 
       [[languages.de.params.parcours]]
         type = 'education'
+        logo = 'cpge'
         title = 'Vorbereitungsklassen - Mathematik, Physik und Informatik'
         org = 'Prepa Scientifique'
         date = '2021 - 2023'
