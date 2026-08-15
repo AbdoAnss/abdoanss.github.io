@@ -501,6 +501,7 @@
       <button class="lp-api-nav-btn" onclick="lpFilterNamespace('Fixtures', this)">Fixtures</button>
       <button class="lp-api-nav-btn" onclick="lpFilterNamespace('Managers', this)">Managers</button>
       <button class="lp-api-nav-btn" onclick="lpFilterNamespace('Leagues', this)">Leagues</button>
+      <button class="lp-api-nav-btn" onclick="lpFilterNamespace('Client', this)">Client</button>
     </nav>
 
     <div>
@@ -626,15 +627,42 @@
               <td><span class="lp-tag-sync">sync</span></td>
             </tr>
             <tr data-ns="Leagues">
+              <td class="lp-method"><span class="lp-ns-label">Leagues</span>GetH2HLeagueMatches(id, page, event)</td>
+              <td>Paginated head-to-head match results; omit <code>event</code> for the mixed feed, or filter to one gameweek / knockout round</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <tr data-ns="Leagues">
+              <td class="lp-method"><span class="lp-ns-label">Leagues</span>GetH2HLeagueStandings(id, page)</td>
+              <td>Head-to-head league standings for a page</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <tr data-ns="Leagues">
               <td class="lp-method"><span class="lp-ns-label">Leagues</span>GetTotalPages(league)</td>
               <td>Compute total standings pages</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <!-- Client -->
+            <tr data-ns="Client">
+              <td class="lp-method"><span class="lp-ns-label">Client</span>Get(endpoint)</td>
+              <td>Rate-limited GET returning the raw HTTP response</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <tr data-ns="Client">
+              <td class="lp-method"><span class="lp-ns-label">Client</span>GetContext(ctx, endpoint)</td>
+              <td>Rate-limited GET with caller cancellation via context</td>
+              <td><span class="lp-tag-sync">sync</span></td>
+            </tr>
+            <tr data-ns="Client">
+              <td class="lp-method"><span class="lp-ns-label">Client</span>GetRaw(endpoint)</td>
+              <td>Rate-limited GET returning the undecoded body; non-200s surface as a typed <code>*StatusError</code> for <code>errors.As</code></td>
               <td><span class="lp-tag-sync">sync</span></td>
             </tr>
           </tbody>
         </table>
       </div>
       <p class="lp-api-note" style="margin-top:1.5rem; font-size: 0.82rem; color: var(--text-dim); font-weight: 300;">
-        <code>Leagues.GetH2HLeague(id)</code> exists in source as commented-out code and is not currently an active method.
+        League not-founds are wrapped in the <code>ErrLeagueNotFound</code> sentinel, and rejected H2H
+        queries surface as <code>*ErrInvalidH2HQuery</code> — both matchable with <code>errors.Is</code> / <code>errors.As</code>.
       </p>
     </div>
   </div>
