@@ -23,10 +23,3 @@ Build static export to `./out`:
 ```bash
 npm run build
 ```
-
-## Contact
-
-- Website: [abdoanss.github.io](https://abdoanss.github.io/)
-- LinkedIn: [linkedin.com/in/abdoanss](https://www.linkedin.com/in/abdoanss/)
-- GitHub: [github.com/AbdoAnss](https://github.com/AbdoAnss)
-- Email: [abdessamad.anssem@gmail.com](mailto:abdessamad.anssem@gmail.com)
