@@ -1,6 +1,0 @@
-{{ $title := .Get "title" }}
-{{ $type := .Get "type" }}
-<div class="callout{{ with $type }} {{ . }}{{ end }}">
-  {{ with $title }}<span class="callout-title">{{ . }}</span>{{ end }}
-  <div>{{ .Inner | markdownify }}</div>
-</div>

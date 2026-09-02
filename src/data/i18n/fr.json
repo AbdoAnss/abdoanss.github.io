@@ -1,0 +1,58 @@
+{
+  "nav": {
+    "posts": "Articles",
+    "projects": "Projets",
+    "theme_toggle": "Changer de thème",
+    "language": "Langue",
+    "back_home": "Retour à l'accueil",
+    "back_posts": "Retour aux articles"
+  },
+  "hero": {
+    "greeting": "Bonjour, je suis",
+    "name": "Abdessamad Anssem",
+    "location_prefix": "Ingénieur logiciel backend basé à",
+    "location": "Paris, France",
+    "intro": "Transformer les besoins backend complexes en logiciels simples et fiables.",
+    "availability": "Disponible pour de nouveaux projets ; discutons !",
+    "send_email": "Envoyer un email",
+    "github": "GitHub"
+  },
+  "tech_stack": {
+    "title": "Stack Technique",
+    "subtitle": "Les technologies que j'utilise pour mes projets personnels et professionnels :"
+  },
+  "experience": {
+    "title": "Expérience",
+    "subtitle": "Parcours professionnel en ingénierie logicielle et stages backend :"
+  },
+  "education": {
+    "title": "Formation",
+    "subtitle": "Formation académique en ingénierie logicielle et systèmes distribués :"
+  },
+  "projects": {
+    "title": "Projets",
+    "subtitle": "Sélection de projets d'ingénierie logicielle et open source :"
+  },
+  "posts": {
+    "title": "Articles Récents",
+    "all_title": "Blog Technique & Notes",
+    "all_subtitle": "Analyses approfondies, architecture des systèmes et ingénierie logicielle.",
+    "view_all": "Voir tous les articles →",
+    "min_read": "min de lecture",
+    "published_on": "Publié le"
+  },
+  "socials": {
+    "title": "Réseaux",
+    "subtitle": "Vous pouvez me retrouver sur les plateformes sociales suivantes :"
+  },
+  "contact": {
+    "title": "Contact",
+    "text_prefix": "N'hésitez pas à me contacter directement par email à",
+    "or_connect": "Vous pouvez également m'écrire sur"
+  },
+  "footer": {
+    "built_with": "Conçu avec",
+    "by": "par",
+    "open_source": "Ce site est"
+  }
+}

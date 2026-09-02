@@ -1,3 +1,0 @@
-<button class="lightbox-trigger" data-src="{{ .Destination | safeURL }}" data-alt="{{ .Text }}" aria-label="View image: {{ .Text }}">
-  <img src="{{ .Destination | safeURL }}" alt="{{ .Text }}"{{ with .Title }} title="{{ . }}"{{ end }} loading="lazy">
-</button>

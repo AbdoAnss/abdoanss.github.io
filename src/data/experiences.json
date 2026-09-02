@@ -1,0 +1,95 @@
+[
+  {
+    "id": "sap",
+    "company": "SAP",
+    "status": "Incoming",
+    "statusVariant": "blue",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/5/59/SAP_2011_logo.svg",
+    "highlight": true,
+    "locales": {
+      "en": {
+        "title": "Software Engineer Intern",
+        "period": "04/2026 - Present",
+        "location": "Paris, France",
+        "status": "Incoming",
+        "description": "Joining the backend development team at SAP Labs France to work on Group Reporting Data Collection (GRDC) — an enterprise SaaS platform deployed on SAP BTP Cloud Foundry. Building scalable backend workflows with Java, Spring Boot, and Node.js."
+      },
+      "fr": {
+        "title": "Stagiaire Ingénieur Logiciel",
+        "period": "04/2026 - Présent",
+        "location": "Paris, France",
+        "status": "À venir",
+        "description": "Intégration de l'équipe backend chez SAP Labs France sur la plateforme SaaS Group Reporting Data Collection (GRDC) déployée sur SAP BTP Cloud Foundry. Développement de workflows backend scalables en Java, Spring Boot et Node.js."
+      },
+      "de": {
+        "title": "Software Engineer Intern",
+        "period": "04/2026 - Heute",
+        "location": "Paris, Frankreich",
+        "status": "Bevorstehend",
+        "description": "Entwicklung von Backend-Funktionen und Datenverarbeitungs-Workflows für die Group Reporting Data Collection (GRDC) Plattform auf SAP BTP Cloud Foundry mit Java, Spring Boot, CAP und Node.js."
+      }
+    }
+  },
+  {
+    "id": "iuem",
+    "company": "IUEM",
+    "status": "Completed",
+    "statusVariant": "emerald",
+    "logo": "/logos/iuem.png",
+    "highlight": false,
+    "locales": {
+      "en": {
+        "title": "Software Engineer Intern",
+        "period": "09/2025 - 01/2026",
+        "location": "Brest, France",
+        "status": "Completed",
+        "description": "Migrated the PyCoast oceanographic satellite analysis interface from Bokeh to Panel. Designed interactive data visualization tools in close collaboration with marine researchers."
+      },
+      "fr": {
+        "title": "Stagiaire Ingénieur Logiciel",
+        "period": "09/2025 - 01/2026",
+        "location": "Brest, France",
+        "status": "Terminé",
+        "description": "Migration de l'interface graphique de traitement d'images satellitaires océanographiques PyCoast de Bokeh vers Panel, en collaboration étroite avec les chercheurs marins."
+      },
+      "de": {
+        "title": "Software Engineer Intern",
+        "period": "09/2025 - 01/2026",
+        "location": "Brest, Frankreich",
+        "status": "Abgeschlossen",
+        "description": "Migration der grafischen PyCoast-Oberfläche von Bokeh zu Panel, inklusive Design und Prototyping mit Forschenden der Meereswissenschaften."
+      }
+    }
+  },
+  {
+    "id": "ciems",
+    "company": "CIEMS",
+    "status": "Completed",
+    "statusVariant": "emerald",
+    "logo": "/logos/ciems.png",
+    "highlight": false,
+    "locales": {
+      "en": {
+        "title": "Backend Developer Intern",
+        "period": "06/2024 - 08/2024",
+        "location": "Rabat, Morocco",
+        "status": "Completed",
+        "description": "Engineered an insurance recommendation engine utilizing collaborative filtering, asynchronous Celery and Redis workflows, PostgreSQL databases, and high-throughput background queues."
+      },
+      "fr": {
+        "title": "Stagiaire Développeur Backend",
+        "period": "06/2024 - 08/2024",
+        "location": "Rabat, Maroc",
+        "status": "Terminé",
+        "description": "Conception d'un moteur de recommandation d'assurances avec filtrage collaboratif, workflows asynchrones Celery/Redis, messagerie IA, schémas PostgreSQL et files d'attente à haut débit."
+      },
+      "de": {
+        "title": "Backend Developer Intern",
+        "period": "06/2024 - 08/2024",
+        "location": "Rabat, Marokko",
+        "status": "Abgeschlossen",
+        "description": "Entwicklung einer Empfehlungsmaschine für Versicherungen mit kollaborativem Filtering, asynchronen Celery/Redis-Workflows, PostgreSQL-Datenbanken und Durchsatzoptimierung."
+      }
+    }
+  }
+]

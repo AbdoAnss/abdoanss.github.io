@@ -1,0 +1,58 @@
+{
+  "nav": {
+    "posts": "Beiträge",
+    "projects": "Projekte",
+    "theme_toggle": "Farbschema wechseln",
+    "language": "Sprache",
+    "back_home": "Zurück zur Startseite",
+    "back_posts": "Zurück zu Beiträgen"
+  },
+  "hero": {
+    "greeting": "Hallo, ich bin",
+    "name": "Abdessamad Anssem",
+    "location_prefix": "Backend-Softwareentwickler in",
+    "location": "Paris, Frankreich",
+    "intro": "Komplexe Backend-Anforderungen in einfache, verlässliche Software verwandeln.",
+    "availability": "Verfügbar für neue Projekte; lass uns sprechen!",
+    "send_email": "E-Mail senden",
+    "github": "GitHub"
+  },
+  "tech_stack": {
+    "title": "Tech Stack",
+    "subtitle": "Mein Tech-Stack für persönliche Projekte und Entwicklungsarbeit:"
+  },
+  "experience": {
+    "title": "Berufserfahrung",
+    "subtitle": "Software-Engineering und Backend-Praktika:"
+  },
+  "education": {
+    "title": "Ausbildung",
+    "subtitle": "Akademische Ausbildung in Software-Engineering und verteilten Systemen:"
+  },
+  "projects": {
+    "title": "Projekte",
+    "subtitle": "Ausgewählte Software- und Open-Source-Projekte:"
+  },
+  "posts": {
+    "title": "Aktuelle Beiträge",
+    "all_title": "Blog & Technische Notizen",
+    "all_subtitle": "Technische Analysen, Systemarchitektur und Software-Engineering.",
+    "view_all": "Alle Beiträge ansehen →",
+    "min_read": "Min. Lesezeit",
+    "published_on": "Veröffentlicht am"
+  },
+  "socials": {
+    "title": "Finden Sie mich auf",
+    "subtitle": "Sie finden mich auf folgenden sozialen Plattformen:"
+  },
+  "contact": {
+    "title": "Kontakt",
+    "text_prefix": "Schreiben Sie mir jederzeit gerne direkt an",
+    "or_connect": "Sie können mir auch schreiben auf"
+  },
+  "footer": {
+    "built_with": "Erstellt mit",
+    "by": "von",
+    "open_source": "Diese Website ist"
+  }
+}

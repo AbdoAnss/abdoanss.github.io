@@ -1,0 +1,40 @@
+[
+  {
+    "id": "go-fantasy-pl",
+    "name": "go-fantasy-pl",
+    "status": "Active",
+    "statusVariant": "emerald",
+    "link": "/projects/go-fantasy-pl",
+    "isInternal": true,
+    "locales": {
+      "en": {
+        "description": "Typed Go client for the Fantasy Premier League API with caching and rate limiting."
+      },
+      "fr": {
+        "description": "Client Go typé pour l'API Fantasy Premier League avec cache intégré et limitation de débit."
+      },
+      "de": {
+        "description": "Typisierter Go-Client für die Fantasy Premier League API mit Caching und Rate Limiting."
+      }
+    }
+  },
+  {
+    "id": "portfolio",
+    "name": "Portfolio Website",
+    "status": "Active",
+    "statusVariant": "emerald",
+    "link": "https://github.com/AbdoAnss/abdoanss.github.io",
+    "isInternal": false,
+    "locales": {
+      "en": {
+        "description": "Personal developer website and engineering blog built with Next.js and Tailwind CSS."
+      },
+      "fr": {
+        "description": "Site web personnel et blog technique d'ingénierie logicielle avec Next.js et Tailwind CSS."
+      },
+      "de": {
+        "description": "Persönliche Entwickler-Website und Blog, erstellt mit Next.js und Tailwind CSS."
+      }
+    }
+  }
+]

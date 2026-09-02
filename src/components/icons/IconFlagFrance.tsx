@@ -1,0 +1,16 @@
+import type { SVGProps } from 'react'
+
+export function IconFlagFrance(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 3 2"
+      fill="none"
+      {...props}
+    >
+      <rect width="1" height="2" fill="#002395" />
+      <rect x="1" width="1" height="2" fill="#FFFFFF" />
+      <rect x="2" width="1" height="2" fill="#ED2939" />
+    </svg>
+  )
+}

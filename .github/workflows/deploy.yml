@@ -1,8 +1,8 @@
-name: Deploy Hugo to GitHub Pages
+name: Deploy Next.js to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, redesign_portfolio_website]
   workflow_dispatch:
 
 permissions:
@@ -21,25 +21,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          hugo-version: 'latest'
-          extended: true
+          node-version: 20
+          cache: 'npm'
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Install D2
-        run: curl -fsSL https://d2lang.com/install.sh | sh -s --
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Build site
-        run: make build
+      - name: Build static site
+        run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./public
+          path: ./out
 
   deploy:
     environment:
@@ -51,3 +51,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
