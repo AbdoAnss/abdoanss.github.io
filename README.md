@@ -1,31 +1,50 @@
-# Abdessamad Anssem — Personal Portfolio & Technical Blog
+# Abdessamad Anssem — Personal Website & Technical Portfolio
 
-Modern personal portfolio and technical blog built with **Next.js 16 (App Router, Static Export)**, **Tailwind CSS v4**, **TypeScript**, and **Geist Mono**.
-
-Live website: **[https://abdoanss.github.io/](https://abdoanss.github.io/)**
+The source code for my personal developer portfolio and engineering blog, hosted at [abdoanss.github.io](https://abdoanss.github.io/).
 
 ---
 
-## ⚡ Tech Stack
+## Overview
 
-- **Framework:** [Next.js 16](https://nextjs.org/) (Turbopack, Static HTML Export)
-- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) with OKLCH theme tokens
+This repository houses the personal website and technical writing of Abdessamad Anssem, a backend-focused software engineer based in Paris, France. The site highlights professional engineering experiences, academic background, open-source projects, and in-depth technical articles on distributed systems and backend architecture.
+
+- **Live URL:** [https://abdoanss.github.io/](https://abdoanss.github.io/)
+- **License:** MIT
+
+---
+
+## Architecture & Technology Stack
+
+The site is built as a fully static, high-performance web application optimized for reliability, typography, and developer experience.
+
+- **Framework:** Next.js 16 (App Router, Static HTML Export)
+- **Styling:** Tailwind CSS v4 with custom OKLCH design tokens
 - **Typography:** Geist Mono
-- **Syntax Highlighting:** [Shiki](https://shiki.style/) (dual-theme `github-light` & `github-dark`)
-- **Math Rendering:** [KaTeX](https://katex.org/)
-- **Icons:** [@hugeicons/react](https://hugeicons.com/) & [@hugeicons/core-free-icons](https://hugeicons.com/)
-- **I18n:** Built-in multilingual support (`en` default, `fr`, `de`)
-- **Deployment:** [GitHub Pages](https://pages.github.com/) via GitHub Actions
+- **Syntax Highlighting:** Shiki (dual-theme light/dark code rendering)
+- **Mathematical Typesetting:** KaTeX
+- **Icons:** HugeIcons
+- **Localization:** Multilingual support (English, French, German)
+- **Hosting & CI/CD:** GitHub Pages via GitHub Actions
 
 ---
 
-## 🚀 Getting Started
+## Key Features
+
+- **Performance & Static Delivery:** Pre-rendered at build time with zero server dependencies.
+- **Dark & Light Modes:** System-aware theme toggle with synchronized syntax highlighting.
+- **Technical Articles:** Long-form engineering blog posts covering concurrency, memory models, and system performance.
+- **Interactive Project Pages:** Dedicated showcase pages (such as the `go-fantasy-pl` SDK) with interactive documentation and API reference tables.
+
+---
+
+## Local Development
 
 ### Prerequisites
-- Node.js 20+
+
+- Node.js 20 or higher
 - npm
 
-### Installation & Local Development
+### Setup
 
 ```bash
 # Clone the repository
@@ -35,16 +54,25 @@ cd abdoanss.github.io
 # Install dependencies
 npm install
 
-# Start development server
+# Run development server
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+The application will be available at `http://localhost:3000`.
 
-### Building for Production
+### Production Build
 
 ```bash
 npm run build
 ```
 
-This compiles static HTML and assets into the `./out` directory, which is deployed to GitHub Pages automatically upon push to `main`.
+Compiles the static export into the `./out` directory.
+
+---
+
+## Contact & Links
+
+- **Website:** [https://abdoanss.github.io/](https://abdoanss.github.io/)
+- **GitHub:** [https://github.com/AbdoAnss](https://github.com/AbdoAnss)
+- **LinkedIn:** [https://www.linkedin.com/in/abdoanss/](https://www.linkedin.com/in/abdoanss/)
+- **Email:** [abdessamad.anssem@gmail.com](mailto:abdessamad.anssem@gmail.com)
