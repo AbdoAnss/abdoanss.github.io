@@ -1,0 +1,28 @@
+[
+  {
+    "id": "ubo",
+    "institution": "Université de Bretagne Occidentale (UBO)",
+    "logo": "/logos/ubo.svg",
+    "highlight": true,
+    "locales": {
+      "en": {
+        "degree": "MSc Computer Science - Software Engineering",
+        "period": "09/2025 - 09/2026",
+        "location": "Brest, France",
+        "description": "Double-degree master's program focusing on advanced software engineering, distributed multi-agent systems, Web Services & Java EE, virtualization, cloud computing, and big data architectures."
+      },
+      "fr": {
+        "degree": "Master Informatique - Génie Logiciel",
+        "period": "09/2025 - 09/2026",
+        "location": "Brest, France",
+        "description": "Master en double diplôme : Génie Logiciel et Applications aux Données Environnementales (systèmes multi-agents, systèmes cyber-physiques, Web Services & Java EE, Big Data, virtualisation et sécurité)."
+      },
+      "de": {
+        "degree": "Master Informatik - Software Engineering",
+        "period": "09/2025 - 09/2026",
+        "location": "Brest, Frankreich",
+        "description": "Doppelabschluss-Masterstudiengang mit Schwerpunkt auf Software-Engineering, verteilten Multi-Agenten-Systemen, Web Services & Java EE, Big Data, Virtualisierung und Cloud-Architekturen."
+      }
+    }
+  }
+]

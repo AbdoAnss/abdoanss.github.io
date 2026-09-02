@@ -1,0 +1,58 @@
+{
+  "nav": {
+    "posts": "Posts",
+    "projects": "Projects",
+    "theme_toggle": "Toggle theme",
+    "language": "Language",
+    "back_home": "Back to home",
+    "back_posts": "Back to posts"
+  },
+  "hero": {
+    "greeting": "Hey, I'm",
+    "name": "Abdessamad Anssem",
+    "location_prefix": "A backend software engineer based in",
+    "location": "Paris, France",
+    "intro": "Turning complex backend requirements into simple, reliable software.",
+    "availability": "Available for new projects; let's talk!",
+    "send_email": "Send email",
+    "github": "GitHub"
+  },
+  "tech_stack": {
+    "title": "Tech Stack",
+    "subtitle": "The tech stack I use for my personal and engineering work:"
+  },
+  "experience": {
+    "title": "Experience",
+    "subtitle": "Professional software engineering work and backend internships:"
+  },
+  "education": {
+    "title": "Education",
+    "subtitle": "Academic foundation in software engineering and distributed systems:"
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Selected software engineering and open-source projects:"
+  },
+  "posts": {
+    "title": "Recent Posts",
+    "all_title": "Writing & Engineering Blog",
+    "all_subtitle": "Technical deep dives, systems architecture, and software engineering notes.",
+    "view_all": "View all posts →",
+    "min_read": "min read",
+    "published_on": "Published on"
+  },
+  "socials": {
+    "title": "Find Me On",
+    "subtitle": "You can find me on the following social platforms:"
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "text_prefix": "Feel free to reach out anytime directly at",
+    "or_connect": "You can also connect or message me on"
+  },
+  "footer": {
+    "built_with": "Built with",
+    "by": "by",
+    "open_source": "This website is"
+  }
+}

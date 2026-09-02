@@ -1,5 +1,4 @@
-# Hugo build output
-public/
+# Old Hugo resources
 resources/
 
 # Generated diagrams
@@ -20,3 +19,8 @@ assets/diagrams/
 # Environment
 .env
 .env.*
+
+# Node / Next.js
+node_modules/
+.next/
+out/

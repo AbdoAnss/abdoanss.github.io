@@ -1,43 +1,44 @@
 # Project: Abdessamad Anssem (Personal Website)
 
-This is the personal website of Abdessamad Anssem, built with Hugo. It features a blog, projects, and a professional timeline (Parcours).
+This is the personal website of Abdessamad Anssem, redesigned inspired by [hudovich.com](https://github.com/ahudovich/hudovich.com). It features work experiences, education (UBO Master), featured projects, technical blog posts, and dark/light mode.
 
 ## Project Overview
 
-- **Core Technology:** [Hugo](https://gohugo.io/) (Static Site Generator).
-- **Theme:** Custom theme `abdoanss` located in `themes/abdoanss`.
-- **Diagrams:** Uses [D2](https://d2lang.com/) for declarative diagrams.
-- **Deployment:** [GitHub Pages](https://pages.github.com/), configured via GitHub Actions.
-- **Key Features:**
-    - Homepage with professional timeline (Parcours) and profile picture.
-    - Dark/Light mode support.
-    - Offline support via a custom Service Worker.
-    - Integrated D2 diagrams with lightbox support.
-    - Custom shortcodes for callouts, definitions, and code blocks.
+- **Core Technology:** [Next.js](https://nextjs.org/) (App Router, Static Export).
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/) with custom OKLCH color tokens, dark/light theme support.
+- **Typography:** Geist Mono.
+- **Icons & Primitives:** `@hugeicons/react`, `@hugeicons/core-free-icons`, `@base-ui/react`, `@tanstack/react-hotkeys`, `next-themes`.
+- **Deployment:** [GitHub Pages](https://pages.github.com/), automated via `.github/workflows/deploy.yml`.
 
-## Key Directories
+## Key Directories & Data Files
 
-- `content/`: Contains Markdown files for the site's pages.
-    - `blog/`: Technical articles (e.g., Python, Java, Systems).
-    - `projects/`: Showcasing personal and academic projects (Next.js, Microservices, Go, DevOps).
-    - `tools/`: Interactive utilities.
-    - `notes/`: Short-form thoughts and TILs.
-- `themes/abdoanss/`: The custom theme source code.
-    - `layouts/`: HTML templates.
-    - `assets/css/`: Main stylesheet (includes homepage timeline and profile styles).
-- `static/`: Static assets. **Place `profile.jpg` here for the homepage.**
+- `src/app/`: Next.js App Router routes (`page.tsx`, `layout.tsx`, `posts/page.tsx`, `posts/[slug]/page.tsx`, `not-found.tsx`).
+- `src/components/`:
+  - `ui/`: Design system primitives (`Badge`, `Button`, `Card`, `Icon`, `Kbd`, `TextLink`, `Tooltip`).
+  - `layout/`: `Header`, `HeaderThemeToggle`, `Footer`, `Container`, `SectionHeader`, `PageTitle`.
+  - `pages/home/`: `HomeHero`, `HomeExperience`, `HomeEducation`, `HomeProjects`, `HomePosts`, `HomeSocials`, `HomeContact`.
+- `src/data/`:
+  - `experiences.json`: Work experiences (SAP, IUEM, CIEMS).
+  - `education.json`: Education (MSc Software Engineering at UBO).
+  - `projects.json`: Featured software projects (`go-fantasy-pl`, Recommendation Engine, PyCoast, etc.).
+  - `links.json`: Social and contact links.
+  - `metadata.json`: Site title, description, location, headline.
+- `src/content/posts/`: Technical blog posts in Markdown format.
+- `public/`: Static assets (`avatar.png`, `logos/`).
 
 ## Building and Running
 
 | Command | Description |
 |---------|-------------|
-| `make serve` | Generates diagrams and starts the Hugo development server. |
-| `make build` | Generates diagrams and builds the minified site into `public/`. |
+| `npm run dev` | Starts the local development server at `http://localhost:3000`. |
+| `npm run build` | Builds the static site export into `out/` for GitHub Pages. |
+| `npm start` | Starts a production server. |
 
 ## Development Conventions
 
-### Parcours (Professional Timeline)
-The homepage timeline is data-driven from `hugo.toml`. Add new entries under `[[params.parcours]]` with `type = 'education'` or `type = 'experience'`.
+### Experience & Education
+- Add or update work experiences in `src/data/experiences.json`.
+- Add or update academic degrees in `src/data/education.json`.
 
-### Language
-The site is primarily in French (`languageCode = 'fr-fr'`), including navigation and descriptions.
+### Blog Posts
+Markdown posts are placed in `src/content/posts/` with YAML frontmatter (`title`, `date`, `summary`, `tags`).
