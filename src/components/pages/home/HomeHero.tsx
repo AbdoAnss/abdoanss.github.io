@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Mail01Icon, GithubIcon } from '@hugeicons/core-free-icons'
+import { Mail01Icon, GithubIcon, File02Icon } from '@hugeicons/core-free-icons'
 import { IconFlagFrance } from '@/components/icons/IconFlagFrance'
 import { PageTitle } from '@/components/layout/PageTitle'
 import { buttonVariants } from '@/components/ui/Button'
@@ -52,6 +52,16 @@ export function HomeHero({ locale = 'en', ...props }: HomeHeroProps) {
         >
           <Icon icon={Mail01Icon} />
           {dict.hero.send_email}
+        </Link>
+
+        <Link
+          className={cn(buttonVariants({ variant: 'secondary' }))}
+          href="/resume.pdf"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Icon icon={File02Icon} />
+          {dict.hero.resume}
         </Link>
 
         <Link
