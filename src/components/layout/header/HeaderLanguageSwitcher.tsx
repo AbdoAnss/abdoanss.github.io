@@ -34,6 +34,11 @@ export function HeaderLanguageSwitcher() {
           <Link
             key={lang.code}
             href={targetHref}
+            onClick={() => {
+              try {
+                localStorage.setItem('preferred_locale', lang.code)
+              } catch {}
+            }}
             className={cn(
               'rounded-xs px-1.5 py-0.5 font-medium transition-colors',
               isActive

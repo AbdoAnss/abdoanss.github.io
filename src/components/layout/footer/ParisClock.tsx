@@ -27,9 +27,9 @@ export function ParisClock({ className }: { className?: string }) {
   }, [])
 
   return (
-    <div
+    <span
       className={cn(
-        'inline-flex items-center gap-2 rounded-full border border-border/60 bg-secondary/60 px-2.5 py-1 font-mono text-[11px] text-muted-foreground transition-colors hover:border-border hover:text-foreground',
+        'inline-flex items-center gap-1.5 font-mono text-[11px] sm:text-xs text-muted-foreground select-none',
         className
       )}
       title="Current local time in Paris, France (CET/CEST)"
@@ -40,12 +40,12 @@ export function ParisClock({ className }: { className?: string }) {
       </span>
       <span>
         {time ? (
-          <span className="font-medium text-foreground">{time}</span>
+          <span className="text-foreground">{time}</span>
         ) : (
           <span className="opacity-60">--:--</span>
         )}{' '}
         in Paris, France
       </span>
-    </div>
+    </span>
   )
 }

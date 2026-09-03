@@ -20,6 +20,7 @@ import { buttonVariants } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
 import { codeExamples } from '@/data/go-fantasy-code'
 import { cn } from '@/lib/utils'
+import { type Locale, getLocalizedPath } from '@/lib/i18n'
 
 export interface ApiMethod {
   ns: string
@@ -30,11 +31,23 @@ export interface ApiMethod {
 
 export const apiMethods: ApiMethod[] = [
   // Bootstrap
-  { ns: 'Bootstrap', name: 'GetTeams()', description: 'All teams in the current season (from bootstrap data)', type: 'sync' },
-  { ns: 'Bootstrap', name: 'GetPlayers()', description: 'All players in the current season (from bootstrap data)', type: 'sync' },
-  { ns: 'Bootstrap', name: 'GetGameWeeks()', description: 'All gameweeks / events in the current season', type: 'sync' },
+  { ns: 'Bootstrap', name: 'GetTeams()', description: 'All teams in the current season (from bootstrap-static)', type: 'sync' },
+  { ns: 'Bootstrap', name: 'GetTeamsWithContext(ctx)', description: 'Context-aware teams fetch with cancellation', type: 'async' },
+  { ns: 'Bootstrap', name: 'GetPlayers()', description: 'All players in the current season (from bootstrap-static)', type: 'sync' },
+  { ns: 'Bootstrap', name: 'GetPlayersWithContext(ctx)', description: 'Context-aware players fetch with cancellation', type: 'async' },
+  { ns: 'Bootstrap', name: 'GetGameWeeks()', description: 'All gameweeks / events for the season', type: 'sync' },
+  { ns: 'Bootstrap', name: 'GetGameWeeksWithContext(ctx)', description: 'Context-aware gameweeks fetch with cancellation', type: 'async' },
   { ns: 'Bootstrap', name: 'GetCurrentGameWeek()', description: 'Current active gameweek ID', type: 'sync' },
+  { ns: 'Bootstrap', name: 'GetCurrentGameWeekWithContext(ctx)', description: 'Context-aware active gameweek ID lookup', type: 'async' },
+  { ns: 'Bootstrap', name: 'GetNextGameWeek()', description: 'Next upcoming gameweek ID (cached for 3 min)', type: 'sync' },
+  { ns: 'Bootstrap', name: 'GetNextGameWeekWithContext(ctx)', description: 'Context-aware next gameweek ID lookup', type: 'async' },
+  { ns: 'Bootstrap', name: 'GetNextGameWeekModel(ctx)', description: 'Full GameWeek model for the upcoming gameweek', type: 'async' },
+  { ns: 'Bootstrap', name: 'GetUpcomingGameWeeks(ctx, count)', description: 'Chronologically ordered upcoming gameweeks', type: 'async' },
   { ns: 'Bootstrap', name: 'GetSettings()', description: 'Global FPL game settings and rules', type: 'sync' },
+  { ns: 'Bootstrap', name: 'GetSettingsWithContext(ctx)', description: 'Context-aware game settings fetch', type: 'async' },
+  // Live
+  { ns: 'Live', name: 'GetEventLive(eventID)', description: 'In-play points, goals, assists, and provisional bonus for every player (cached 30s)', type: 'sync' },
+  { ns: 'Live', name: 'GetEventLiveAsync(ctx, eventID)', description: 'Live points via async channel result with context cancellation', type: 'async' },
   // Players
   { ns: 'Players', name: 'GetAllPlayers()', description: 'All players in the current season', type: 'sync' },
   { ns: 'Players', name: 'GetPlayer(id)', description: 'One player profile by player ID', type: 'sync' },
@@ -65,15 +78,16 @@ export const apiMethods: ApiMethod[] = [
   { ns: 'Client', name: 'GetRaw(endpoint)', description: 'Rate-limited GET returning the undecoded body (*StatusError for non-200s)', type: 'sync' },
 ]
 
-export const namespaces = ['All', 'Bootstrap', 'Players', 'Teams', 'Fixtures', 'Managers', 'Leagues', 'Client']
+export const namespaces = ['Bootstrap', 'Live', 'Players', 'Teams', 'Fixtures', 'Managers', 'Leagues', 'Client']
 
 export interface GoFantasyClientProps {
-  highlightedCode: Record<'basic' | 'async' | 'batch', string>
+  highlightedCode: Record<'basic' | 'live' | 'async' | 'batch', string>
+  locale?: Locale
 }
 
-export function GoFantasyClient({ highlightedCode }: GoFantasyClientProps) {
-  const [activeTab, setActiveTab] = useState<'basic' | 'async' | 'batch'>('basic')
-  const [selectedNs, setSelectedNs] = useState('All')
+export function GoFantasyClient({ highlightedCode, locale = 'en' }: GoFantasyClientProps) {
+  const [activeTab, setActiveTab] = useState<'basic' | 'live' | 'async' | 'batch'>('basic')
+  const [selectedNs, setSelectedNs] = useState('Bootstrap')
   const [copied, setCopied] = useState(false)
   const [copiedCode, setCopiedCode] = useState(false)
 
@@ -89,22 +103,20 @@ export function GoFantasyClient({ highlightedCode }: GoFantasyClientProps) {
     setTimeout(() => setCopiedCode(false), 2000)
   }
 
-  const filteredMethods = selectedNs === 'All'
-    ? apiMethods
-    : apiMethods.filter((m) => m.ns === selectedNs)
+  const filteredMethods = apiMethods.filter((m) => m.ns === selectedNs)
 
   return (
     <Container className="py-12 space-y-12 max-w-3xl">
       {/* Back button */}
       <Link
-        href="/"
+        href={getLocalizedPath('/', locale)}
         className={cn(
           buttonVariants({ variant: 'ghost', size: 'sm' }),
           '-ml-3 gap-2 text-muted-foreground hover:text-foreground'
         )}
       >
         <Icon icon={ArrowLeft01Icon} className="size-4" />
-        <span>Back</span>
+        <span>{locale === 'fr' ? 'Retour' : locale === 'de' ? 'Zurück' : 'Back'}</span>
       </Link>
 
       {/* Header */}
@@ -114,10 +126,10 @@ export function GoFantasyClient({ highlightedCode }: GoFantasyClientProps) {
             Open Source SDK
           </Badge>
           <Badge variant="secondary" className="font-mono text-[10px]">
-            Go 1.22+
+            Go 1.23+
           </Badge>
           <Badge variant="secondary" className="font-mono text-[10px]">
-            v1.0.0
+            v1.4.0
           </Badge>
         </div>
 
@@ -237,7 +249,7 @@ export function GoFantasyClient({ highlightedCode }: GoFantasyClientProps) {
         </div>
 
         <div className="flex gap-2">
-          {(['basic', 'async', 'batch'] as const).map((tab) => (
+          {(['basic', 'live', 'async', 'batch'] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -255,7 +267,7 @@ export function GoFantasyClient({ highlightedCode }: GoFantasyClientProps) {
 
         {/* Shiki Highlighted Code Block */}
         <div
-          className="rounded-lg border border-border overflow-hidden [&>pre]:!m-0 [&>pre]:!border-0"
+          className="rounded-lg border border-border overflow-hidden [&>pre]:!m-0 [&>pre]:!border-0 [&>pre]:!p-4 sm:[&>pre]:!p-5 [&>pre]:!pl-5 sm:[&>pre]:!pl-6 [&>pre]:!overflow-x-auto text-xs sm:text-sm font-mono leading-relaxed"
           dangerouslySetInnerHTML={{ __html: highlightedCode[activeTab] }}
         />
       </section>
@@ -321,10 +333,6 @@ export function GoFantasyClient({ highlightedCode }: GoFantasyClientProps) {
             </tbody>
           </table>
         </div>
-
-        <p className="text-[11px] text-muted-foreground/80 font-mono text-center">
-          Note: Non-existent leagues return the <code>ErrLeagueNotFound</code> sentinel error, and invalid queries surface as <code>*ErrInvalidH2HQuery</code> for <code>errors.As</code> matching.
-        </p>
       </section>
 
       {/* Caching Architecture */}
@@ -337,20 +345,20 @@ export function GoFantasyClient({ highlightedCode }: GoFantasyClientProps) {
           <div className="rounded-lg border border-border bg-card p-5 space-y-2">
             <div className="flex items-center gap-2">
               <span className="size-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]" />
-              <h3 className="font-heading text-sm font-semibold text-foreground">In-Memory (Default)</h3>
+              <h3 className="font-heading text-sm font-semibold text-foreground">Redis-First (Default / auto)</h3>
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              Thread-safe TTL memory store. Zero dependencies, immediate speedup, perfect for scripts, worker processes, and CLI utilities.
+              Auto-detects Redis connection for distributed clusters and shared caching across processes, with automatic fallback to memory.
             </p>
           </div>
 
           <div className="rounded-lg border border-border bg-card p-5 space-y-2">
             <div className="flex items-center gap-2">
               <span className="size-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]" />
-              <h3 className="font-heading text-sm font-semibold text-foreground">Redis Client</h3>
+              <h3 className="font-heading text-sm font-semibold text-foreground">In-Memory Store (memory)</h3>
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              Plug in any standard Redis connection to share cached FPL responses across multiple distributed servers and scheduled jobs.
+              Thread-safe TTL cache. Zero dependencies, immediate speedup. Force with <code>client.WithMemoryCache()</code> or <code>FPL_CACHE_BACKEND=memory</code>.
             </p>
           </div>
         </div>

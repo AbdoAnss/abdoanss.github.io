@@ -10,14 +10,16 @@ export const metadata: Metadata = {
 }
 
 export default async function GoFantasyPLPage() {
-  const [basicHtml, asyncHtml, batchHtml] = await Promise.all([
+  const [basicHtml, liveHtml, asyncHtml, batchHtml] = await Promise.all([
     highlightCode(codeExamples.basic, 'go'),
+    highlightCode(codeExamples.live, 'go'),
     highlightCode(codeExamples.async, 'go'),
     highlightCode(codeExamples.batch, 'go'),
   ])
 
   const highlightedCode = {
     basic: basicHtml,
+    live: liveHtml,
     async: asyncHtml,
     batch: batchHtml,
   }
