@@ -42,6 +42,41 @@ const geistMono = Geist_Mono({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html className={`${geistSans.variable} ${geistMono.variable}`} lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var p = window.location.pathname;
+                  if (p === '/' || p === '') {
+                    var pref = localStorage.getItem('preferred_locale');
+                    if (pref === 'en') return;
+                    if (pref === 'fr') { window.location.replace('/fr'); return; }
+                    if (pref === 'de') { window.location.replace('/de'); return; }
+                    var langs = navigator.languages || [navigator.language || ''];
+                    var isFr = false;
+                    for (var i = 0; i < langs.length; i++) {
+                      if (langs[i] && langs[i].toLowerCase().indexOf('fr') === 0) {
+                        isFr = true;
+                        break;
+                      }
+                    }
+                    try {
+                      if (!isFr && Intl.DateTimeFormat().resolvedOptions().timeZone === 'Europe/Paris') {
+                        isFr = true;
+                      }
+                    } catch (e) {}
+                    if (isFr) {
+                      window.location.replace('/fr');
+                    }
+                  }
+                } catch (err) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="flex min-h-dvh flex-col bg-background font-base text-base text-muted-foreground antialiased selection:bg-primary/20 selection:text-foreground">
         <ThemeProvider
           attribute="class"

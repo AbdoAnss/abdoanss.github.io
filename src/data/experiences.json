@@ -2,93 +2,135 @@
   {
     "id": "sap",
     "company": "SAP",
-    "status": "Incoming",
-    "statusVariant": "blue",
+    "fullCompany": "SAP France, Paris",
+    "status": "Current",
+    "statusVariant": "emerald",
     "logo": "/logos/sap.svg",
     "highlight": true,
+    "skills": ["Java", "Spring Boot", "Python", "Redis", "SAP BTP", "S/4HANA", "Joule", "SonarQube", "Pydantic", "Jenkins"],
     "locales": {
       "en": {
-        "title": "Software Engineer Intern",
-        "period": "04/2026 - Present",
+        "title": "Software Engineer",
+        "period": "04/2026 - 09/2026",
         "location": "Paris, France",
-        "status": "Incoming",
-        "description": "Joining the backend development team at SAP Labs France to work on Group Reporting Data Collection (GRDC) — an enterprise SaaS platform deployed on SAP BTP Cloud Foundry. Building scalable backend workflows with Java, Spring Boot, and Node.js."
+        "status": "Current",
+        "description": "Engineered enterprise cloud pipelines on SAP BTP with Java Spring Boot, high-throughput S/4HANA processing, Redis caching, and A2A conversational AI agents integrated with Joule.",
+        "highlights": [
+          "Developed and deployed a data extraction pipeline on SAP BTP using Java Spring Boot, processing 50,000 S/4HANA records in under 10 seconds with a Redis cache reducing data access latency.",
+          "Developed an AI agent in Python following the A2A protocol to query data from the Java backend and display summaries inside the Joule chatbot.",
+          "Collaborated with team members to improve the codebase and technical documentation."
+        ]
       },
       "fr": {
-        "title": "Stagiaire Ingénieur Logiciel",
-        "period": "04/2026 - Présent",
+        "title": "Software Engineer",
+        "period": "Avr. 2026 – Sept. 2026",
         "location": "Paris, France",
-        "status": "À venir",
-        "description": "Intégration de l'équipe backend chez SAP Labs France sur la plateforme SaaS Group Reporting Data Collection (GRDC) déployée sur SAP BTP Cloud Foundry. Développement de workflows backend scalables en Java, Spring Boot et Node.js."
+        "status": "En cours",
+        "description": "Ingénierie de pipelines cloud sur SAP BTP avec Java Spring Boot, traitement de 50 000 lignes S/4HANA, cache Redis et agent IA conversationnel A2A intégré dans Joule.",
+        "highlights": [
+          "Développé et déployé un pipeline d'extraction de données sur SAP BTP avec Java Spring Boot permettant de traiter 50 000 lignes S/4HANA en moins de 10 secondes avec un cache Redis réduisant le temps d'accès aux données.",
+          "Développé un agent AI en Python suivant le protocole A2A permettant de requêter les données à partir du backend Java et afficher un résumé dans notre chatbot Joule.",
+          "Collaboration avec les membres de l'équipe pour améliorer la base de code et la documentation."
+        ]
       },
       "de": {
-        "title": "Software Engineer Intern",
-        "period": "04/2026 - Heute",
+        "title": "Software Engineer",
+        "period": "04/2026 - 09/2026",
         "location": "Paris, Frankreich",
-        "status": "Bevorstehend",
-        "description": "Entwicklung von Backend-Funktionen und Datenverarbeitungs-Workflows für die Group Reporting Data Collection (GRDC) Plattform auf SAP BTP Cloud Foundry mit Java, Spring Boot, CAP und Node.js."
+        "status": "Aktuell",
+        "description": "Entwicklung von Cloud-Pipelines auf SAP BTP mit Java Spring Boot, S/4HANA-Verarbeitung, Redis-Caching und KI-Agenten im Joule-Chatbot.",
+        "highlights": [
+          "Entwicklung und Deployment einer Datenextraktions-Pipeline auf SAP BTP mit Java Spring Boot zur Verarbeitung von 50.000 S/4HANA-Datensätzen in unter 10 Sekunden mit Redis-Caching.",
+          "Entwicklung eines KI-Agenten in Python nach dem A2A-Protokoll zur Datenabfrage aus dem Java-Backend und Anzeige von Zusammenfassungen im Joule-Chatbot.",
+          "Zusammenarbeit im Team zur kontinuierlichen Verbesserung der Codebasis und Dokumentation."
+        ]
       }
     }
   },
   {
     "id": "iuem",
     "company": "IUEM",
+    "fullCompany": "Institut Universitaire Européen de la Mer (IUEM)",
     "status": "Completed",
     "statusVariant": "emerald",
     "logo": "/logos/iuem.png",
     "highlight": false,
+    "skills": ["Python", "Panel", "Bokeh", "Pandas", "Données Maritimes"],
     "locales": {
       "en": {
         "title": "Software Engineer Intern",
-        "period": "09/2025 - 01/2026",
+        "period": "10/2025 - 01/2026",
         "location": "Brest, France",
         "status": "Completed",
-        "description": "Migrated the PyCoast oceanographic satellite analysis interface from Bokeh to Panel. Designed interactive data visualization tools in close collaboration with marine researchers."
+        "description": "Developed interactive scientific visualization dashboards for maritime and oceanographic satellite data in Python, empowering marine research teams.",
+        "highlights": [
+          "Developed an oceanographic and maritime data visualization dashboard in Python (Panel), improving workflows for over 20 researchers and maritime operators."
+        ]
       },
       "fr": {
-        "title": "Stagiaire Ingénieur Logiciel",
-        "period": "09/2025 - 01/2026",
+        "title": "Stagiaire développeur",
+        "period": "Oct. 2025 – Janv. 2026",
         "location": "Brest, France",
         "status": "Terminé",
-        "description": "Migration de l'interface graphique de traitement d'images satellitaires océanographiques PyCoast de Bokeh vers Panel, en collaboration étroite avec les chercheurs marins."
+        "description": "Développement d'un tableau de bord interactif de visualisation de données maritimes et océanographiques en Python (Panel) pour les chercheurs.",
+        "highlights": [
+          "Développé un tableau de bord de visualisation de données maritimes en Python (Panel) améliorant l’usage pour plus de 20 chercheurs et opérateurs maritimes."
+        ]
       },
       "de": {
         "title": "Software Engineer Intern",
-        "period": "09/2025 - 01/2026",
+        "period": "10/2025 - 01/2026",
         "location": "Brest, Frankreich",
         "status": "Abgeschlossen",
-        "description": "Migration der grafischen PyCoast-Oberfläche von Bokeh zu Panel, inklusive Design und Prototyping mit Forschenden der Meereswissenschaften."
+        "description": "Entwicklung interaktiver Dashboards zur Visualisierung meereskundlicher Daten in Python (Panel) für Forschungsteams.",
+        "highlights": [
+          "Entwicklung eines Dashboards zur Visualisierung von Meeresdaten in Python (Panel), das die Arbeit von über 20 Forschern und maritimen Betreibern verbessert."
+        ]
       }
     }
   },
   {
     "id": "ciems",
     "company": "CIEMS",
+    "fullCompany": "CIEMS",
     "status": "Completed",
     "statusVariant": "emerald",
     "logo": "/logos/ciems.png",
     "highlight": false,
+    "skills": ["Python", "Django", "Celery", "Redis", "Machine Learning"],
     "locales": {
       "en": {
         "title": "Backend Developer Intern",
         "period": "06/2024 - 08/2024",
-        "location": "Rabat, Morocco",
+        "location": "Remote",
         "status": "Completed",
-        "description": "Engineered an insurance recommendation engine utilizing collaborative filtering, asynchronous Celery and Redis workflows, PostgreSQL databases, and high-throughput background queues."
+        "description": "Engineered corporate backend PoC with Django, integrating local machine learning capabilities and asynchronous task scheduling with Celery and Redis.",
+        "highlights": [
+          "Developed a corporate PoC using Django, integrating a local machine learning model with 40% accuracy.",
+          "Integrated Celery to execute and schedule asynchronous data processing tasks, ensuring loose architectural coupling."
+        ]
       },
       "fr": {
-        "title": "Stagiaire Développeur Backend",
-        "period": "06/2024 - 08/2024",
-        "location": "Rabat, Maroc",
+        "title": "Stagiaire développeur backend",
+        "period": "Juin 2024 – Août 2024",
+        "location": "Télétravail",
         "status": "Terminé",
-        "description": "Conception d'un moteur de recommandation d'assurances avec filtrage collaboratif, workflows asynchrones Celery/Redis, messagerie IA, schémas PostgreSQL et files d'attente à haut débit."
+        "description": "Conception d'un PoC entreprise avec Django, intégration d'un modèle de machine learning local et planification de tâches asynchrones avec Celery et Redis.",
+        "highlights": [
+          "Développé un PoC pour une entreprise en utilisant Django, intégrant un modèle machine learning local avec une précision de 40 %.",
+          "Intégration de Celery pour exécuter et planifier des tâches de traitement de données de manière asynchrone, assurant le découplage."
+        ]
       },
       "de": {
         "title": "Backend Developer Intern",
         "period": "06/2024 - 08/2024",
-        "location": "Rabat, Marokko",
+        "location": "Remote",
         "status": "Abgeschlossen",
-        "description": "Entwicklung einer Empfehlungsmaschine für Versicherungen mit kollaborativem Filtering, asynchronen Celery/Redis-Workflows, PostgreSQL-Datenbanken und Durchsatzoptimierung."
+        "description": "Entwicklung eines Unternehmens-PoCs mit Django, lokalem Machine Learning und asynchroner Aufgabenverarbeitung mit Celery und Redis.",
+        "highlights": [
+          "Entwicklung eines Unternehmens-PoC mit Django und Integration eines lokalen Machine-Learning-Modells mit 40% Genauigkeit.",
+          "Integration von Celery zur asynchronen Ausführung und Planung von Datenverarbeitungsaufgaben zur Gewährleistung loser Kopplung."
+        ]
       }
     }
   }

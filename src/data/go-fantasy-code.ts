@@ -25,6 +25,35 @@ func main() {
 
     fmt.Printf("GW %d — teams: %d, players: %d\\n", gw, len(teams), len(players))
 }`,
+  live: `package main
+
+import (
+    "fmt"
+    "log"
+
+    "github.com/AbdoAnss/go-fantasy-pl/client"
+)
+
+func main() {
+    c, err := client.NewClient()
+    if err != nil { log.Fatal(err) }
+
+    gw, _ := c.Bootstrap.GetCurrentGameWeek()
+    live, err := c.Live.GetEventLive(gw)
+    if err != nil { log.Fatal(err) }
+
+    picks, err := c.Managers.GetCurrentTeam(123456)
+    if err != nil { log.Fatal(err) }
+
+    total := 0
+    for _, pick := range picks.Picks {
+        if pts, ok := live.PointsFor(pick.Element); ok {
+            total += pts * pick.Multiplier // 2x captain, 0x bench
+        }
+    }
+
+    fmt.Printf("Manager Live Gameweek %d Total: %d pts\\n", gw, total)
+}`,
   async: `package main
 
 import (
