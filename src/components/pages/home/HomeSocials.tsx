@@ -5,6 +5,7 @@ import {
   SectionHeaderTitle,
 } from '@/components/layout/SectionHeader'
 import links from '@/data/links.json'
+import { CopyProfileButton } from '@/components/ui/CopyProfileButton'
 import { getDictionary, type Locale } from '@/lib/i18n'
 import type { HTMLAttributes } from 'react'
 
@@ -133,6 +134,9 @@ export function HomeSocials({ locale = 'en', ...props }: HomeSocialsProps) {
             </Link>
           </li>
         ))}
+        <li>
+          <CopyProfileButton />
+        </li>
       </ul>
     </section>
   )

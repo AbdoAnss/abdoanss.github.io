@@ -6,6 +6,7 @@ import { TextLink } from '@/components/ui/TextLink'
 import links from '@/data/links.json'
 import { cn } from '@/lib/utils'
 import { FooterYear } from './FooterYear'
+import { ParisClock } from './ParisClock'
 import type { HTMLAttributes } from 'react'
 
 export function Footer({ className, ...props }: HTMLAttributes<HTMLElement>) {
@@ -30,6 +31,8 @@ export function Footer({ className, ...props }: HTMLAttributes<HTMLElement>) {
           />
           <span>by Abdessamad</span>
         </p>
+
+        <ParisClock />
 
         <p className="inline-flex items-center gap-2">
           <span>This website is</span>

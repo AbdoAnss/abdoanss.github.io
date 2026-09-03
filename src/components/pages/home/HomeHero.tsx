@@ -37,12 +37,38 @@ export function HomeHero({ locale = 'en', ...props }: HomeHeroProps) {
           {dict.hero.intro}
         </p>
 
-        <div className="flex items-center gap-2 pt-1 text-xs text-muted-foreground font-mono">
-          <span className="relative flex size-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex size-2 rounded-full bg-emerald-500"></span>
-          </span>
-          <span>{dict.hero.availability}</span>
+        <div className="pt-1.5">
+          <Link
+            href={`mailto:${links.email}`}
+            className={cn(
+              'group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-emerald-500/25 bg-emerald-500/10 px-3 py-1 font-mono text-xs text-emerald-700 dark:text-emerald-300',
+              'transition-all duration-200 hover:scale-[1.02] hover:border-emerald-500/40 hover:bg-emerald-500/15 active:scale-[0.98] select-none shadow-xs'
+            )}
+            title="Send an email to discuss projects"
+          >
+            {/* Animated background sweep on mount */}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 origin-left rounded-full bg-emerald-500/20"
+              style={{
+                animation: 'tagSweep 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards',
+                transform: 'scaleX(0)',
+              }}
+            />
+            <span className="relative flex size-2 shrink-0">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex size-2 rounded-full bg-emerald-500"></span>
+            </span>
+            <span className="relative z-10 font-medium">
+              {dict.hero.availability}
+            </span>
+            <span
+              aria-hidden="true"
+              className="relative z-10 text-[11px] opacity-60 transition-transform duration-150 group-hover:translate-x-0.5"
+            >
+              &rarr;
+            </span>
+          </Link>
         </div>
       </div>
 
