@@ -20,6 +20,7 @@ import {
   SectionHeaderTitle,
 } from '@/components/layout/SectionHeader'
 import { Card, CardTitle } from '@/components/ui/Card'
+import { AccordionFace } from '@/components/ui/AccordionFace'
 import experiences from '@/data/experiences.json'
 import { getDictionary, type Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
@@ -104,9 +105,7 @@ export function HomeExperience({ locale = 'en', ...props }: HomeExperienceProps)
                       <CardTitle className="text-base font-semibold text-foreground group-hover/card:text-primary transition-colors">
                         {loc.title}
                       </CardTitle>
-                      <span className="text-xs font-mono text-muted-foreground opacity-60 transition-transform group-hover/card:translate-x-0.5 group-hover/card:opacity-100">
-                        {isExpanded ? '↓' : '→'}
-                      </span>
+                      <AccordionFace isOpen={isExpanded} />
                     </div>
 
                     <time className="font-mono text-xs text-muted-foreground shrink-0">
