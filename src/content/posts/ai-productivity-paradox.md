@@ -56,7 +56,7 @@ This concept isn't just theory; it is a reality felt across the software industr
 
 To visualize how Amdahl's Law constrains AI velocity across different team dynamics:
 
-| Parallelizable Work ($P$) | AI Speedup ($S$) | Overall Throughput | Theoretical Ceiling ($S \to \infty$) |
+| Parallelizable Work ($P$) | Speedup ($S$) | Overall Throughput | Theoretical Ceiling ($S \to \infty$) |
 | :--- | :--- | :--- | :--- |
 | **20%** (Heavy legacy/coordination) | 10x | **1.22x** (+22%) | **1.25x** |
 | **40%** (Typical engineering team) | 5x | **1.47x** (+47%) | **1.67x** |
