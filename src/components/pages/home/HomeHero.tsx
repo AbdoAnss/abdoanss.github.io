@@ -1,10 +1,11 @@
 import Link from 'next/link'
-import { Mail01Icon, GithubIcon, File02Icon } from '@hugeicons/core-free-icons'
+import { Mail01Icon, GithubIcon } from '@hugeicons/core-free-icons'
 import { IconFlagFrance } from '@/components/icons/IconFlagFrance'
 import { PageTitle } from '@/components/layout/PageTitle'
 import { buttonVariants } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
 import links from '@/data/links.json'
+import { ResumeDropdown } from './ResumeDropdown'
 import { TypewriterAvailability } from './TypewriterAvailability'
 import { getDictionary, type Locale } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
@@ -54,15 +55,7 @@ export function HomeHero({ locale = 'en', ...props }: HomeHeroProps) {
           {dict.hero.send_email}
         </Link>
 
-        <Link
-          className={cn(buttonVariants({ variant: 'secondary' }))}
-          href="/resume.pdf"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <Icon icon={File02Icon} />
-          {dict.hero.resume}
-        </Link>
+        <ResumeDropdown label={dict.hero.resume} />
 
         <Link
           className={cn(buttonVariants({ variant: 'secondary' }))}

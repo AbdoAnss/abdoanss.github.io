@@ -24,3 +24,5 @@ assets/diagrams/
 node_modules/
 .next/
 out/
+*.tsbuildinfo
+
